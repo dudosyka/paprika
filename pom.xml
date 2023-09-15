@@ -16,6 +16,7 @@
         <prometeus_version>1.6.3</prometeus_version>
 
         <exposed_version>0.41.1</exposed_version>
+        <kodein_version>7.17.0</kodein_version>
 
         <h2_version>2.1.214</h2_version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -91,6 +92,11 @@
             <version>${h2_version}</version>
         </dependency>
         <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <version>3.1.4</version>
+        </dependency>
+        <dependency>
             <groupId>io.ktor</groupId>
             <artifactId>ktor-server-netty-jvm</artifactId>
             <version>${ktor_version}</version>
@@ -127,6 +133,11 @@
             <groupId>com.google.ortools</groupId>
             <artifactId>ortools-java</artifactId>
             <version>9.7.2996</version>
+        </dependency>
+        <dependency>
+            <groupId>org.kodein.di</groupId>
+            <artifactId>kodein-di-jvm</artifactId>
+            <version>${kodein_version}</version>
         </dependency>
     </dependencies>
     <build>

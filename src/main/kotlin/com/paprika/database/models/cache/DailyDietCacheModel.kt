@@ -5,11 +5,11 @@ import com.paprika.utils.database.BaseIntIdTable
 
 object DailyDietCacheModel: BaseIntIdTable() {
     //Diet options
-    val calories = integer("calories")
-    val protein = integer("protein")
-    val fat = integer("fat")
-    val carbohydrates = integer("carbohydrates")
-    val cellulose = integer("cellulose")
+    val calories = double("calories")
+    val protein = double("protein")
+    val fat = double("fat")
+    val carbohydrates = double("carbohydrates")
+    val cellulose = double("cellulose")
     val diet = reference("diet", DietModel)
     val eatingsCount = integer("eating_count")
 

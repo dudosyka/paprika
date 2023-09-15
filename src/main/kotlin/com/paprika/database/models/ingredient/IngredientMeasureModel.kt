@@ -1,7 +1,6 @@
 package com.paprika.database.models.ingredient
 
 import com.paprika.utils.database.BaseIntIdTable
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.between
 
 /*
     That model represents ingredients` specific measuring types in common measuring types
@@ -17,6 +16,6 @@ import org.jetbrains.exposed.sql.SqlExpressionBuilder.between
 */
 object IngredientMeasureModel: BaseIntIdTable() {
     val name = text("name")
-    val commonMeasureCount = integer("common_measure_count")
+    val commonMeasureCount = double("common_measure_count")
     val commonMeasureType = integer("common_measure_type")
 }

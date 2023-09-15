@@ -1,7 +1,9 @@
 package com.paprika.database.dao.cache
 
 import com.paprika.database.dao.dish.DietDao
+import com.paprika.database.dao.dish.DishDao
 import com.paprika.database.dao.dish.DishTypeDao
+import com.paprika.database.models.cache.EatingCacheDishesModel
 import com.paprika.database.models.cache.EatingCacheModel
 import com.paprika.utils.database.BaseIntEntity
 import com.paprika.utils.database.BaseIntEntityClass
@@ -22,6 +24,7 @@ class EatingCacheDao(id : EntityID<Int>): BaseIntEntity(id, EatingCacheModel) {
     val difficulty by EatingCacheModel.difficulty
     val type by DishTypeDao referencedOn EatingCacheModel.type
     val dishCount by EatingCacheModel.dishCount
+    val dishes by DishDao via EatingCacheDishesModel
 
     val useTimesFromLastScrap by EatingCacheModel.useTimesFromLastScrap
     val useTimesFromCreation by EatingCacheModel.useTimesFromCreation
