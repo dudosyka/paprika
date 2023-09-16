@@ -9,4 +9,5 @@ data class PaprikaInputDto (
     val diet: Int,
     val eatings: List<EatingOptionsDto>,
     val portionsCount: Int,
+    val excludeDishes: List<Int>
 )

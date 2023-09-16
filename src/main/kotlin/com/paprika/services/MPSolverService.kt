@@ -48,18 +48,25 @@ class MPSolverService internal constructor() {
         this.objectiveKey = objectiveKey
     }
 
-    private val mpVariables
-        get() = data.map {
+    private fun mpVariables(): List<MPVariable> {
+        println("Start variables setup")
+        val vars = data.map {
             solver.makeBoolVar(it.name)
         }
+        println("Variables setup finished")
+        return vars
+    }
 
-    private val mpConstraints
-        get() = constraints.map {
+    private fun mpConstraints(): List<MPConstraint> {
+        println("Start constraints setup")
+        val consts = constraints.map {
             solver.makeConstraint(it.bottom, it.top, it.name)
         }
+        println("Constraints setup finished")
+        return consts
+    }
 
-    private val mpObjective: MPObjective
-        get() = solver.objective().apply {
+    private fun mpObjective() = solver.objective().apply {
             if (solveDirection == SolveDirection.MAXIMIZE)
                 setMaximization()
             else
@@ -77,7 +84,7 @@ class MPSolverService internal constructor() {
                         mpConstraint.setCoefficient(variable, dish[constraint.modelKey] as Double)
                 }
             }
-            objective.setCoefficient(variable, (dish[objectiveKey] as Int).toDouble())
+            objective.setCoefficient(variable, (dish[objectiveKey] as Number).toDouble())
         }
     }
 
@@ -91,22 +98,23 @@ class MPSolverService internal constructor() {
 
         Loader.loadNativeLibraries()
         this.solver = MPSolver.createSolver("SCIP")
-        val variables = mpVariables
+//        this.solver.setNumThreads(4)
+        println("Start variables and constraints calculation")
+        val variables = mpVariables()
 
-        setCoefficients(mpConstraints, variables, mpObjective)
-
-        println(solver.constraints())
+        setCoefficients(mpConstraints(), variables, mpObjective())
+        println("Variables have been set")
 
         return variables
     }
 
     fun solve(): List<DishDao> {
-        println(constraints)
-        println(itemsInAnswer)
-        println(data.map {
-            it.name
-        })
         val varsOnSolve = initialize()
+        println("Start solving. Data size: ${data.size}")
+        constraints.forEach {
+            println("Constraint: ${it.name}")
+            println("Bounds: ${it.bottom} - ${it.top}")
+        }
         val result = solver.solve()
 
         // Check that the problem has an optimal solution.

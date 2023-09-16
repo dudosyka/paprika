@@ -5,7 +5,7 @@ import com.paprika.database.models.ingredient.IngredientModel
 import org.jetbrains.exposed.sql.batchInsert
 import org.jetbrains.exposed.sql.deleteAll
 
-class IngredientsGenerator(count: Int, clearOld: Boolean = true): Generator<IngredientDao>(count, clearOld) {
+class IngredientsGenerator(count: Int, clearOld: Boolean = true): Generator<IngredientDao>(count, clearOld, 1) {
     override var generated: List<IngredientDao> = listOf()
     init {
         if (clearOld)

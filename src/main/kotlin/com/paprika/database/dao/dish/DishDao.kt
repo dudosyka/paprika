@@ -2,8 +2,10 @@ package com.paprika.database.dao.dish
 
 import com.paprika.database.models.dish.DishModel
 import com.paprika.dto.DishDto
+import com.paprika.dto.MicronutrientsDto
 import com.paprika.utils.database.BaseIntEntity
 import com.paprika.utils.database.BaseIntEntityClass
+import com.paprika.utils.database.idValue
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.sql.SizedIterable
 
@@ -30,14 +32,31 @@ class DishDao(id : EntityID<Int>) : BaseIntEntity(id, DishModel) {
 
     fun toDto(): DishDto {
         return DishDto(
-            name, calories, protein, fat, carbohydrates, cellulose, weight, timeToCook, dietId, typeId
+            idValue, name, calories, protein, fat, carbohydrates, cellulose, weight, timeToCook, dietId, typeId
         )
     }
 }
 
-fun List<DishDao>.toDto(): List<DishDto> {
-    return this.map { it.toDto() }
-}
-fun SizedIterable<DishDao>.toDto(): List<DishDto> {
-    return this.map { it.toDto() }
-}
+fun List<DishDao>.toDto(): List<DishDto> = map { it.toDto() }
+fun SizedIterable<DishDao>.toDto(): List<DishDto> = toList().toDto()
+fun List<DishDao>.countMicronutrients(): MicronutrientsDto =
+    map {
+        MicronutrientsDto(
+            calories = it.calories,
+            protein = it.protein,
+            fat = it.fat,
+            carbohydrates = it.carbohydrates,
+            cellulose = it.cellulose
+        )
+    }.reduce {
+        a, b -> run {
+            MicronutrientsDto(
+                calories = a.calories + b.calories,
+                protein = a.protein + b.protein,
+                fat = a.fat + b.fat,
+                carbohydrates = a.carbohydrates + b.carbohydrates,
+                cellulose = a.cellulose + b.cellulose
+            )
+        }
+    }
+fun SizedIterable<DishDao>.countMicronutrients(): MicronutrientsDto = toList().countMicronutrients()

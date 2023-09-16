@@ -1,56 +1,46 @@
 package com.paprika.services
 
+import com.paprika.database.dao.dish.countMicronutrients
 import com.paprika.database.dao.dish.toDto
+import com.paprika.database.models.dish.DishIngredientModel
 import com.paprika.database.models.dish.DishModel
+import com.paprika.database.models.ingredient.IngredientMeasureModel
+import com.paprika.database.models.ingredient.IngredientModel
 import com.paprika.dto.*
+import com.paprika.exceptions.CantSolveException
 import com.paprika.utils.kodein.KodeinService
+import com.paprika.utils.params.ParamsTransformer
+import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.transactions.transaction
 import org.kodein.di.DI
 import org.kodein.di.instance
 
 class PaprikaService(di: DI) : KodeinService(di) {
     private val dishService: DishService by instance()
+    private val cacheService: CacheService by instance()
 
-    private fun getParams(paprikaInputDto: PaprikaInputDto, eatingsCoef: Double = 1.0): ParametersInputDto {
-        return if (paprikaInputDto.calories != null)
-            ParametersInputDto(
-                calories = paprikaInputDto.calories * eatingsCoef,
+    private fun solveEating(paprikaInputDto: PaprikaInputDto, index: Int, maxima: Int = 0, offset: Long = 1): EatingOutputDto {
+        var dishesCount = 0
+        if (offset.toInt() == 1) {
+            val cache = cacheService.findEating(paprikaInputDto, index)
+            if (cache != null)
+                return cache
 
-                minProtein = 0.0,
-                maxProtein = paprikaInputDto.calories / 4 * eatingsCoef,
+            println("Cache returns nothing :( start solving")
+            dishesCount = dishService.getDishesIdByEatingParams(paprikaInputDto.eatings[index], paprikaInputDto).count()
+            println(dishesCount)
+        }
 
-                minFat = 0.0,
-                maxFat = paprikaInputDto.calories / 9 * eatingsCoef,
+        val dishes = dishService.getDishesByEatingParams(paprikaInputDto.eatings[index], paprikaInputDto, offset)
+        val params = ParamsTransformer(paprikaInputDto, paprikaInputDto.eatings[index].size)
 
-                minCarbohydrates = 0.0,
-                maxCarbohydrates = paprikaInputDto.calories / 4 * eatingsCoef,
+        if (dishesCount == 0)
+            throw CantSolveException()
 
-                minCellulose = 25.0 * eatingsCoef,
-                maxCellulose = 50.0 * eatingsCoef,
-            )
-        else
-            ParametersInputDto(
-                calories = paprikaInputDto.idealMicronutrients!!.calories * eatingsCoef,
-
-                minProtein = paprikaInputDto.idealMicronutrients.minProtein * eatingsCoef,
-                maxProtein = paprikaInputDto.idealMicronutrients.maxProtein * eatingsCoef,
-
-                minFat = paprikaInputDto.idealMicronutrients.minFat * eatingsCoef,
-                maxFat = paprikaInputDto.idealMicronutrients.maxFat * eatingsCoef,
-
-                minCarbohydrates = paprikaInputDto.idealMicronutrients.minCarbohydrates * eatingsCoef,
-                maxCarbohydrates = paprikaInputDto.idealMicronutrients.maxCarbohydrates * eatingsCoef,
-
-                minCellulose = paprikaInputDto.idealMicronutrients.minCellulose * eatingsCoef,
-                maxCellulose = paprikaInputDto.idealMicronutrients.maxCellulose * eatingsCoef,
-            )
-    }
-
-    private fun solveEating(paprikaInputDto: PaprikaInputDto, index: Int): EatingOutputDto {
-        val params = getParams(paprikaInputDto, paprikaInputDto.eatings[index].size)
 
         val solver = MPSolverService.initSolver {
             answersCount(paprikaInputDto.eatings[index].dishCount)
-            onDirection(MPSolverService.SolveDirection.MINIMIZE)
+            onDirection(MPSolverService.SolveDirection.MAXIMIZE)
 
             setConstraint {
                 name = "Calories"
@@ -83,34 +73,20 @@ class PaprikaService(di: DI) : KodeinService(di) {
                 modelKey = DishModel.cellulose
             }
 
-            onData(dishService.getDishesByEatingParams(paprikaInputDto.eatings[index], paprikaInputDto.diet))
-            withObjective(DishModel.timeToCook)
+            onData(dishes)
+            withObjective(DishModel.calories)
         }
 
         val result = solver.solve()
         if (result.isEmpty())
-            throw Exception("Can`t solve")
+            if ((maxima != 0 || dishesCount == 0) && maxima < offset * 750)
+                throw CantSolveException()
+            else
+                return solveEating(paprikaInputDto, index, dishesCount, offset + 1)
 
-        val micronutrients = result.map {
-            MicronutrientsDto(
-                calories = it.calories,
-                protein = it.protein,
-                fat = it.fat,
-                carbohydrates = it.carbohydrates,
-                cellulose = it.cellulose
-            )
-        }.reduce {
-            a, b -> run {
-                MicronutrientsDto(
-                    calories = a.calories + b.calories,
-                    protein = a.protein + b.protein,
-                    fat = a.fat + b.fat,
-                    carbohydrates = a.carbohydrates + b.carbohydrates,
-                    cellulose = a.cellulose + b.cellulose
-                )
-            }
-        }
-        return EatingOutputDto(
+        val micronutrients = result.countMicronutrients()
+
+        val output = EatingOutputDto(
             name = "Eating",
             idealMicronutrients = MicronutrientsDto(
                 calories = params.calories,
@@ -122,10 +98,36 @@ class PaprikaService(di: DI) : KodeinService(di) {
             dishes = result.toDto(),
             micronutrients = micronutrients
         )
+        cacheService.saveEating(output, paprikaInputDto, index)
+
+        return output
     }
 
     fun calculateMenu(paprikaInputDto: PaprikaInputDto): PaprikaOutputDto {
-        val eatings = List(paprikaInputDto.eatings.size) { index ->  solveEating(paprikaInputDto, index) }
+        var eatings = List(paprikaInputDto.eatings.size) { index ->  solveEating(paprikaInputDto, index) }
+        eatings = eatings.map {
+            it.dishes = it.dishes.map { dish -> transaction {
+                dish.ingredients =
+                    DishIngredientModel.innerJoin(IngredientModel).innerJoin(IngredientMeasureModel).select {
+                        DishIngredientModel.dish eq dish.id
+                    }.map {
+                        IngredientDto(
+                            id = it[IngredientModel.id].value,
+                            name = it[IngredientModel.name],
+                            measure = MeasureDto(
+                                name = it[IngredientMeasureModel.name],
+                                nameFiveItems = it[IngredientMeasureModel.nameFiveItems],
+                                nameFractional = it[IngredientMeasureModel.nameFractional],
+                                nameTwoItems = it[IngredientMeasureModel.nameTwoItems],
+                                isDimensional = it[IngredientMeasureModel.isDimensional],
+                            ),
+                            measureCount = it[DishIngredientModel.measureCount],
+                        )
+                    }
+                dish
+            } }
+            it
+        }
         val params = eatings.map { it.micronutrients }.reduce {
             a, b -> run {
                 MicronutrientsDto(
@@ -142,7 +144,7 @@ class PaprikaService(di: DI) : KodeinService(di) {
             diet = paprikaInputDto.diet,
             eatings = eatings,
             params = params,
-            idealParams = getParams(paprikaInputDto)
+            idealParams = ParamsTransformer(paprikaInputDto)
         )
     }
 }

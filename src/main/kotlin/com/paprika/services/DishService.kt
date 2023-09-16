@@ -1,14 +1,18 @@
 package com.paprika.services
 
 import com.paprika.database.dao.dish.DishDao
+import com.paprika.database.models.cache.EatingCacheModel
 import com.paprika.database.models.dish.DishModel
 import com.paprika.dto.EatingOptionsDto
+import com.paprika.dto.PaprikaInputDto
 import com.paprika.utils.kodein.KodeinService
 import org.jetbrains.exposed.sql.Op
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.lessEq
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.neq
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.notInList
 import org.jetbrains.exposed.sql.and
+import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.kodein.di.DI
 
@@ -38,11 +42,19 @@ class DishService(override val di: DI): KodeinService(di) {
             DishModel.type eq type
     }
 
-    fun getDishesByEatingParams(eatingOptionsDto: EatingOptionsDto, diet: Int): List<DishDao> = transaction {
+    private fun createDishByParamsCond(eatingOptionsDto: EatingOptionsDto, paprikaInputDto: PaprikaInputDto): Op<Boolean> =
+        DishModel.id notInList paprikaInputDto.excludeDishes and
+        dietCond(paprikaInputDto.diet) and
+        difficultyCond(eatingOptionsDto.difficulty) and
+        typeCond(eatingOptionsDto.type)
+
+    fun getDishesIdByEatingParams(eatingOptionsDto: EatingOptionsDto, paprikaInputDto: PaprikaInputDto): List<Int> = transaction {
+        DishModel.slice(listOf(DishModel.id)).select { createDishByParamsCond(eatingOptionsDto, paprikaInputDto) }.map { it[DishModel.id].value }
+    }
+
+    fun getDishesByEatingParams(eatingOptionsDto: EatingOptionsDto, paprikaInputDto: PaprikaInputDto, offset: Long = 1): List<DishDao> = transaction {
         DishDao.find {
-            dietCond(diet) and
-            difficultyCond(eatingOptionsDto.difficulty) and
-            typeCond(eatingOptionsDto.type)
-        }.toList()
+            createDishByParamsCond(eatingOptionsDto, paprikaInputDto)
+        }.limit(750, offset = offset).toList()
     }
 }

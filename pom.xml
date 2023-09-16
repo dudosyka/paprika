@@ -102,6 +102,11 @@
             <version>${ktor_version}</version>
         </dependency>
         <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-server-status-pages</artifactId>
+            <version>${ktor_version}</version>
+        </dependency>
+        <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${logback_version}</version>
@@ -138,6 +143,18 @@
             <groupId>org.kodein.di</groupId>
             <artifactId>kodein-di-jvm</artifactId>
             <version>${kodein_version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-server-host-common-jvm</artifactId>
+            <version>${ktor_version}</version>
+            <scope>implementation</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-server-status-pages-jvm</artifactId>
+            <version>${ktor_version}</version>
+            <scope>implementation</scope>
         </dependency>
     </dependencies>
     <build>

@@ -9,6 +9,8 @@ class IngredientMeasureDao(id : EntityID<Int>): BaseIntEntity(id, IngredientMeas
     companion object : BaseIntEntityClass<IngredientMeasureDao>(IngredientMeasureModel)
 
     val name by IngredientMeasureModel.name
-    val commonMeasureCount by IngredientMeasureModel.commonMeasureCount
-    val commonMeasureType by IngredientMeasureModel.commonMeasureType
+    val nameFiveItems by IngredientMeasureModel.nameFiveItems
+    val nameFractional by IngredientMeasureModel.nameFractional
+    val nameTwoItems by IngredientMeasureModel.nameTwoItems
+    val isDimensional by IngredientMeasureModel.isDimensional
 }

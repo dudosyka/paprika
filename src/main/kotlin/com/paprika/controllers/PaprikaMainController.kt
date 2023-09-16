@@ -21,7 +21,7 @@ class PaprikaMainController(override val di: DI) : KodeinController() {
             get("/dishes/{dietId}") {
                 val data = call.receive<EatingOptionsDto>()
                 val diet = call.parameters["dietId"]?.toIntOrNull() ?: throw Exception("Bad request")
-                call.respond(dishService.getDishesByEatingParams(data, diet).toDto())
+//                call.respond(dishService.getDishesByEatingParams(data, diet).toDto())
             }
             get("/paprika") {
                 val data = call.receive<PaprikaInputDto>()

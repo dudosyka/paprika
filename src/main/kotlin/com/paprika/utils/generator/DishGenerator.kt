@@ -7,7 +7,7 @@ import com.paprika.database.models.dish.DishTypeModel
 import org.jetbrains.exposed.sql.batchInsert
 import org.jetbrains.exposed.sql.deleteAll
 
-class DishGenerator(count: Int, clearOld: Boolean = true): Generator<DishDao>(count, clearOld) {
+class DishGenerator(count: Int, clearOld: Boolean = true, startIndex: Int = 1): Generator<DishDao>(count, clearOld, startIndex) {
     override var generated: List<DishDao> = listOf()
 
     init {
@@ -17,15 +17,16 @@ class DishGenerator(count: Int, clearOld: Boolean = true): Generator<DishDao>(co
             DishTypeModel.deleteAll()
         }
 
-        DietModel.batchInsert(sequence.take(5)) {
-            println(it)
-            this[DietModel.id] = it
-            this[DietModel.name] = "Diet${it}"
-        }
+        if (startIndex == 1) {
+            DietModel.batchInsert(sequence.take(5)) {
+                this[DietModel.id] = it
+                this[DietModel.name] = "Diet${it}"
+            }
 
-        DishTypeModel.batchInsert(sequence.take(5)) {
-            this[DishTypeModel.id] = it
-            this[DishTypeModel.name] = "DishType${it}"
+            DishTypeModel.batchInsert(sequence.take(5)) {
+                this[DishTypeModel.id] = it
+                this[DishTypeModel.name] = "DishType${it}"
+            }
         }
 
         generated = DishModel.batchInsert(sequence) {
