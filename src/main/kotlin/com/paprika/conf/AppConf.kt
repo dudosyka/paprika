@@ -13,6 +13,7 @@ object AppConf {
     private val applicationConfig: ApplicationConfig =
         HoconApplicationConfig(ConfigFactory.load().getConfig("application"));
     private val databaseConfig: ApplicationConfig = applicationConfig.config("database");
+    private val filesConfig: ApplicationConfig = applicationConfig.config("files");
 
     val databaseConfiguration: DatabaseConfiguration =
         DatabaseConfiguration(
@@ -21,4 +22,5 @@ object AppConf {
             databaseConfig.property("user").getString(),
             databaseConfig.property("password").getString(),
         )
+    val filePath: String = filesConfig.property("savePath").getString()
 }

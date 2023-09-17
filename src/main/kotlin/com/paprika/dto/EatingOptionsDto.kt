@@ -7,7 +7,7 @@ data class EatingOptionsDto (
     val name: String,
     val size: Double,
     val type: Int,
-    val time: Int,
+//    val time: Int,
     /*
         * super easy = 1
         * easy = 2

@@ -74,7 +74,7 @@ class PaprikaService(di: DI) : KodeinService(di) {
             }
 
             onData(dishes)
-            withObjective(DishModel.calories)
+            withObjective(DishModel.timeToCook)
         }
 
         val result = solver.solve()
@@ -87,7 +87,7 @@ class PaprikaService(di: DI) : KodeinService(di) {
         val micronutrients = result.countMicronutrients()
 
         val output = EatingOutputDto(
-            name = "Eating",
+            name = paprikaInputDto.eatings[index].name,
             idealMicronutrients = MicronutrientsDto(
                 calories = params.calories,
                 protein = params.maxProtein,

@@ -26,7 +26,7 @@ class DishDao(id : EntityID<Int>) : BaseIntEntity(id, DishModel) {
     val dietId
         get() = _dietId.value
     val type by DishTypeDao referencedOn DishModel.type
-    private val _typeId by DishModel.diet
+    private val _typeId by DishModel.type
     val typeId
         get() = _typeId.value
 

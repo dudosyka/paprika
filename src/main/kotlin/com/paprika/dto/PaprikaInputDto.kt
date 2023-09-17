@@ -4,10 +4,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PaprikaInputDto (
-    val calories: Double?,
-    val idealMicronutrients: ParametersInputDto?,
+    val calories: Double? = null,
+    val idealMicronutrients: ParametersInputDto? = null,
     val diet: Int,
     val eatings: List<EatingOptionsDto>,
-    val portionsCount: Int,
-    val excludeDishes: List<Int>
+//    val portionsCount: Int,
+    val excludeDishes: List<Int> = listOf()
 )

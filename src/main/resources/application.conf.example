@@ -14,4 +14,7 @@ application {
     user = ""
     password = ""
   }
+  files {
+    savePath = ""
+  }
 }
