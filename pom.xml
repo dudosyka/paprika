@@ -148,13 +148,26 @@
             <groupId>io.ktor</groupId>
             <artifactId>ktor-server-host-common-jvm</artifactId>
             <version>${ktor_version}</version>
-            <scope>implementation</scope>
         </dependency>
         <dependency>
             <groupId>io.ktor</groupId>
             <artifactId>ktor-server-status-pages-jvm</artifactId>
             <version>${ktor_version}</version>
-            <scope>implementation</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib</artifactId>
+            <version>${kotlin_version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.doyaaaaaken</groupId>
+            <artifactId>kotlin-csv-jvm</artifactId>
+            <version>1.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.doyaaaaaken</groupId>
+            <artifactId>kotlin-csv-js</artifactId>
+            <version>1.9.2</version>
         </dependency>
     </dependencies>
     <build>
@@ -259,11 +272,22 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.6.0</version>
                 <configuration>
-                    <source>8</source>
-                    <target>8</target>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>assemble-all</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
