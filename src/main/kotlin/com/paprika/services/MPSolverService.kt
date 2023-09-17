@@ -24,7 +24,7 @@ class MPSolverService internal constructor() {
 
     private var constraints: MutableList<ConstraintDto> = mutableListOf()
     private var solveDirection: SolveDirection = SolveDirection.MINIMIZE
-    private var itemsInAnswer: Int = 2
+    private var itemsInAnswer: Int = 0
     private var data: List<DishDao> = listOf()
     private lateinit var solver: MPSolver
     private lateinit var objectiveKey: Expression<*>
@@ -89,12 +89,13 @@ class MPSolverService internal constructor() {
     }
 
     private fun initialize(): List<MPVariable> {
-        setConstraint {
-            name = "count"
-            bool = true
-            top = itemsInAnswer + 0.1
-            bottom = itemsInAnswer - 0.1
-        }
+        if (itemsInAnswer > 0)
+            setConstraint {
+                name = "count"
+                bool = true
+                top = itemsInAnswer + 0.1
+                bottom = itemsInAnswer - 0.1
+            }
 
         Loader.loadNativeLibraries()
         this.solver = MPSolver.createSolver("SCIP")

@@ -17,4 +17,5 @@ data class ParametersInputDto (
 
     val minCellulose: Double,
     val maxCellulose: Double,
-)
+) {
+}

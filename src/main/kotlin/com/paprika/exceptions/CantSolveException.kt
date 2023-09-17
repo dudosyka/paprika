@@ -2,7 +2,9 @@ package com.paprika.exceptions
 
 import io.ktor.http.*
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 
 @Serializable
 class CantSolveException(
-): ClientException(400, "Bad request", "Acceptable menu is not found") {}
+    @Transient override val msg: String =  "Acceptable menu is not found"
+): ClientException(400, "Bad request",msg) {}

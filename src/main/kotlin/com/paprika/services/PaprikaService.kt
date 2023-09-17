@@ -9,7 +9,7 @@ import com.paprika.database.models.ingredient.IngredientModel
 import com.paprika.dto.*
 import com.paprika.exceptions.CantSolveException
 import com.paprika.utils.kodein.KodeinService
-import com.paprika.utils.params.ParamsTransformer
+import com.paprika.utils.params.ParamsManager
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.kodein.di.DI
@@ -18,6 +18,10 @@ import org.kodein.di.instance
 class PaprikaService(di: DI) : KodeinService(di) {
     private val dishService: DishService by instance()
     private val cacheService: CacheService by instance()
+
+    private fun validateCalories(paprikaInputDto: PaprikaInputDto) {
+
+    }
 
     private fun solveEating(paprikaInputDto: PaprikaInputDto, index: Int, maxima: Int = 0, offset: Long = 1): EatingOutputDto {
         var dishesCount = 0
@@ -32,14 +36,18 @@ class PaprikaService(di: DI) : KodeinService(di) {
         }
 
         val dishes = dishService.getDishesByEatingParams(paprikaInputDto.eatings[index], paprikaInputDto, offset)
-        val params = ParamsTransformer(paprikaInputDto, paprikaInputDto.eatings[index].size)
+        val eatingOptions = paprikaInputDto.eatings[index]
+        val params = ParamsManager.process {
+            withSize(eatingOptions.size)
+            fromPaprikaInput(paprikaInputDto)
+        }.params
 
-        if (dishesCount == 0)
+        if (dishesCount == 0 && maxima == 0)
             throw CantSolveException()
 
 
         val solver = MPSolverService.initSolver {
-            answersCount(paprikaInputDto.eatings[index].dishCount)
+            answersCount(paprikaInputDto.eatings[index].dishCount ?: 0)
             onDirection(MPSolverService.SolveDirection.MAXIMIZE)
 
             setConstraint {
@@ -78,16 +86,23 @@ class PaprikaService(di: DI) : KodeinService(di) {
         }
 
         val result = solver.solve()
-        if (result.isEmpty())
+        if (result.isEmpty()) {
             if ((maxima != 0 || dishesCount == 0) && maxima < offset * 750)
                 throw CantSolveException()
-            else
-                return solveEating(paprikaInputDto, index, dishesCount, offset + 1)
+            else {
+                val nextMaxima = if (maxima == 0)
+                    dishesCount
+                else
+                    maxima
+
+                return solveEating(paprikaInputDto, index, nextMaxima, offset + 1)
+            }
+        }
 
         val micronutrients = result.countMicronutrients()
 
         val output = EatingOutputDto(
-            name = paprikaInputDto.eatings[index].name,
+            name = eatingOptions.name,
             idealMicronutrients = MicronutrientsDto(
                 calories = params.calories,
                 protein = params.maxProtein,
@@ -98,7 +113,6 @@ class PaprikaService(di: DI) : KodeinService(di) {
             dishes = result.toDto(),
             micronutrients = micronutrients
         )
-        cacheService.saveEating(output, paprikaInputDto, index)
 
         return output
     }
@@ -128,7 +142,11 @@ class PaprikaService(di: DI) : KodeinService(di) {
             } }
             it
         }
-        val params = eatings.map { it.micronutrients }.reduce {
+
+        val params = eatings.mapIndexed { index, item ->
+            cacheService.saveEating(item, paprikaInputDto, index)
+            item.micronutrients
+        }.reduce {
             a, b -> run {
                 MicronutrientsDto(
                     calories = a.calories + b.calories,
@@ -144,7 +162,9 @@ class PaprikaService(di: DI) : KodeinService(di) {
             diet = paprikaInputDto.diet,
             eatings = eatings,
             params = params,
-            idealParams = ParamsTransformer(paprikaInputDto)
+            idealParams = ParamsManager.process {
+                fromPaprikaInput(paprikaInputDto)
+            }.params
         )
     }
 }

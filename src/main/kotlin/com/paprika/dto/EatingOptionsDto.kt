@@ -15,5 +15,5 @@ data class EatingOptionsDto (
         * hard = 4
     */
     val difficulty: Int,
-    val dishCount: Int
+    val dishCount: Int? = null
 )

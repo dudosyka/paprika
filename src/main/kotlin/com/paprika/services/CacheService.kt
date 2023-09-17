@@ -12,7 +12,7 @@ import com.paprika.dto.MicronutrientsDto
 import com.paprika.dto.PaprikaInputDto
 import com.paprika.utils.database.idValue
 import com.paprika.utils.kodein.KodeinService
-import com.paprika.utils.params.ParamsTransformer
+import com.paprika.utils.params.ParamsManager
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.greaterEq
@@ -37,6 +37,13 @@ class CacheService(di: DI) : KodeinService(di) {
             EatingCacheModel.type eq null
         else
             EatingCacheModel.type eq type
+    }
+
+    private fun dishCountCond(dishCount: Int?): Op<Boolean> {
+        return if (dishCount != null)
+            (EatingCacheModel.dishCount eq dishCount)
+        else
+            Op.nullOp()
     }
 
     fun saveEating(eatingOutputDto: EatingOutputDto, paprikaInputDto: PaprikaInputDto, index: Int) = transaction {
@@ -69,7 +76,11 @@ class CacheService(di: DI) : KodeinService(di) {
     }
 
     fun findEating(paprikaInputDto: PaprikaInputDto, index: Int): EatingOutputDto? = transaction {
-        val params = ParamsTransformer(paprikaInputDto, paprikaInputDto.eatings[index].size)
+        val eatingOptions = paprikaInputDto.eatings[index]
+        val params = ParamsManager.process {
+            withSize(eatingOptions.size)
+            fromPaprikaInput(paprikaInputDto)
+        }.params
 
 
         val cache = EatingCacheDao.find {
@@ -84,21 +95,21 @@ class CacheService(di: DI) : KodeinService(di) {
             ) and
             createMinMaxCond(params.calories * 0.99, params.calories * 1.01, EatingCacheModel.calories) and
             dietCond(paprikaInputDto.diet) and
-            typeCond(paprikaInputDto.eatings[index].type) and
-            (EatingCacheModel.difficulty eq paprikaInputDto.eatings[index].difficulty) and
-            (EatingCacheModel.dishCount eq paprikaInputDto.eatings[index].dishCount)
+            typeCond(eatingOptions.type) and
+            (EatingCacheModel.difficulty eq eatingOptions.difficulty) and
+            dishCountCond(eatingOptions.dishCount)
+
         }.toList().filter {
             it.dishes.all { dish -> !paprikaInputDto.excludeDishes.contains(dish.idValue) }
         }
 
         if (cache.isNotEmpty()) {
-            val eating = paprikaInputDto.eatings[index]
             val result = cache.first()
             result.useTimesFromLastScrap++
             result.useTimesFromCreation++
             result.flush()
             EatingOutputDto(
-                eating.name,
+                eatingOptions.name,
                 result.dishes.toDto(),
                 micronutrients = result.dishes.countMicronutrients(),
                 idealMicronutrients = MicronutrientsDto(
