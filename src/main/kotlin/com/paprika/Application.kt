@@ -3,6 +3,7 @@ package com.paprika
 import com.paprika.controllers.IngredientsController
 import com.paprika.controllers.PaprikaController
 import com.paprika.controllers.UploadController
+import com.paprika.controllers.UserController
 import com.paprika.database.models.cache.EatingCacheDishesModel
 import com.paprika.database.models.cache.EatingCacheModel
 import com.paprika.database.models.dish.DietModel
@@ -12,6 +13,9 @@ import com.paprika.database.models.dish.DishTypeModel
 import com.paprika.database.models.ingredient.IngredientMeasureModel
 import com.paprika.database.models.ingredient.IngredientModel
 import com.paprika.database.models.ingredient.MeasureModel
+import com.paprika.database.models.user.UserEatingsParamsModel
+import com.paprika.database.models.user.UserModel
+import com.paprika.database.models.user.UserParamsModel
 import com.paprika.plugins.*
 import com.paprika.services.*
 import com.paprika.services.telegram.TelegramResponseDispatcher
@@ -33,6 +37,7 @@ fun Application.module() {
     responseFilter()
     configureSerialization()
     configureRouting()
+    configureSecurity()
     kodeinApplication {
         //Services DI
         bindSingleton { DishService(it) }
@@ -51,16 +56,20 @@ fun Application.module() {
             updatesListener
         }
         bindSingleton { IngredientService(it) }
+        bindSingleton { UserService(it) }
+        bindSingleton { AuthService(it) }
 
         //Controllers DI
         bindSingleton { PaprikaController(it) }
         bindSingleton { UploadController(it) }
         bindSingleton { IngredientsController(it) }
+        bindSingleton { UserController(it) }
     }
     DatabaseConnector(
         DietModel, DishTypeModel, DishModel, DishIngredientModel,
         IngredientModel, MeasureModel, IngredientMeasureModel,
-        EatingCacheModel, EatingCacheDishesModel
+        EatingCacheModel, EatingCacheDishesModel,
+        UserModel, UserParamsModel, UserEatingsParamsModel
     ) {
 //        DishGenerator(52000, false, 2001)
     }

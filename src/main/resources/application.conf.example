@@ -8,6 +8,11 @@ ktor {
   }
 }
 application {
+  secure {
+    secret = ""
+    domain = ""
+    expiration = "" //Time in ms
+  }
   database {
     url = ""
     driver = ""

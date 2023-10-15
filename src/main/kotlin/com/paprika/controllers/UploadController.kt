@@ -1,11 +1,11 @@
 package com.paprika.controllers
 
-import com.paprika.dto.UploadedDataDto
 import com.paprika.exceptions.BadRequestException
 import com.paprika.services.DataManagerService
 import com.paprika.utils.kodein.KodeinController
 import io.ktor.http.content.*
 import io.ktor.server.application.*
+import io.ktor.server.auth.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -43,25 +43,30 @@ class UploadController(override val di: DI) : KodeinController() {
 
 
     override fun Routing.registerRoutes() {
-        route("menu") {
-            route("upload") {
-                post("measures") {
-                    val data = receiveFile(call.receiveMultipart(), mutableMapOf("measures" to null))
-                    call.respond(
-                        dataManagerService.uploadMeasures(data["measures"]!!)
-                    )
-                }
-                post("ingredients") {
-                    val data = receiveFile(call.receiveMultipart(), mutableMapOf("ingredients" to null))
-                    call.respond(
-                        dataManagerService.uploadIngredients(data["ingredients"]!!)
-                    )
-                }
-                post("dishes") {
-                    val data = receiveFile(call.receiveMultipart(), mutableMapOf("dishes" to null, "dish-to-ingredient" to null))
-                    call.respond(
-                        dataManagerService.uploadDishes(data["dishes"]!!, data["dish-to-ingredient"]!!)
-                    )
+        authenticate("authorized") {
+            route("menu") {
+                route("upload") {
+                    post("measures") {
+                        val data = receiveFile(call.receiveMultipart(), mutableMapOf("measures" to null))
+                        call.respond(
+                            dataManagerService.uploadMeasures(data["measures"]!!)
+                        )
+                    }
+                    post("ingredients") {
+                        val data = receiveFile(call.receiveMultipart(), mutableMapOf("ingredients" to null))
+                        call.respond(
+                            dataManagerService.uploadIngredients(data["ingredients"]!!)
+                        )
+                    }
+                    post("dishes") {
+                        val data = receiveFile(
+                            call.receiveMultipart(),
+                            mutableMapOf("dishes" to null, "dish-to-ingredient" to null)
+                        )
+                        call.respond(
+                            dataManagerService.uploadDishes(data["dishes"]!!, data["dish-to-ingredient"]!!)
+                        )
+                    }
                 }
             }
         }

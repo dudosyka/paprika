@@ -1,6 +1,9 @@
 package com.paprika.utils.kodein
 
+import com.paprika.dto.user.AuthorizedUser
 import io.ktor.server.application.*
+import io.ktor.server.auth.*
+import io.ktor.server.auth.jwt.*
 import io.ktor.server.routing.*
 import org.kodein.di.DIAware
 import org.kodein.di.instance
@@ -20,4 +23,10 @@ abstract class KodeinController : DIAware {
      * Method that subtypes must override to register the handled [Routing] routes.
      */
     abstract fun Routing.registerRoutes()
+    fun getAuthorized(call: ApplicationCall) = run {
+        AuthorizedUser(
+            call.principal<JWTPrincipal>()?.getClaim("id", Int::class)!!,
+            call.principal<JWTPrincipal>()?.getClaim("telegramId", Int::class)!!,
+        )
+    }
 }

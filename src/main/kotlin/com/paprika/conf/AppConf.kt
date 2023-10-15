@@ -15,6 +15,7 @@ object AppConf {
     private val databaseConfig: ApplicationConfig = applicationConfig.config("database")
     private val filesConfig: ApplicationConfig = applicationConfig.config("files")
     private val botConfig: ApplicationConfig = applicationConfig.config("bot")
+    private val jwtConfig: ApplicationConfig = applicationConfig.config("secure")
 
     val databaseConfiguration: DatabaseConfiguration =
         DatabaseConfiguration(
@@ -28,4 +29,9 @@ object AppConf {
 
     val botToken: String = botConfig.property("token").getString()
     val botWebappUrl: String = botConfig.property("webappUrl").getString()
+    val jwt: JwtConf = JwtConf(
+        secret = jwtConfig.property("secret").getString(),
+        domain = jwtConfig.property("domain").getString(),
+        expiration = jwtConfig.property("expiration").getString().toLong()
+    )
 }
