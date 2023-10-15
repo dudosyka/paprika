@@ -13,6 +13,7 @@ class DishDao(id : EntityID<Int>) : BaseIntEntity(id, DishModel) {
     companion object : BaseIntEntityClass<DishDao>(DishModel)
 
     val name by DishModel.name
+    val logo by DishModel.logo
     val calories by DishModel.calories
     val protein by DishModel.protein
     val fat by DishModel.fat
@@ -32,7 +33,7 @@ class DishDao(id : EntityID<Int>) : BaseIntEntity(id, DishModel) {
 
     fun toDto(): DishDto {
         return DishDto(
-            idValue, name, calories, protein, fat, carbohydrates, cellulose, weight, timeToCook, dietId, typeId
+            idValue, name, logo, calories, protein, fat, carbohydrates, cellulose, weight, timeToCook, dietId, typeId
         )
     }
 }

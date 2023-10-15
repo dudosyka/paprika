@@ -1,11 +1,22 @@
 package com.paprika
 
+import com.paprika.controllers.IngredientsController
 import com.paprika.controllers.PaprikaController
 import com.paprika.controllers.UploadController
+import com.paprika.database.models.cache.EatingCacheDishesModel
+import com.paprika.database.models.cache.EatingCacheModel
+import com.paprika.database.models.dish.DietModel
+import com.paprika.database.models.dish.DishIngredientModel
+import com.paprika.database.models.dish.DishModel
+import com.paprika.database.models.dish.DishTypeModel
+import com.paprika.database.models.ingredient.IngredientMeasureModel
+import com.paprika.database.models.ingredient.IngredientModel
+import com.paprika.database.models.ingredient.MeasureModel
 import com.paprika.plugins.*
 import com.paprika.services.*
 import com.paprika.services.telegram.TelegramResponseDispatcher
 import com.paprika.services.telegram.updates.TelegramUpdatesListener
+import com.paprika.utils.database.DatabaseConnector
 import com.paprika.utils.kodein.bindEagerSingleton
 import com.paprika.utils.kodein.bindSingleton
 import com.paprika.utils.kodein.kodeinApplication
@@ -39,16 +50,18 @@ fun Application.module() {
 
             updatesListener
         }
+        bindSingleton { IngredientService(it) }
 
         //Controllers DI
         bindSingleton { PaprikaController(it) }
         bindSingleton { UploadController(it) }
+        bindSingleton { IngredientsController(it) }
     }
-//    DatabaseConnector(
-//        DietModel, DishTypeModel, DishModel, DishIngredientModel,
-//        IngredientModel,
-//        EatingCacheModel, EatingCacheDishesModel
-//    ) {
-////        DishGenerator(52000, false, 2001)
-//    }
+    DatabaseConnector(
+        DietModel, DishTypeModel, DishModel, DishIngredientModel,
+        IngredientModel, MeasureModel, IngredientMeasureModel,
+        EatingCacheModel, EatingCacheDishesModel
+    ) {
+//        DishGenerator(52000, false, 2001)
+    }
 }

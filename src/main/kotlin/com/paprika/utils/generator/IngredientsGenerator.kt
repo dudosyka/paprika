@@ -13,7 +13,7 @@ class IngredientsGenerator(count: Int, clearOld: Boolean = true): Generator<Ingr
         generated = IngredientModel.batchInsert(sequence) {
             this[IngredientModel.id] = it
             this[IngredientModel.name] = "Ingredient${it}"
-            this[IngredientModel.measure] = it
+//            this[IngredientModel.measure] = it
         }.map {
             IngredientDao.wrapRow(it)
         }

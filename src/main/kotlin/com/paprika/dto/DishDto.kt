@@ -6,6 +6,7 @@ import kotlinx.serialization.Serializable
 data class DishDto (
     val id: Int,
     val name: String,
+    val logo: String,
     val calories: Double,
     val protein: Double,
     val fat: Double,

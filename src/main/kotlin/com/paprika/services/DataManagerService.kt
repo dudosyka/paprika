@@ -43,11 +43,6 @@ class DataManagerService(di: DI) : KodeinService(di) {
             model = IngredientMeasureModel,
             modelKeys = mapOf(
                 "id" to IngredientMeasureModel.id,
-                "name" to IngredientMeasureModel.name,
-                "nameFiveItems" to IngredientMeasureModel.nameFiveItems,
-                "nameFractional" to IngredientMeasureModel.nameFractional,
-                "nameTwoItems" to IngredientMeasureModel.nameTwoItems,
-                "isDimensional" to IngredientMeasureModel.isDimensional
             ),
             intKeys = listOf("id"),
             boolKeys = listOf("isDimensional")
@@ -61,7 +56,6 @@ class DataManagerService(di: DI) : KodeinService(di) {
             modelKeys = mapOf(
                 "id" to IngredientModel.id,
                 "name" to IngredientModel.name,
-                "measure" to IngredientModel.measure,
             ),
             intKeys = listOf("id", "measure")
         )

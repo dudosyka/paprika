@@ -19,11 +19,12 @@ class PaprikaService(di: DI) : KodeinService(di) {
     private val dishService: DishService by instance()
     private val cacheService: CacheService by instance()
 
-    private fun validateCalories(paprikaInputDto: PaprikaInputDto) {
-
-    }
-
-    private fun solveEating(paprikaInputDto: PaprikaInputDto, index: Int, maxima: Int = 0, offset: Long = 1): EatingOutputDto {
+    private fun solveEating(
+        paprikaInputDto: PaprikaInputDto,
+        index: Int,
+        maxima: Int = 0,
+        offset: Long = 1
+    ): EatingOutputDto {
         var dishesCount = 0
         if (offset.toInt() == 1) {
             val cache = cacheService.findEating(paprikaInputDto, index)
@@ -101,7 +102,7 @@ class PaprikaService(di: DI) : KodeinService(di) {
 
         val micronutrients = result.countMicronutrients()
 
-        val output = EatingOutputDto(
+        return EatingOutputDto(
             name = eatingOptions.name,
             idealMicronutrients = MicronutrientsDto(
                 calories = params.calories,
@@ -113,14 +114,12 @@ class PaprikaService(di: DI) : KodeinService(di) {
             dishes = result.toDto(),
             micronutrients = micronutrients
         )
-
-        return output
     }
 
     fun calculateMenu(paprikaInputDto: PaprikaInputDto): PaprikaOutputDto {
         var eatings = List(paprikaInputDto.eatings.size) { index ->  solveEating(paprikaInputDto, index) }
-        eatings = eatings.map {
-            it.dishes = it.dishes.map { dish -> transaction {
+        eatings = eatings.map { eatingOutputDto ->
+            eatingOutputDto.dishes = eatingOutputDto.dishes.map { dish -> transaction {
                 dish.ingredients =
                     DishIngredientModel.innerJoin(IngredientModel).innerJoin(IngredientMeasureModel).select {
                         DishIngredientModel.dish eq dish.id
@@ -128,19 +127,12 @@ class PaprikaService(di: DI) : KodeinService(di) {
                         IngredientDto(
                             id = it[IngredientModel.id].value,
                             name = it[IngredientModel.name],
-                            measure = MeasureDto(
-                                name = it[IngredientMeasureModel.name],
-                                nameFiveItems = it[IngredientMeasureModel.nameFiveItems],
-                                nameFractional = it[IngredientMeasureModel.nameFractional],
-                                nameTwoItems = it[IngredientMeasureModel.nameTwoItems],
-                                isDimensional = it[IngredientMeasureModel.isDimensional],
-                            ),
                             measureCount = it[DishIngredientModel.measureCount],
                         )
                     }
                 dish
             } }
-            it
+            eatingOutputDto
         }
 
         val params = eatings.mapIndexed { index, item ->

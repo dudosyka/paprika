@@ -9,5 +9,5 @@ class IngredientDao(id : EntityID<Int>): BaseIntEntity(id, IngredientModel) {
     companion object : BaseIntEntityClass<IngredientDao>(IngredientModel)
 
     val name by IngredientModel.name
-    val measure by IngredientMeasureDao referencedOn IngredientModel.measure
+    val cellulose by IngredientModel.cellulose
 }
