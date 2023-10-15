@@ -17,4 +17,8 @@ application {
   files {
     savePath = ""
   }
+  bot {
+    token = ""
+    webappUrl = ""
+  }
 }

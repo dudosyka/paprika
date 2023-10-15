@@ -11,9 +11,10 @@ data class DatabaseConfiguration (
 )
 object AppConf {
     private val applicationConfig: ApplicationConfig =
-        HoconApplicationConfig(ConfigFactory.load().getConfig("application"));
-    private val databaseConfig: ApplicationConfig = applicationConfig.config("database");
-    private val filesConfig: ApplicationConfig = applicationConfig.config("files");
+        HoconApplicationConfig(ConfigFactory.load().getConfig("application"))
+    private val databaseConfig: ApplicationConfig = applicationConfig.config("database")
+    private val filesConfig: ApplicationConfig = applicationConfig.config("files")
+    private val botConfig: ApplicationConfig = applicationConfig.config("bot")
 
     val databaseConfiguration: DatabaseConfiguration =
         DatabaseConfiguration(
@@ -22,5 +23,9 @@ object AppConf {
             databaseConfig.property("user").getString(),
             databaseConfig.property("password").getString(),
         )
+
     val filePath: String = filesConfig.property("savePath").getString()
+
+    val botToken: String = botConfig.property("token").getString()
+    val botWebappUrl: String = botConfig.property("webappUrl").getString()
 }

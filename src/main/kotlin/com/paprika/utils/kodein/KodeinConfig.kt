@@ -1,13 +1,16 @@
 package com.paprika.utils.kodein
 
-import org.kodein.di.DI
-import org.kodein.di.bind
-import org.kodein.di.singleton
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
-import org.kodein.di.Instance
-import org.kodein.di.instance
+import org.kodein.di.*
 import org.kodein.type.jvmType
+
+/**
+ * Shortcut for binding eager singletons to the same type.
+ */
+inline fun <reified T : Any> DI.MainBuilder.bindEagerSingleton(crossinline callback: (DI) -> T) {
+    bind<T>() with eagerSingleton { callback(this@eagerSingleton.di) }
+}
 
 /**
  * Shortcut for binding singletons to the same type.
