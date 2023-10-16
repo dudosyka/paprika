@@ -1,6 +1,7 @@
 package com.paprika.database.dao.user
 
 import com.paprika.database.models.user.UserEatingsParamsModel
+import com.paprika.dto.user.UserEatingsParamsDto
 import com.paprika.utils.database.BaseIntEntity
 import com.paprika.utils.database.BaseIntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
@@ -14,4 +15,10 @@ class UserEatingsParamsDao(id: EntityID<Int>): BaseIntEntity(id, UserEatingsPara
     val type by UserEatingsParamsModel.type
     val difficulty by UserEatingsParamsModel.difficulty
     val dishCount by UserEatingsParamsModel.dishCount
+    fun toDto() =
+        UserEatingsParamsDto(name, size, type.split(",").map { it.toInt() }, difficulty, dishCount)
+
+}
+fun List<UserEatingsParamsDao>.toDto(): List<UserEatingsParamsDto> {
+    return this.map { it.toDto() }
 }

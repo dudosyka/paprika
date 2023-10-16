@@ -1,8 +1,8 @@
 package com.paprika.controllers
 
 import com.paprika.dto.PaprikaInputDto
-import com.paprika.services.DishService
 import com.paprika.services.PaprikaService
+import com.paprika.services.UserService
 import com.paprika.utils.kodein.KodeinController
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
@@ -13,14 +13,20 @@ import org.kodein.di.DI
 import org.kodein.di.instance
 
 class PaprikaController(override val di: DI) : KodeinController() {
-    private val dishService: DishService by instance()
     private val paprikaService: PaprikaService by instance()
+    private val userService: UserService by instance()
     override fun Routing.registerRoutes() {
         authenticate("authorized") {
             route("/menu") {
-                post("/calculate") {
+                post("/custom") {
+                    val authorizedUser = getAuthorized(call)
                     val data = call.receive<PaprikaInputDto>()
-                    call.respond(paprikaService.calculateMenu(data))
+                    call.respond(paprikaService.calculateMenu(authorizedUser, data))
+                }
+                post("/calculate") {
+                    val authorizedUser = getAuthorized(call)
+                    val userParams = userService.getUserParamsAsDto(authorizedUser)
+                    call.respond(paprikaService.calculateMenu(authorizedUser, userParams.toPaprikaInput()))
                 }
             }
         }

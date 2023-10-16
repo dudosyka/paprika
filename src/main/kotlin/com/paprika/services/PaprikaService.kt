@@ -7,6 +7,7 @@ import com.paprika.database.models.dish.DishModel
 import com.paprika.database.models.ingredient.IngredientMeasureModel
 import com.paprika.database.models.ingredient.IngredientModel
 import com.paprika.dto.*
+import com.paprika.dto.user.AuthorizedUser
 import com.paprika.exceptions.CantSolveException
 import com.paprika.utils.kodein.KodeinService
 import com.paprika.utils.params.ParamsManager
@@ -116,7 +117,7 @@ class PaprikaService(di: DI) : KodeinService(di) {
         )
     }
 
-    fun calculateMenu(paprikaInputDto: PaprikaInputDto): PaprikaOutputDto {
+    fun calculateMenu(authorizedUser: AuthorizedUser, paprikaInputDto: PaprikaInputDto): PaprikaOutputDto {
         var eatings = List(paprikaInputDto.eatings.size) { index ->  solveEating(paprikaInputDto, index) }
         eatings = eatings.map { eatingOutputDto ->
             eatingOutputDto.dishes = eatingOutputDto.dishes.map { dish -> transaction {
@@ -136,7 +137,7 @@ class PaprikaService(di: DI) : KodeinService(di) {
         }
 
         val params = eatings.mapIndexed { index, item ->
-            cacheService.saveEating(item, paprikaInputDto, index)
+            cacheService.saveEating(authorizedUser, item, paprikaInputDto, index)
             item.micronutrients
         }.reduce {
             a, b -> run {

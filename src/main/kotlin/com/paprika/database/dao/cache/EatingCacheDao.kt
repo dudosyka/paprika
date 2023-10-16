@@ -1,13 +1,15 @@
 package com.paprika.database.dao.cache
 
-import com.paprika.database.dao.dish.DietDao
-import com.paprika.database.dao.dish.DishDao
-import com.paprika.database.dao.dish.DishTypeDao
+import com.paprika.database.dao.dish.*
 import com.paprika.database.models.cache.EatingCacheDishesModel
 import com.paprika.database.models.cache.EatingCacheModel
+import com.paprika.dto.EatingOutputDto
+import com.paprika.dto.MicronutrientsDto
+import com.paprika.dto.ParametersInputDto
 import com.paprika.utils.database.BaseIntEntity
 import com.paprika.utils.database.BaseIntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
+import org.jetbrains.exposed.sql.SizedIterable
 
 class EatingCacheDao(id : EntityID<Int>): BaseIntEntity(id, EatingCacheModel) {
     companion object : BaseIntEntityClass<EatingCacheDao>(EatingCacheModel)
@@ -28,4 +30,18 @@ class EatingCacheDao(id : EntityID<Int>): BaseIntEntity(id, EatingCacheModel) {
     var useTimesFromLastScrap by EatingCacheModel.useTimesFromLastScrap
     var useTimesFromCreation by EatingCacheModel.useTimesFromCreation
     var onRemove by EatingCacheModel.onRemove
+
+    fun toDto(name: String, dishes: SizedIterable<DishDao>, params: ParametersInputDto?): EatingOutputDto =
+        EatingOutputDto(
+            name,
+            dishes.toDto(),
+            micronutrients = dishes.countMicronutrients(),
+            idealMicronutrients = if (params != null) MicronutrientsDto(
+                calories = params.calories,
+                protein = params.maxProtein,
+                fat = params.maxFat,
+                carbohydrates = params.maxCarbohydrates,
+                cellulose = params.maxCellulose
+            ) else null
+        )
 }

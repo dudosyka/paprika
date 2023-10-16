@@ -3,13 +3,12 @@ package com.paprika.services
 import com.paprika.database.dao.cache.EatingCacheDao
 import com.paprika.database.dao.dish.DietDao
 import com.paprika.database.dao.dish.DishTypeDao
-import com.paprika.database.dao.dish.countMicronutrients
-import com.paprika.database.dao.dish.toDto
 import com.paprika.database.models.cache.EatingCacheDishesModel
 import com.paprika.database.models.cache.EatingCacheModel
+import com.paprika.database.models.user.UserSavedDietModel
 import com.paprika.dto.EatingOutputDto
-import com.paprika.dto.MicronutrientsDto
 import com.paprika.dto.PaprikaInputDto
+import com.paprika.dto.user.AuthorizedUser
 import com.paprika.utils.database.idValue
 import com.paprika.utils.kodein.KodeinService
 import com.paprika.utils.params.ParamsManager
@@ -19,6 +18,7 @@ import org.jetbrains.exposed.sql.SqlExpressionBuilder.greaterEq
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.lessEq
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.kodein.di.DI
+import java.lang.Exception
 
 class CacheService(di: DI) : KodeinService(di) {
     private fun createMinMaxCond(min: Double, max: Double, field: Column<Double>): Op<Boolean> {
@@ -46,9 +46,9 @@ class CacheService(di: DI) : KodeinService(di) {
             Op.nullOp()
     }
 
-    fun saveEating(eatingOutputDto: EatingOutputDto, paprikaInputDto: PaprikaInputDto, index: Int) = transaction {
+    fun saveEating(authorizedUser: AuthorizedUser, eatingOutputDto: EatingOutputDto, paprikaInputDto: PaprikaInputDto, index: Int) = transaction {
         val eatingInput = paprikaInputDto.eatings[index]
-        val micronutrients = eatingOutputDto.idealMicronutrients
+        val micronutrients = eatingOutputDto.idealMicronutrients ?: throw Exception()
         val cache = EatingCacheDao.new {
             calories = micronutrients.calories
             protein = micronutrients.protein
@@ -72,6 +72,11 @@ class CacheService(di: DI) : KodeinService(di) {
         EatingCacheDishesModel.batchInsert(eatingOutputDto.dishes) {
             this[EatingCacheDishesModel.dish] = it.id
             this[EatingCacheDishesModel.eatingCache] = cache.idValue
+        }
+        UserSavedDietModel.insert {
+            it[user] = authorizedUser.id
+            it[UserSavedDietModel.cache] = cache.idValue
+            it[name] = paprikaInputDto.eatings[index].name
         }
     }
 
@@ -108,20 +113,19 @@ class CacheService(di: DI) : KodeinService(di) {
             result.useTimesFromLastScrap++
             result.useTimesFromCreation++
             result.flush()
-            EatingOutputDto(
-                eatingOptions.name,
-                result.dishes.toDto(),
-                micronutrients = result.dishes.countMicronutrients(),
-                idealMicronutrients = MicronutrientsDto(
-                    calories = params.calories,
-                    protein = params.maxProtein,
-                    fat = params.maxFat,
-                    carbohydrates = params.maxCarbohydrates,
-                    cellulose = params.maxCellulose
-                )
-            )
+            result.toDto(eatingOptions.name, result.dishes, params)
         } else {
             null
+        }
+    }
+
+    fun loadUserSaved(userId: Int): List<EatingOutputDto> = transaction {
+        val list: List<Column<*>> = EatingCacheModel.columns
+        list.toMutableList().add(UserSavedDietModel.name)
+        UserSavedDietModel.leftJoin(EatingCacheModel).slice(list).select(UserSavedDietModel.user eq userId).map {
+            EatingCacheDao.wrapRow(it).run {
+                toDto(it[UserSavedDietModel.name], dishes, null)
+            }
         }
     }
 }

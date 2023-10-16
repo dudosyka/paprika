@@ -1,10 +1,13 @@
 package com.paprika.controllers
 
+import com.paprika.dto.EatingOutputDto
 import com.paprika.dto.user.AuthOutputDto
 import com.paprika.dto.user.UserOutputDto
+import com.paprika.dto.user.UserParamsDto
 import com.paprika.exceptions.BadRequestException
 import com.paprika.exceptions.UnauthorizedException
 import com.paprika.services.AuthService
+import com.paprika.services.CacheService
 import com.paprika.services.UserService
 import com.paprika.utils.kodein.KodeinController
 import io.ktor.server.application.*
@@ -18,6 +21,7 @@ import org.kodein.di.instance
 class UserController(override val di: DI) : KodeinController() {
     private val userService: UserService by instance()
     private val authService: AuthService by instance()
+    private val cacheService: CacheService by instance()
     override fun Routing.registerRoutes() {
         route("user") {
             route("auth/telegram/{telegramId}") {
@@ -47,13 +51,18 @@ class UserController(override val di: DI) : KodeinController() {
                 route("params") {
                     get {
                         val authorizedUser = getAuthorized(call)
-
+                        call.respond<UserParamsDto>(userService.getUserParamsAsDto(authorizedUser))
                     }
                     post {
                         val authorizedUser = getAuthorized(call)
+                        val userParamsDto = call.receive<UserParamsDto>()
+                        call.respond<UserParamsDto>(userService.setUserParams(authorizedUser, userParamsDto))
                     }
-                    patch {
+                }
+                route("cache") {
+                    get {
                         val authorizedUser = getAuthorized(call)
+                        call.respond<List<EatingOutputDto>>(cacheService.loadUserSaved(authorizedUser.id))
                     }
                 }
             }

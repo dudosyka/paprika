@@ -3,9 +3,9 @@ package com.paprika.dto.user
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UserEatingsParamsOutputDto (
+data class UserEatingsParamsDto (
     val name: String,
-    val size: Int,
+    val size: Double,
     val type: List<Int>,
     val difficulty: Int,
     val dishCount: Int
