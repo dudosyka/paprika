@@ -78,7 +78,7 @@ class ParamsManager internal constructor() {
         return transformToCalories(params.minProtein) + transformToCalories(params.minCarbohydrates) + transformToCalories(params.minFat, 9)
     }
 
-    private fun validateParams(params: ParametersDto) {
+    fun validateParams(params: ParametersDto) {
         if (params.calories < summariseParams(params))
             throw CantSolveException("Bad macronutrients params were provided!")
     }

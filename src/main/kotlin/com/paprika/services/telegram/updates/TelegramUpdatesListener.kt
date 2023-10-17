@@ -13,9 +13,6 @@ class TelegramUpdatesListener(di: DI): KodeinService(di) {
     private val telegramApiDispatcher = TelegramApiDispatcher()
     private var lastUpdateId: Long = 0
     private val allowedUpdates = listOf<String>("message", "callback_query", "inline_query")
-    init {
-        println("Initialized")
-    }
 
     private fun processUpdates(updates: TelegramUpdatesListDto): List<TelegramTypes> {
         return updates.result.map {
@@ -27,7 +24,6 @@ class TelegramUpdatesListener(di: DI): KodeinService(di) {
                     TelegramTypes.CallbackQuery(it["callback_query"] as Map<*, *>)
                 }
                 else -> {
-                    println(it)
                     TelegramTypes.EmptyType()
                 }
             }

@@ -15,6 +15,7 @@ import com.paprika.exceptions.NotFoundException
 import com.paprika.plugins.createToken
 import com.paprika.utils.database.idValue
 import com.paprika.utils.kodein.KodeinService
+import com.paprika.utils.params.ParamsManager
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.batchInsert
 import org.jetbrains.exposed.sql.deleteWhere
@@ -50,9 +51,6 @@ class UserService(di: DI) : KodeinService(di) {
             active = createUserDto.active
         }
 
-
-        println(user.idValue)
-        println(user.idValue.toString())
         AuthOutputDto(
             createToken(mutableMapOf(
                 "id" to user.idValue.toString(),
@@ -98,6 +96,7 @@ class UserService(di: DI) : KodeinService(di) {
             diet = DietDao[userParamsInputDto.diet]
             calories = userParamsInputDto.calories
             if (userParamsInputDto.isMacronutrientsParamsSet && userParamsInputDto.params != null) {
+                ParamsManager.process { validateParams(userParamsInputDto.params) }
                 isMacronutrientsParamsSet = true
                 minProtein = userParamsInputDto.params.minProtein
                 maxProtein = userParamsInputDto.params.maxProtein
