@@ -1,0 +1,1556 @@
+{
+	"info": {
+		"_postman_id": "3d2948b7-81f1-4082-bfdb-36c50917ed24",
+		"name": "Paprika API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28285683",
+		"_collection_link": "https://www.postman.com/replyv2/workspace/paprika/collection/28285683-3d2948b7-81f1-4082-bfdb-36c50917ed24?action=share&source=collection_link&creator=28285683"
+	},
+	"item": [
+		{
+			"name": "Upload Data",
+			"item": [
+				{
+					"name": "Upload measures",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "measures",
+									"type": "file",
+									"src": "/Users/dudosyka/Documents/data types/measure.csv"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/menu/upload/measures",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"menu",
+								"upload",
+								"measures"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Ids intersection",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "measures",
+											"type": "file",
+											"src": "/Users/dudosyka/Documents/data types/measure.csv"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{host}}/menu/upload/measures",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"menu",
+										"upload",
+										"measures"
+									]
+								}
+							},
+							"status": "Bad request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "74"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 400,\n    \"statusDescription\": \"Bad request\",\n    \"msg\": \"Ids intersections\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Upload ingredients",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "ingredients",
+									"type": "file",
+									"src": "/Users/dudosyka/Documents/data types/ingredients.csv"
+								},
+								{
+									"key": "ingredient-to-measure",
+									"type": "file",
+									"src": "/Users/dudosyka/Documents/data types/ingredientsToMeasure.csv"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/menu/upload/ingredients",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"menu",
+								"upload",
+								"ingredients"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Ids intersection",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "ingredients",
+											"type": "file",
+											"src": "/Users/dudosyka/Documents/data types/ingredients.csv"
+										},
+										{
+											"key": "ingredient-to-measure",
+											"type": "file",
+											"src": "/Users/dudosyka/Documents/data types/ingredientsToMeasure.csv"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{host}}/menu/upload/ingredients",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"menu",
+										"upload",
+										"ingredients"
+									]
+								}
+							},
+							"status": "Bad request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "74"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 400,\n    \"statusDescription\": \"Bad request\",\n    \"msg\": \"Ids intersections\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Upload dishes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "dishes",
+									"type": "file",
+									"src": "/Users/dudosyka/Documents/data types/dishes.csv"
+								},
+								{
+									"key": "dish-to-ingredient",
+									"type": "file",
+									"src": "/Users/dudosyka/Documents/data types/dishToIngredient.csv"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/menu/upload/dishes",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"menu",
+								"upload",
+								"dishes"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Ids intersection",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "dishes",
+											"type": "file",
+											"src": "/Users/dudosyka/Documents/data types/dishes.csv"
+										},
+										{
+											"key": "dish-to-ingredient",
+											"type": "file",
+											"src": "/Users/dudosyka/Documents/data types/dishToIngredient.csv"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{host}}/menu/upload/dishes",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"menu",
+										"upload",
+										"dishes"
+									]
+								}
+							},
+							"status": "Bad request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "74"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 400,\n    \"statusDescription\": \"Bad request\",\n    \"msg\": \"Ids intersections\"\n}"
+						}
+					]
+				},
+				{
+					"name": "ids stat",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/menu",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"menu"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/menu",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"menu"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "61"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"lastDishId\": 51999,\n    \"lastIngredientId\": 10,\n    \"lastMeasureId\": 10\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "CRUD",
+					"item": [
+						{
+							"name": "User create",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const token = pm.response.json().token",
+											"pm.collectionVariables.set(\"token\", token)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"sex\": 1,\n    \"height\": 123.0,\n    \"weight\": 123.0,\n    \"birthday\": 123,\n    \"active\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/user/auth/telegram/:telegramId",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"user",
+										"auth",
+										"telegram",
+										":telegramId"
+									],
+									"variable": [
+										{
+											"key": "telegramId",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"sex\": 1,\n    \"height\": 123.0,\n    \"weight\": 123.0,\n    \"birthday\": 123,\n    \"active\": 1\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/user/auth/telegram/:telegramId",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"user",
+												"auth",
+												"telegram",
+												":telegramId"
+											],
+											"variable": [
+												{
+													"key": "telegramId",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Length",
+											"value": "262"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJleHAiOjE2OTczOTk5NzEsImlkIjoiMSIsInRlbGVncmFtSWQiOiIxIn0.dv7TVB2BQhnAXfZY3-cpp--HL-gB_3r5Hz33LPa8w0k\",\n    \"newUser\": {\n        \"telegramId\": 1,\n        \"sex\": 1,\n        \"height\": 123,\n        \"weight\": 123,\n        \"age\": 123,\n        \"active\": 1\n    }\n}"
+								},
+								{
+									"name": "Try create user with duplicate ID",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"sex\": 1,\n    \"height\": 123.0,\n    \"weight\": 123.0,\n    \"birthday\": 123,\n    \"active\": 1\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/user/auth/telegram/:telegramId",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"user",
+												"auth",
+												"telegram",
+												":telegramId"
+											],
+											"variable": [
+												{
+													"key": "telegramId",
+													"value": "3"
+												}
+											]
+										}
+									},
+									"status": "Bad request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Length",
+											"value": "57"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 400,\n    \"statusDescription\": \"Bad request\",\n    \"msg\": \"\"\n}"
+								}
+							]
+						},
+						{
+							"name": "User patch",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"sex\": 2,\n    \"height\": 124.0,\n    \"weight\": 124.0,\n    \"birthday\": 124,\n    \"active\": 2\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/user",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"sex\": 2,\n    \"height\": 124.0,\n    \"weight\": 124.0,\n    \"birthday\": 124,\n    \"active\": 2\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/user",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"user"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Length",
+											"value": "75"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"telegramId\": 1,\n    \"sex\": 2,\n    \"height\": 124,\n    \"weight\": 124,\n    \"age\": 124,\n    \"active\": 2\n}"
+								},
+								{
+									"name": "Unauthorized",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"sex\": 2,\n    \"height\": 124.0,\n    \"weight\": 124.0,\n    \"birthday\": 124,\n    \"active\": 2\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/user",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"user"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "WWW-Authenticate",
+											"value": "Bearer realm=\"Ktor Server\""
+										},
+										{
+											"key": "Content-Length",
+											"value": "0"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": null
+								}
+							]
+						},
+						{
+							"name": "User get",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/user",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Unauthorized",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/user",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"user"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "WWW-Authenticate",
+											"value": "Bearer realm=\"Ktor Server\""
+										},
+										{
+											"key": "Content-Length",
+											"value": "0"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": null
+								},
+								{
+									"name": "Bad token",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/user",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"user"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Length",
+											"value": "55"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 403,\n    \"statusDescription\": \"Forbidden\",\n    \"msg\": \"\"\n}"
+								},
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/user",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"user"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Length",
+											"value": "75"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"telegramId\": 1,\n    \"sex\": 2,\n    \"height\": 124,\n    \"weight\": 124,\n    \"age\": 124,\n    \"active\": 2\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Params",
+					"item": [
+						{
+							"name": "Get",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/user/params",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"user",
+										"params"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Unauthorized",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/user/params",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"user",
+												"params"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "WWW-Authenticate",
+											"value": "Bearer realm=\"Ktor Server\""
+										},
+										{
+											"key": "Content-Length",
+											"value": "0"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": null
+								},
+								{
+									"name": "Params not set",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/user/params",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"user",
+												"params"
+											]
+										}
+									},
+									"status": "Model not found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Length",
+											"value": "61"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 404,\n    \"statusDescription\": \"Model not found\",\n    \"msg\": \"\"\n}"
+								},
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/user/params",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"user",
+												"params"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Length",
+											"value": "438"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"diet\": 1,\n    \"calories\": 2000,\n    \"isMacronutrientsParamsSet\": false,\n    \"params\": {\n        \"calories\": 2000,\n        \"minProtein\": 0,\n        \"maxProtein\": 0,\n        \"minFat\": 0,\n        \"maxFat\": 0,\n        \"minCarbohydrates\": 0,\n        \"maxCarbohydrates\": 0,\n        \"minCellulose\": 0,\n        \"maxCellulose\": 0\n    },\n    \"eatingsParams\": [\n        {\n            \"name\": \"First\",\n            \"size\": 0.8,\n            \"type\": {\n                \"id\": 1,\n                \"name\": \"DishType1\"\n            },\n            \"difficulty\": 0,\n            \"dishCount\": 4\n        },\n        {\n            \"name\": \"Second\",\n            \"size\": 0.2,\n            \"type\": {\n                \"id\": 2,\n                \"name\": \"DishType2\"\n            },\n            \"difficulty\": 0,\n            \"dishCount\": 2\n        }\n    ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Set",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"diet\": 1,\n    \"calories\": 2000,\n    \"isMacronutrientsParamsSet\": true,\n    \"params\": {\n            \"calories\": 2000,\n            \"minProtein\": 100,\n            \"maxProtein\": 0,\n            \"minFat\": 0,\n            \"maxFat\": 0,\n            \"minCarbohydrates\": 0,\n            \"maxCarbohydrates\": 0,\n            \"minCellulose\": 0,\n            \"maxCellulose\": 0\n        },\n    \"eatingsParams\": [\n        {\n            \"name\": \"First\",\n            \"size\": 0.8,\n            \"type\": 1,\n            \"difficulty\": 0,\n            \"dishCount\": 4\n        },\n        {\n            \"name\": \"Second\",\n            \"size\": 0.2,\n            \"type\": 2,\n            \"difficulty\": 0,\n            \"dishCount\": 2\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/user/params",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"user",
+										"params"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Unauthorized",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/user/params",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"user",
+												"params"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "WWW-Authenticate",
+											"value": "Bearer realm=\"Ktor Server\""
+										},
+										{
+											"key": "Content-Length",
+											"value": "0"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": null
+								},
+								{
+									"name": "Bad object",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/user/params",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"user",
+												"params"
+											]
+										}
+									},
+									"status": "Unsupported Media Type",
+									"code": 415,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Content-Length",
+											"value": "0"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": null
+								},
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"diet\": 1,\n    \"calories\": 2000,\n    \"isMacronutrientsParamsSet\": false,\n\n    \"eatingsParams\": [\n        {\n            \"name\": \"First\",\n            \"size\": 0.8,\n            \"type\": 1,\n            \"difficulty\": 0,\n            \"dishCount\": 4\n        },\n        {\n            \"name\": \"Second\",\n            \"size\": 0.2,\n            \"type\": 2,\n            \"difficulty\": 0,\n            \"dishCount\": 2\n        }\n    ]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/user/params",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"user",
+												"params"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Length",
+											"value": "438"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"diet\": 1,\n    \"calories\": 2000,\n    \"isMacronutrientsParamsSet\": false,\n    \"params\": {\n        \"calories\": 2000,\n        \"minProtein\": 0,\n        \"maxProtein\": 0,\n        \"minFat\": 0,\n        \"maxFat\": 0,\n        \"minCarbohydrates\": 0,\n        \"maxCarbohydrates\": 0,\n        \"minCellulose\": 0,\n        \"maxCellulose\": 0\n    },\n    \"eatingsParams\": [\n        {\n            \"name\": \"First\",\n            \"size\": 0.8,\n            \"type\": {\n                \"id\": 1,\n                \"name\": \"DishType1\"\n            },\n            \"difficulty\": 0,\n            \"dishCount\": 4\n        },\n        {\n            \"name\": \"Second\",\n            \"size\": 0.2,\n            \"type\": {\n                \"id\": 2,\n                \"name\": \"DishType2\"\n            },\n            \"difficulty\": 0,\n            \"dishCount\": 2\n        }\n    ]\n}"
+								},
+								{
+									"name": "Success with params",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"diet\": 1,\n    \"calories\": 2000,\n    \"isMacronutrientsParamsSet\": true,\n    \"params\": {\n            \"calories\": 2000,\n            \"minProtein\": 100,\n            \"maxProtein\": 0,\n            \"minFat\": 0,\n            \"maxFat\": 0,\n            \"minCarbohydrates\": 0,\n            \"maxCarbohydrates\": 0,\n            \"minCellulose\": 0,\n            \"maxCellulose\": 0\n        },\n    \"eatingsParams\": [\n        {\n            \"name\": \"First\",\n            \"size\": 0.8,\n            \"type\": 1,\n            \"difficulty\": 0,\n            \"dishCount\": 4\n        },\n        {\n            \"name\": \"Second\",\n            \"size\": 0.2,\n            \"type\": 2,\n            \"difficulty\": 0,\n            \"dishCount\": 2\n        }\n    ]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/user/params",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"user",
+												"params"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Length",
+											"value": "439"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"diet\": 1,\n    \"calories\": 2000,\n    \"isMacronutrientsParamsSet\": true,\n    \"params\": {\n        \"calories\": 2000,\n        \"minProtein\": 100,\n        \"maxProtein\": 0,\n        \"minFat\": 0,\n        \"maxFat\": 0,\n        \"minCarbohydrates\": 0,\n        \"maxCarbohydrates\": 0,\n        \"minCellulose\": 0,\n        \"maxCellulose\": 0\n    },\n    \"eatingsParams\": [\n        {\n            \"name\": \"First\",\n            \"size\": 0.8,\n            \"type\": {\n                \"id\": 1,\n                \"name\": \"DishType1\"\n            },\n            \"difficulty\": 0,\n            \"dishCount\": 4\n        },\n        {\n            \"name\": \"Second\",\n            \"size\": 0.2,\n            \"type\": {\n                \"id\": 2,\n                \"name\": \"DishType2\"\n            },\n            \"difficulty\": 0,\n            \"dishCount\": 2\n        }\n    ]\n}"
+								},
+								{
+									"name": "Bad object params",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"diet\": 1,\n    \"calories\": 2000,\n    \"isMacronutrientsParamsSet\": true,\n    \"params\": {\n            \"calories\": 2000,\n            \"minProtein\": 100000,\n            \"maxProtein\": 0,\n            \"minFat\": 0,\n            \"maxFat\": 0,\n            \"minCarbohydrates\": 0,\n            \"maxCarbohydrates\": 0,\n            \"minCellulose\": 0,\n            \"maxCellulose\": 0\n        },\n    \"eatingsParams\": [\n        {\n            \"name\": \"First\",\n            \"size\": 0.8,\n            \"type\": 1,\n            \"difficulty\": 0,\n            \"dishCount\": 4\n        },\n        {\n            \"name\": \"Second\",\n            \"size\": 0.2,\n            \"type\": 2,\n            \"difficulty\": 0,\n            \"dishCount\": 2\n        }\n    ]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/user/params",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"user",
+												"params"
+											]
+										}
+									},
+									"status": "Bad request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Length",
+											"value": "97"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 400,\n    \"statusDescription\": \"Bad request\",\n    \"msg\": \"Bad macronutrients params were provided!\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "User auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const token = pm.response.json().token",
+									"pm.collectionVariables.set(\"token\", token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/user/auth/telegram/:telegramId",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"auth",
+								"telegram",
+								":telegramId"
+							],
+							"variable": [
+								{
+									"key": "telegramId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/user/auth/telegram/:telegramId",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"user",
+										"auth",
+										"telegram",
+										":telegramId"
+									],
+									"variable": [
+										{
+											"key": "telegramId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "191"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJleHAiOjE2OTc0MDAwMDIsImlkIjoiMSIsInRlbGVncmFtSWQiOiIxIn0.BCePqkl_ErzKPV3cE5ZntQ3I48hMP-B2i3fiqNbBFjQ\",\n    \"newUser\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "User cached",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/user/cache",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"cache"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/user/auth/telegram/:telegramId",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"user",
+										"auth",
+										"telegram",
+										":telegramId"
+									],
+									"variable": [
+										{
+											"key": "telegramId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "191"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJleHAiOjE2OTc0MDAwMDIsImlkIjoiMSIsInRlbGVncmFtSWQiOiIxIn0.BCePqkl_ErzKPV3cE5ZntQ3I48hMP-B2i3fiqNbBFjQ\",\n    \"newUser\": null\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Algorithm",
+			"item": [
+				{
+					"name": "Calculate menu",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"diet\": 0,\n    // \"calories\": 2000,\n    \"idealMicronutrients\": {\n        \"calories\": 2000, \n\n        \"minProtein\": 0, \n        \"maxProtein\": 200, \n\n        \"minFat\": 0, \n        \"maxFat\": 200, \n        \n        \"minCarbohydrates\": 0, \n        \"maxCarbohydrates\": 200, \n        \n        \"minCellulose\": 0, \n        \"maxCellulose\": 50 \n    },\n    \"excludeDishes\": [],\n    \"eatings\": [\n        {\n            \"name\": \"Завтрак\",\n            \"size\": 0.4,\n            \"type\": 0,\n            \"difficulty\": 0,\n            \"dishCount\": 0\n        },\n\n        {\n            \"name\": \"test2\",\n            \"size\": 0.4,\n            \"type\": 0,\n            \"difficulty\": 0,\n            \"dishCount\": 0\n        },\n\n        {\n            \"name\": \"test3\",\n            \"size\": 0.2,\n            \"type\": 0,\n            \"difficulty\": 0,\n            \"dishCount\": 0\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/menu/custom",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"menu",
+								"custom"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Full parameters example",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"idealMicronutrients\": {\n        \"calories\": 2000, //Full amount of calories (will be in [C*0.99; C*1.01])\n\n        \"minProtein\": 10, //Bottom boundary of protein\n        \"maxProtein\": 200, //Top boundary of protein\n\n        \"minFat\": 20, //Bottom boundary of fat\n        \"maxFat\": 200, //Top boundary of fat\n        \n        \"minCarbohydrates\": 30, //Bottom boundary of carbohydrates\n        \"maxCarbohydrates\": 200, //Top boundary of carbohydrates\n        \n        \"minCellulose\": 0, //Bottom boundary of cellulose\n        \"maxCellulose\": 50 //Top boundary of cellulose\n    },\n    \"diet\": 0, //Diet ID\n    \"calories\": 2000, //Amount of calories for auto calculate micronutrients\n    \"excludeDishes\": [1000], //Array of excluded dishes (used for replacement requests)\n    \"eatings\": [\n        {\n            \"name\": \"test1\", //Here you can specify anything field will return in answer\n            \"size\": 0.4, //Size of eating 0.4 * fullAmountOfCalories\n            \"type\": 1, //Dish type field\n            \"difficulty\": 0, //How difficult to cook dishes (1..5) based on timeToCook\n            /*\n                1 -> DishModel.timeToCook lessEq 5\n                2 -> DishModel.timeToCook lessEq 15\n                3 -> DishModel.timeToCook lessEq 30\n                4 -> DishModel.timeToCook lessEq 45\n                5 -> DishModel.timeToCook lessEq 60\n                else -> DishModel.timeToCook lessEq 1000\n            */\n\n\n            \"dishCount\": 0 //Dish count in current eating\n        },\n        {\n            \"name\": \"test2\",\n            \"size\": 0.5,\n            \"type\": 2,\n            \"difficulty\": 3,\n            \"dishCount\": 2\n        },\n        {\n            \"name\": \"test3\",\n            \"size\": 0.1,\n            \"type\": 0,\n            \"difficulty\": 0,\n            \"dishCount\": 1\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/menu/calculate",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"menu",
+										"calculate"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "2739"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"diet\": 0,\n    \"eatings\": [\n        {\n            \"name\": \"test1\",\n            \"dishes\": [\n                {\n                    \"id\": 1860,\n                    \"name\": \"Dish 1860\",\n                    \"calories\": 463.2296950328104,\n                    \"protein\": 7.826443467418699,\n                    \"fat\": 15.126425409596443,\n                    \"carbohydrates\": 9.103392698537498,\n                    \"cellulose\": 6.894634331094177,\n                    \"weight\": 164.41680475544584,\n                    \"timeToCook\": 73,\n                    \"dietId\": 3,\n                    \"typeId\": 3,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 2775,\n                    \"name\": \"Dish 2775\",\n                    \"calories\": 344.7360097591037,\n                    \"protein\": 4.99330489669109,\n                    \"fat\": 12.30504452724912,\n                    \"carbohydrates\": 5.246003009002423,\n                    \"cellulose\": 4.565717745611274,\n                    \"weight\": 218.55985604291078,\n                    \"timeToCook\": 32,\n                    \"dietId\": 1,\n                    \"typeId\": 1,\n                    \"ingredients\": []\n                }\n            ],\n            \"micronutrients\": {\n                \"calories\": 807.965704791914,\n                \"protein\": 12.819748364109788,\n                \"fat\": 27.431469936845563,\n                \"carbohydrates\": 14.34939570753992,\n                \"cellulose\": 11.460352076705451\n            },\n            \"idealMicronutrients\": {\n                \"calories\": 800,\n                \"protein\": 80,\n                \"fat\": 80,\n                \"carbohydrates\": 80,\n                \"cellulose\": 20\n            }\n        },\n        {\n            \"name\": \"test2\",\n            \"dishes\": [\n                {\n                    \"id\": 13801,\n                    \"name\": \"Dish 13801\",\n                    \"calories\": 495.8584811320864,\n                    \"protein\": 4.461894827031741,\n                    \"fat\": 5.943257162264922,\n                    \"carbohydrates\": 7.0870088742559725,\n                    \"cellulose\": 6.818772008791399,\n                    \"weight\": 148.8389484929518,\n                    \"timeToCook\": 13,\n                    \"dietId\": 2,\n                    \"typeId\": 2,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 14820,\n                    \"name\": \"Dish 14820\",\n                    \"calories\": 497.3920153780875,\n                    \"protein\": 9.863839791926784,\n                    \"fat\": 33.697025813650384,\n                    \"carbohydrates\": 9.915314856236193,\n                    \"cellulose\": 17.050925455337264,\n                    \"weight\": 185.33154531152144,\n                    \"timeToCook\": 22,\n                    \"dietId\": 2,\n                    \"typeId\": 2,\n                    \"ingredients\": []\n                }\n            ],\n            \"micronutrients\": {\n                \"calories\": 993.2504965101739,\n                \"protein\": 14.325734618958524,\n                \"fat\": 39.640282975915305,\n                \"carbohydrates\": 17.002323730492165,\n                \"cellulose\": 23.869697464128663\n            },\n            \"idealMicronutrients\": {\n                \"calories\": 1000,\n                \"protein\": 100,\n                \"fat\": 100,\n                \"carbohydrates\": 100,\n                \"cellulose\": 25\n            }\n        },\n        {\n            \"name\": \"test3\",\n            \"dishes\": [\n                {\n                    \"id\": 1597,\n                    \"name\": \"Dish 1597\",\n                    \"calories\": 198.3389276267116,\n                    \"protein\": 4.332572859868973,\n                    \"fat\": 15.876723885217652,\n                    \"carbohydrates\": 5.564148182893848,\n                    \"cellulose\": 3.7155068016127766,\n                    \"weight\": 115.67579153184298,\n                    \"timeToCook\": 72,\n                    \"dietId\": 1,\n                    \"typeId\": 1,\n                    \"ingredients\": [\n                        {\n                            \"id\": 1,\n                            \"name\": \"Молоко\",\n                            \"measure\": {\n                                \"name\": \"мл\",\n                                \"nameFiveItems\": \"мл\",\n                                \"nameFractional\": \"мл\",\n                                \"nameTwoItems\": \"мл\",\n                                \"isDimensional\": true\n                            },\n                            \"measureCount\": 5\n                        }\n                    ]\n                }\n            ],\n            \"micronutrients\": {\n                \"calories\": 198.3389276267116,\n                \"protein\": 4.332572859868973,\n                \"fat\": 15.876723885217652,\n                \"carbohydrates\": 5.564148182893848,\n                \"cellulose\": 3.7155068016127766\n            },\n            \"idealMicronutrients\": {\n                \"calories\": 200,\n                \"protein\": 20,\n                \"fat\": 20,\n                \"carbohydrates\": 20,\n                \"cellulose\": 5\n            }\n        }\n    ],\n    \"params\": {\n        \"calories\": 1999.5551289287996,\n        \"protein\": 31.478055842937287,\n        \"fat\": 82.94847679797853,\n        \"carbohydrates\": 36.91586762092593,\n        \"cellulose\": 39.045556342446886\n    },\n    \"idealParams\": {\n        \"calories\": 2000,\n        \"minProtein\": 10,\n        \"maxProtein\": 200,\n        \"minFat\": 20,\n        \"maxFat\": 200,\n        \"minCarbohydrates\": 30,\n        \"maxCarbohydrates\": 200,\n        \"minCellulose\": 0,\n        \"maxCellulose\": 50\n    }\n}"
+						},
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"diet\": 0,\n    // \"calories\": 2000,\n    \"idealMicronutrients\": {\n        \"calories\": 2000, \n\n        \"minProtein\": 0, \n        \"maxProtein\": 200, \n\n        \"minFat\": 0, \n        \"maxFat\": 200, \n        \n        \"minCarbohydrates\": 0, \n        \"maxCarbohydrates\": 200, \n        \n        \"minCellulose\": 0, \n        \"maxCellulose\": 50 \n    },\n    \"excludeDishes\": [],\n    \"eatings\": [\n        {\n            \"name\": \"Завтрак\",\n            \"size\": 0.4,\n            \"type\": 0,\n            \"difficulty\": 0,\n            \"dishCount\": 0\n        },\n\n        {\n            \"name\": \"test2\",\n            \"size\": 0.4,\n            \"type\": 0,\n            \"difficulty\": 0,\n            \"dishCount\": 0\n        },\n\n        {\n            \"name\": \"test3\",\n            \"size\": 0.2,\n            \"type\": 0,\n            \"difficulty\": 0,\n            \"dishCount\": 0\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/menu/custom",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"menu",
+										"custom"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "7169"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"diet\": 0,\n    \"eatings\": [\n        {\n            \"name\": \"Завтрак\",\n            \"dishes\": [\n                {\n                    \"id\": 355,\n                    \"name\": \"Dish 355\",\n                    \"logo\": \"Logo 355\",\n                    \"calories\": 135.41043210531433,\n                    \"protein\": 2.4830955843118048,\n                    \"fat\": 8.25150228113964,\n                    \"carbohydrates\": 8.784192515726264,\n                    \"cellulose\": 3.0906794299918765,\n                    \"weight\": 129.12530544495687,\n                    \"timeToCook\": 112,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 2,\n                        \"name\": \"DishType2\"\n                    },\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 1017,\n                    \"name\": \"Dish 1017\",\n                    \"logo\": \"Logo 1017\",\n                    \"calories\": 100.09928115803524,\n                    \"protein\": 8.66495958460339,\n                    \"fat\": 10.2378724485591,\n                    \"carbohydrates\": 8.424983480432,\n                    \"cellulose\": 2.109273106510491,\n                    \"weight\": 214.92240639835924,\n                    \"timeToCook\": 90,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 2,\n                        \"name\": \"DishType2\"\n                    },\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 1882,\n                    \"name\": \"Dish 1882\",\n                    \"logo\": \"Logo 1882\",\n                    \"calories\": 108.52126912081208,\n                    \"protein\": 9.124709557780271,\n                    \"fat\": 25.515060500370993,\n                    \"carbohydrates\": 5.651100671263155,\n                    \"cellulose\": 2.4859945022631784,\n                    \"weight\": 154.9590855795978,\n                    \"timeToCook\": 104,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 4,\n                        \"name\": \"DishType4\"\n                    },\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 2926,\n                    \"name\": \"Dish 2926\",\n                    \"logo\": \"Logo 2926\",\n                    \"calories\": 107.09025847738948,\n                    \"protein\": 1.4114767329140192,\n                    \"fat\": 30.002319251660158,\n                    \"carbohydrates\": 9.257257165776242,\n                    \"cellulose\": 16.78749862699396,\n                    \"weight\": 190.35184336196943,\n                    \"timeToCook\": 119,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 2,\n                        \"name\": \"DishType2\"\n                    },\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 3070,\n                    \"name\": \"Dish 3070\",\n                    \"logo\": \"Logo 3070\",\n                    \"calories\": 100.9598507911471,\n                    \"protein\": 5.805212882137818,\n                    \"fat\": 9.236182287237371,\n                    \"carbohydrates\": 1.7305536771054828,\n                    \"cellulose\": 10.69575102603726,\n                    \"weight\": 221.32631324143887,\n                    \"timeToCook\": 116,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 4,\n                        \"name\": \"DishType4\"\n                    },\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 3212,\n                    \"name\": \"Dish 3212\",\n                    \"logo\": \"Logo 3212\",\n                    \"calories\": 125.34850909999986,\n                    \"protein\": 8.35257313218301,\n                    \"fat\": 12.804814761584286,\n                    \"carbohydrates\": 6.90744762332929,\n                    \"cellulose\": 5.975415625470276,\n                    \"weight\": 180.85776615273446,\n                    \"timeToCook\": 117,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 5,\n                        \"name\": \"DishType5\"\n                    },\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 4164,\n                    \"name\": \"Dish 4164\",\n                    \"logo\": \"Logo 4164\",\n                    \"calories\": 128.3582804835016,\n                    \"protein\": 1.3862919834292515,\n                    \"fat\": 14.574531538432923,\n                    \"carbohydrates\": 8.115414966814662,\n                    \"cellulose\": 5.316201932910446,\n                    \"weight\": 169.68902129816485,\n                    \"timeToCook\": 104,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 5,\n                        \"name\": \"DishType5\"\n                    },\n                    \"ingredients\": []\n                }\n            ],\n            \"micronutrients\": {\n                \"calories\": 805.7878812361997,\n                \"protein\": 37.22831945735956,\n                \"fat\": 110.62228306898446,\n                \"carbohydrates\": 48.8709501004471,\n                \"cellulose\": 46.46081425017749\n            },\n            \"idealMicronutrients\": {\n                \"calories\": 800,\n                \"protein\": 200,\n                \"fat\": 200,\n                \"carbohydrates\": 200,\n                \"cellulose\": 50\n            }\n        },\n        {\n            \"name\": \"test2\",\n            \"dishes\": [\n                {\n                    \"id\": 355,\n                    \"name\": \"Dish 355\",\n                    \"logo\": \"Logo 355\",\n                    \"calories\": 135.41043210531433,\n                    \"protein\": 2.4830955843118048,\n                    \"fat\": 8.25150228113964,\n                    \"carbohydrates\": 8.784192515726264,\n                    \"cellulose\": 3.0906794299918765,\n                    \"weight\": 129.12530544495687,\n                    \"timeToCook\": 112,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 2,\n                        \"name\": \"DishType2\"\n                    },\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 1017,\n                    \"name\": \"Dish 1017\",\n                    \"logo\": \"Logo 1017\",\n                    \"calories\": 100.09928115803524,\n                    \"protein\": 8.66495958460339,\n                    \"fat\": 10.2378724485591,\n                    \"carbohydrates\": 8.424983480432,\n                    \"cellulose\": 2.109273106510491,\n                    \"weight\": 214.92240639835924,\n                    \"timeToCook\": 90,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 2,\n                        \"name\": \"DishType2\"\n                    },\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 1882,\n                    \"name\": \"Dish 1882\",\n                    \"logo\": \"Logo 1882\",\n                    \"calories\": 108.52126912081208,\n                    \"protein\": 9.124709557780271,\n                    \"fat\": 25.515060500370993,\n                    \"carbohydrates\": 5.651100671263155,\n                    \"cellulose\": 2.4859945022631784,\n                    \"weight\": 154.9590855795978,\n                    \"timeToCook\": 104,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 4,\n                        \"name\": \"DishType4\"\n                    },\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 2926,\n                    \"name\": \"Dish 2926\",\n                    \"logo\": \"Logo 2926\",\n                    \"calories\": 107.09025847738948,\n                    \"protein\": 1.4114767329140192,\n                    \"fat\": 30.002319251660158,\n                    \"carbohydrates\": 9.257257165776242,\n                    \"cellulose\": 16.78749862699396,\n                    \"weight\": 190.35184336196943,\n                    \"timeToCook\": 119,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 2,\n                        \"name\": \"DishType2\"\n                    },\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 3070,\n                    \"name\": \"Dish 3070\",\n                    \"logo\": \"Logo 3070\",\n                    \"calories\": 100.9598507911471,\n                    \"protein\": 5.805212882137818,\n                    \"fat\": 9.236182287237371,\n                    \"carbohydrates\": 1.7305536771054828,\n                    \"cellulose\": 10.69575102603726,\n                    \"weight\": 221.32631324143887,\n                    \"timeToCook\": 116,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 4,\n                        \"name\": \"DishType4\"\n                    },\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 3212,\n                    \"name\": \"Dish 3212\",\n                    \"logo\": \"Logo 3212\",\n                    \"calories\": 125.34850909999986,\n                    \"protein\": 8.35257313218301,\n                    \"fat\": 12.804814761584286,\n                    \"carbohydrates\": 6.90744762332929,\n                    \"cellulose\": 5.975415625470276,\n                    \"weight\": 180.85776615273446,\n                    \"timeToCook\": 117,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 5,\n                        \"name\": \"DishType5\"\n                    },\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 4164,\n                    \"name\": \"Dish 4164\",\n                    \"logo\": \"Logo 4164\",\n                    \"calories\": 128.3582804835016,\n                    \"protein\": 1.3862919834292515,\n                    \"fat\": 14.574531538432923,\n                    \"carbohydrates\": 8.115414966814662,\n                    \"cellulose\": 5.316201932910446,\n                    \"weight\": 169.68902129816485,\n                    \"timeToCook\": 104,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 5,\n                        \"name\": \"DishType5\"\n                    },\n                    \"ingredients\": []\n                }\n            ],\n            \"micronutrients\": {\n                \"calories\": 805.7878812361997,\n                \"protein\": 37.22831945735956,\n                \"fat\": 110.62228306898446,\n                \"carbohydrates\": 48.8709501004471,\n                \"cellulose\": 46.46081425017749\n            },\n            \"idealMicronutrients\": {\n                \"calories\": 800,\n                \"protein\": 200,\n                \"fat\": 200,\n                \"carbohydrates\": 200,\n                \"cellulose\": 50\n            }\n        },\n        {\n            \"name\": \"test3\",\n            \"dishes\": [\n                {\n                    \"id\": 1017,\n                    \"name\": \"Dish 1017\",\n                    \"logo\": \"Logo 1017\",\n                    \"calories\": 100.09928115803524,\n                    \"protein\": 8.66495958460339,\n                    \"fat\": 10.2378724485591,\n                    \"carbohydrates\": 8.424983480432,\n                    \"cellulose\": 2.109273106510491,\n                    \"weight\": 214.92240639835924,\n                    \"timeToCook\": 90,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 2,\n                        \"name\": \"DishType2\"\n                    },\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 2702,\n                    \"name\": \"Dish 2702\",\n                    \"logo\": \"Logo 2702\",\n                    \"calories\": 100.0385292650079,\n                    \"protein\": 6.117239610838102,\n                    \"fat\": 33.238334235359126,\n                    \"carbohydrates\": 4.255167317153577,\n                    \"cellulose\": 13.570193208122866,\n                    \"weight\": 207.27046711607665,\n                    \"timeToCook\": 103,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 2,\n                        \"name\": \"DishType2\"\n                    },\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 3070,\n                    \"name\": \"Dish 3070\",\n                    \"logo\": \"Logo 3070\",\n                    \"calories\": 100.9598507911471,\n                    \"protein\": 5.805212882137818,\n                    \"fat\": 9.236182287237371,\n                    \"carbohydrates\": 1.7305536771054828,\n                    \"cellulose\": 10.69575102603726,\n                    \"weight\": 221.32631324143887,\n                    \"timeToCook\": 116,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 4,\n                        \"name\": \"DishType4\"\n                    },\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 6161,\n                    \"name\": \"Dish 6161\",\n                    \"logo\": \"Logo 6161\",\n                    \"calories\": 102.05998043425608,\n                    \"protein\": 3.706650513662139,\n                    \"fat\": 8.492995510819155,\n                    \"carbohydrates\": 4.3293246684558735,\n                    \"cellulose\": 17.519192861997194,\n                    \"weight\": 206.83966942421193,\n                    \"timeToCook\": 113,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 4,\n                        \"name\": \"DishType4\"\n                    },\n                    \"ingredients\": []\n                }\n            ],\n            \"micronutrients\": {\n                \"calories\": 403.1576416484463,\n                \"protein\": 24.29406259124145,\n                \"fat\": 61.205384481974754,\n                \"carbohydrates\": 18.740029143146934,\n                \"cellulose\": 43.894410202667814\n            },\n            \"idealMicronutrients\": {\n                \"calories\": 400,\n                \"protein\": 200,\n                \"fat\": 200,\n                \"carbohydrates\": 200,\n                \"cellulose\": 50\n            }\n        }\n    ],\n    \"params\": {\n        \"calories\": 2014.7334041208458,\n        \"protein\": 98.75070150596056,\n        \"fat\": 282.44995061994365,\n        \"carbohydrates\": 116.48192934404113,\n        \"cellulose\": 136.8160387030228\n    },\n    \"idealParams\": {\n        \"calories\": 2000,\n        \"minProtein\": 0,\n        \"maxProtein\": 200,\n        \"minFat\": 0,\n        \"maxFat\": 200,\n        \"minCarbohydrates\": 0,\n        \"maxCarbohydrates\": 200,\n        \"minCellulose\": 0,\n        \"maxCellulose\": 50\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Calculate menu by user params",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/menu/calculate",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"menu",
+								"calculate"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/menu/calculate",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"menu",
+										"calculate"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "2976"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"diet\": 1,\n    \"eatings\": [\n        {\n            \"name\": \"First\",\n            \"dishes\": [\n                {\n                    \"id\": 302,\n                    \"name\": \"Dish 302\",\n                    \"logo\": \"Logo 302\",\n                    \"calories\": 414.342568699118,\n                    \"protein\": 7.984914634182955,\n                    \"fat\": 8.7186525035175,\n                    \"carbohydrates\": 4.0743553336106295,\n                    \"cellulose\": 11.125214853279399,\n                    \"weight\": 269.5120483747701,\n                    \"timeToCook\": 120,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 1,\n                        \"name\": \"DishType1\"\n                    },\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 4376,\n                    \"name\": \"Dish 4376\",\n                    \"logo\": \"Logo 4376\",\n                    \"calories\": 463.3896789928923,\n                    \"protein\": 8.130966965344818,\n                    \"fat\": 14.742856651694566,\n                    \"carbohydrates\": 7.436587345846827,\n                    \"cellulose\": 8.824902409649855,\n                    \"weight\": 155.4191511120353,\n                    \"timeToCook\": 119,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 1,\n                        \"name\": \"DishType1\"\n                    },\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 9643,\n                    \"name\": \"Dish 9643\",\n                    \"logo\": \"Logo 9643\",\n                    \"calories\": 445.56646953195786,\n                    \"protein\": 3.634124031761459,\n                    \"fat\": 5.40389114937807,\n                    \"carbohydrates\": 2.3867314868794196,\n                    \"cellulose\": 8.737337910808169,\n                    \"weight\": 287.24482126364256,\n                    \"timeToCook\": 119,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 1,\n                        \"name\": \"DishType1\"\n                    },\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 21604,\n                    \"name\": \"Dish 21604\",\n                    \"logo\": \"Logo 21604\",\n                    \"calories\": 269.01167551821436,\n                    \"protein\": 7.773185912297668,\n                    \"fat\": 24.764622700110703,\n                    \"carbohydrates\": 6.218850668532792,\n                    \"cellulose\": 8.343482566052005,\n                    \"weight\": 101.2273744340098,\n                    \"timeToCook\": 118,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 1,\n                        \"name\": \"DishType1\"\n                    },\n                    \"ingredients\": []\n                }\n            ],\n            \"micronutrients\": {\n                \"calories\": 1592.3103927421826,\n                \"protein\": 27.523191543586904,\n                \"fat\": 53.63002300470084,\n                \"carbohydrates\": 20.11652483486967,\n                \"cellulose\": 37.03093773978943\n            },\n            \"idealMicronutrients\": {\n                \"calories\": 1600,\n                \"protein\": 800,\n                \"fat\": 355.5555555555556,\n                \"carbohydrates\": 800,\n                \"cellulose\": 40\n            }\n        },\n        {\n            \"name\": \"Second\",\n            \"dishes\": [\n                {\n                    \"id\": 19038,\n                    \"name\": \"Dish 19038\",\n                    \"logo\": \"Logo 19038\",\n                    \"calories\": 187.58873971103216,\n                    \"protein\": 1.317731718158246,\n                    \"fat\": 31.50426727189452,\n                    \"carbohydrates\": 8.550125774656614,\n                    \"cellulose\": 4.246415297601496,\n                    \"weight\": 155.55230713852262,\n                    \"timeToCook\": 118,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 2,\n                        \"name\": \"DishType2\"\n                    },\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 19140,\n                    \"name\": \"Dish 19140\",\n                    \"logo\": \"Logo 19140\",\n                    \"calories\": 210.5900460928953,\n                    \"protein\": 9.768184552344637,\n                    \"fat\": 7.26378258030461,\n                    \"carbohydrates\": 8.31479852929573,\n                    \"cellulose\": 4.028584763774737,\n                    \"weight\": 151.81673605357025,\n                    \"timeToCook\": 119,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 2,\n                        \"name\": \"DishType2\"\n                    },\n                    \"ingredients\": []\n                }\n            ],\n            \"micronutrients\": {\n                \"calories\": 398.17878580392744,\n                \"protein\": 11.085916270502883,\n                \"fat\": 38.76804985219913,\n                \"carbohydrates\": 16.864924303952343,\n                \"cellulose\": 8.275000061376232\n            },\n            \"idealMicronutrients\": {\n                \"calories\": 400,\n                \"protein\": 200,\n                \"fat\": 88.8888888888889,\n                \"carbohydrates\": 200,\n                \"cellulose\": 10\n            }\n        }\n    ],\n    \"params\": {\n        \"calories\": 1990.48917854611,\n        \"protein\": 38.60910781408979,\n        \"fat\": 92.39807285689997,\n        \"carbohydrates\": 36.981449138822015,\n        \"cellulose\": 45.30593780116566\n    },\n    \"idealParams\": {\n        \"calories\": 2000,\n        \"minProtein\": 0,\n        \"maxProtein\": 1000,\n        \"minFat\": 0,\n        \"maxFat\": 444.44444444444446,\n        \"minCarbohydrates\": 0,\n        \"maxCarbohydrates\": 1000,\n        \"minCellulose\": 25,\n        \"maxCellulose\": 50\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Ingredients",
+			"item": [
+				{
+					"name": "Ingredient measure mapping",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"input\": [\n        {\n            \"id\": 1,\n            \"count\": 60\n        },\n        {\n            \"id\": 2,\n            \"count\": 30\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/measures",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"measures"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
