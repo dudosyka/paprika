@@ -14,7 +14,7 @@ data class DishDto (
     val cellulose: Double,
     val weight: Double,
     val timeToCook: Int,
-    val dietId: Int,
-    val typeId: Int,
+    val dietId: DietOutputDto,
+    val typeId: DishTypeOutputDto,
     var ingredients: List<IngredientDto> = listOf()
 )

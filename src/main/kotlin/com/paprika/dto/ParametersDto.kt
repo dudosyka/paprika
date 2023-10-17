@@ -3,7 +3,7 @@ package com.paprika.dto
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ParametersInputDto (
+data class ParametersDto (
     val calories: Double,
 
     val minProtein: Double,

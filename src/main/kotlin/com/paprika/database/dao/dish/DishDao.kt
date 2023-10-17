@@ -8,6 +8,7 @@ import com.paprika.utils.database.BaseIntEntityClass
 import com.paprika.utils.database.idValue
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.sql.SizedIterable
+import org.jetbrains.exposed.sql.transactions.transaction
 
 class DishDao(id : EntityID<Int>) : BaseIntEntity(id, DishModel) {
     companion object : BaseIntEntityClass<DishDao>(DishModel)
@@ -31,9 +32,9 @@ class DishDao(id : EntityID<Int>) : BaseIntEntity(id, DishModel) {
     val typeId
         get() = _typeId.value
 
-    fun toDto(): DishDto {
-        return DishDto(
-            idValue, name, logo, calories, protein, fat, carbohydrates, cellulose, weight, timeToCook, dietId, typeId
+    fun toDto(): DishDto = transaction {
+        DishDto(
+            idValue, name, logo, calories, protein, fat, carbohydrates, cellulose, weight, timeToCook, diet.toDto(), type.toDto()
         )
     }
 }

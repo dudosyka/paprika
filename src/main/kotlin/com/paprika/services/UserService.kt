@@ -4,7 +4,7 @@ import com.paprika.database.dao.dish.DietDao
 import com.paprika.database.dao.user.UserDao
 import com.paprika.database.dao.user.UserEatingsParamsDao
 import com.paprika.database.dao.user.UserParamsDao
-import com.paprika.database.dao.user.toDto
+import com.paprika.database.dao.user.toOutputDto
 import com.paprika.database.models.user.UserEatingsParamsModel
 import com.paprika.database.models.user.UserModel
 import com.paprika.database.models.user.UserParamsModel
@@ -86,63 +86,57 @@ class UserService(di: DI) : KodeinService(di) {
 
         userEatingsParams
     }
-    fun getUserParamsAsDto(authorizedUser: AuthorizedUser): UserParamsDto = transaction {
+    fun getUserParamsAsDto(authorizedUser: AuthorizedUser): UserParamsOutputDto = transaction {
         val userParams = getUserParams(authorizedUser)
         val userEatingsParams = getUserEatingParams(authorizedUser)
 
-        userParams.toDto(userEatingsParams.toDto())
+        userParams.toOutputDto(userEatingsParams.toOutputDto())
     }
-    fun setUserParams(authorizedUser: AuthorizedUser, userParamsDto: UserParamsDto): UserParamsDto = transaction {
+
+    private fun setUserParams(userParamsInputDto: UserParamsInputDto): UserParamsDao.() -> Unit {
+        return {
+            diet = DietDao[userParamsInputDto.diet]
+            calories = userParamsInputDto.calories
+            if (userParamsInputDto.isMacronutrientsParamsSet && userParamsInputDto.params != null) {
+                isMacronutrientsParamsSet = true
+                minProtein = userParamsInputDto.params.minProtein
+                maxProtein = userParamsInputDto.params.maxProtein
+                minFat = userParamsInputDto.params.minFat
+                maxFat = userParamsInputDto.params.maxFat
+                minCarbohydrates = userParamsInputDto.params.minCarbohydrates
+                maxCarbohydrates = userParamsInputDto.params.maxCarbohydrates
+                minCellulose = userParamsInputDto.params.minCellulose
+                maxCellulose = userParamsInputDto.params.maxCellulose
+            }
+        }
+    }
+
+    fun setUserParams(authorizedUser: AuthorizedUser, userParamsInputDto: UserParamsInputDto): UserParamsOutputDto = transaction {
         val userParams = try {
             val userParams = getUserParams(authorizedUser)
-            userParams.diet = DietDao[userParamsDto.diet]
-            userParams.calories = userParamsDto.calories
-            userParams.isMacronutrientsParamsSet = false
-            if (userParamsDto.isMacronutrientsParamsSet) {
-                userParams.isMacronutrientsParamsSet = true
-                userParams.minProtein = userParamsDto.minProtein
-                userParams.maxProtein = userParamsDto.maxProtein
-                userParams.minFat = userParamsDto.minFat
-                userParams.maxFat = userParamsDto.maxFat
-                userParams.minCarbohydrates = userParamsDto.minCarbohydrates
-                userParams.maxCarbohydrates = userParamsDto.maxCarbohydrates
-                userParams.minCellulose = userParamsDto.minCellulose
-                userParams.maxCellulose = userParamsDto.maxCellulose
-            }
+            userParams.apply(setUserParams(userParamsInputDto))
             userParams.flush()
             userParams
         } catch (_: Exception) {
             UserParamsDao.new {
                 user = UserDao[authorizedUser.id]
-                diet = DietDao[userParamsDto.diet]
-                calories = userParamsDto.calories
-                if (userParamsDto.isMacronutrientsParamsSet) {
-                    isMacronutrientsParamsSet = true
-                    minProtein = userParamsDto.minProtein
-                    maxProtein = userParamsDto.maxProtein
-                    minFat = userParamsDto.minFat
-                    maxFat = userParamsDto.maxFat
-                    minCarbohydrates = userParamsDto.minCarbohydrates
-                    maxCarbohydrates = userParamsDto.maxCarbohydrates
-                    minCellulose = userParamsDto.minCellulose
-                    maxCellulose = userParamsDto.maxCellulose
-                }
+                apply(setUserParams(userParamsInputDto))
             }
         }
 
 
         UserEatingsParamsModel.deleteWhere { user eq authorizedUser.id }
-        val eatingsParamsDao = UserEatingsParamsModel.batchInsert(userParamsDto.eatingsParams) {
+        val eatingsParamsDao = UserEatingsParamsModel.batchInsert(userParamsInputDto.eatingsParams) {
             this[UserEatingsParamsModel.user] = authorizedUser.id
             this[UserEatingsParamsModel.name] = it.name
             this[UserEatingsParamsModel.size] = it.size
-            this[UserEatingsParamsModel.type] = it.type.joinToString(",")
+            this[UserEatingsParamsModel.type] = it.type
             this[UserEatingsParamsModel.difficulty] = it.difficulty
             this[UserEatingsParamsModel.dishCount] = it.dishCount
         }.map {
             UserEatingsParamsDao.wrapRow(it)
         }
 
-        userParams.toDto(eatingsParamsDao.toDto())
+        userParams.toOutputDto(eatingsParamsDao.toOutputDto())
     }
 }

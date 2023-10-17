@@ -1,11 +1,11 @@
 package com.paprika.utils.params
 
 import com.paprika.dto.PaprikaInputDto
-import com.paprika.dto.ParametersInputDto
+import com.paprika.dto.ParametersDto
 import com.paprika.exceptions.CantSolveException
 
 class ParamsManager internal constructor() {
-    lateinit var params: ParametersInputDto
+    lateinit var params: ParametersDto
     private var calories: Double = 0.0
     private var eatingsCoef: Double = 1.0
 
@@ -33,7 +33,7 @@ class ParamsManager internal constructor() {
         val protein = createMinMaxValue(4)
         val fat = createMinMaxValue(9)
         val carbohydrates = createMinMaxValue(4)
-        this.params = ParametersInputDto(
+        this.params = ParametersDto(
             calories = this.calories * eatingsCoef,
 
             minProtein = protein.first,
@@ -49,11 +49,11 @@ class ParamsManager internal constructor() {
             maxCellulose = 50.0 * eatingsCoef,
         )
     }
-    fun fromParams(params: ParametersInputDto?) {
+    fun fromParams(params: ParametersDto?) {
         if (params == null)
             return
         this.validateParams(params)
-        this.params = ParametersInputDto(
+        this.params = ParametersDto(
             calories = params.calories * eatingsCoef,
 
             minProtein = params.minProtein,
@@ -74,11 +74,11 @@ class ParamsManager internal constructor() {
         return value * multiplier
     }
 
-    private fun summariseParams(params: ParametersInputDto): Double {
+    private fun summariseParams(params: ParametersDto): Double {
         return transformToCalories(params.minProtein) + transformToCalories(params.minCarbohydrates) + transformToCalories(params.minFat, 9)
     }
 
-    private fun validateParams(params: ParametersInputDto) {
+    private fun validateParams(params: ParametersDto) {
         if (params.calories < summariseParams(params))
             throw CantSolveException("Bad macronutrients params were provided!")
     }
@@ -91,9 +91,9 @@ class ParamsManager internal constructor() {
         )
     }
 
-    operator fun invoke(paprikaInputDto: PaprikaInputDto, eatingsCoef: Double = 1.0): ParametersInputDto {
+    operator fun invoke(paprikaInputDto: PaprikaInputDto, eatingsCoef: Double = 1.0): ParametersDto {
         return if (paprikaInputDto.calories != null) {
-            ParametersInputDto(
+            ParametersDto(
                 calories = paprikaInputDto.calories * eatingsCoef,
 
                 minProtein = 0.0,
@@ -109,7 +109,7 @@ class ParamsManager internal constructor() {
                 maxCellulose = 50.0 * eatingsCoef,
             )
         } else
-            ParametersInputDto(
+            ParametersDto(
                 calories = paprikaInputDto.idealMicronutrients!!.calories * eatingsCoef,
 
                 minProtein = paprikaInputDto.idealMicronutrients.minProtein * eatingsCoef,

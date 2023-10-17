@@ -6,6 +6,7 @@ import com.paprika.database.models.dish.DishIngredientModel
 import com.paprika.database.models.dish.DishModel
 import com.paprika.database.models.ingredient.IngredientMeasureModel
 import com.paprika.database.models.ingredient.IngredientModel
+import com.paprika.database.models.user.UserSavedDietModel
 import com.paprika.dto.*
 import com.paprika.dto.user.AuthorizedUser
 import com.paprika.exceptions.CantSolveException
@@ -13,8 +14,10 @@ import com.paprika.utils.kodein.KodeinService
 import com.paprika.utils.params.ParamsManager
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
+import org.jetbrains.exposed.sql.update
 import org.kodein.di.DI
 import org.kodein.di.instance
+import java.time.LocalDateTime
 
 class PaprikaService(di: DI) : KodeinService(di) {
     private val dishService: DishService by instance()
@@ -26,6 +29,7 @@ class PaprikaService(di: DI) : KodeinService(di) {
         maxima: Int = 0,
         offset: Long = 1
     ): EatingOutputDto {
+        println("Algorithm input: $paprikaInputDto")
         var dishesCount = 0
         if (offset.toInt() == 1) {
             val cache = cacheService.findEating(paprikaInputDto, index)
@@ -118,6 +122,11 @@ class PaprikaService(di: DI) : KodeinService(di) {
     }
 
     fun calculateMenu(authorizedUser: AuthorizedUser, paprikaInputDto: PaprikaInputDto): PaprikaOutputDto {
+        transaction {
+            UserSavedDietModel.update({ UserSavedDietModel.user eq authorizedUser.id }) {
+                it[UserSavedDietModel.updatedAt] = LocalDateTime.now()
+            }
+        }
         var eatings = List(paprikaInputDto.eatings.size) { index ->  solveEating(paprikaInputDto, index) }
         eatings = eatings.map { eatingOutputDto ->
             eatingOutputDto.dishes = eatingOutputDto.dishes.map { dish -> transaction {

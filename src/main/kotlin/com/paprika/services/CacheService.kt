@@ -14,6 +14,7 @@ import com.paprika.utils.kodein.KodeinService
 import com.paprika.utils.params.ParamsManager
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.isNotNull
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.greaterEq
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.lessEq
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -73,6 +74,9 @@ class CacheService(di: DI) : KodeinService(di) {
             this[EatingCacheDishesModel.dish] = it.id
             this[EatingCacheDishesModel.eatingCache] = cache.idValue
         }
+        UserSavedDietModel.deleteWhere {
+            (user eq authorizedUser.id) and updatedAt.isNotNull()
+        }
         UserSavedDietModel.insert {
             it[user] = authorizedUser.id
             it[UserSavedDietModel.cache] = cache.idValue
@@ -120,11 +124,16 @@ class CacheService(di: DI) : KodeinService(di) {
     }
 
     fun loadUserSaved(userId: Int): List<EatingOutputDto> = transaction {
-        val list: List<Column<*>> = EatingCacheModel.columns
-        list.toMutableList().add(UserSavedDietModel.name)
+        val list: List<Column<*>> = run {
+            val list = EatingCacheModel.columns.toMutableList()
+            list.add(UserSavedDietModel.name)
+            list
+        }
+
         UserSavedDietModel.leftJoin(EatingCacheModel).slice(list).select(UserSavedDietModel.user eq userId).map {
+            val name = it[UserSavedDietModel.name]
             EatingCacheDao.wrapRow(it).run {
-                toDto(it[UserSavedDietModel.name], dishes, null)
+                toDto(name, dishes, null)
             }
         }
     }

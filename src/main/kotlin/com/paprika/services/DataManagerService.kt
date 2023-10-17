@@ -5,23 +5,34 @@ import com.paprika.database.models.dish.DishIngredientModel
 import com.paprika.database.models.dish.DishModel
 import com.paprika.database.models.ingredient.IngredientMeasureModel
 import com.paprika.database.models.ingredient.IngredientModel
+import com.paprika.database.models.ingredient.MeasureModel
+import com.paprika.dto.upload.DatabaseStatisticOutputDto
+import com.paprika.exceptions.BadRequestException
 import com.paprika.utils.database.BaseIntIdTable
 import com.paprika.utils.kodein.KodeinService
-import org.jetbrains.exposed.sql.Column
+import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.inList
-import org.jetbrains.exposed.sql.batchInsert
-import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.kodein.di.DI
 
 class DataManagerService(di: DI) : KodeinService(di) {
-    private fun upload(data: ByteArray, model: BaseIntIdTable, modelKeys: Map<String, Column<*>>, doubleKeys: List<String> = listOf(), intKeys: List<String> = listOf(), boolKeys: List<String> = listOf()) = transaction {
+    private fun upload(data: ByteArray, model: BaseIntIdTable, modelKeys: Map<String, Column<*>>, doubleKeys: List<String> = listOf(), intKeys: List<String> = listOf(), boolKeys: List<String> = listOf(), rewrite: Boolean = false): List<ResultRow> = transaction {
         val pureData: List<Map<String, Any>> = csvReader().readAllWithHeader(String(data))
 
-        if (modelKeys.keys.contains("id"))
-            model.deleteWhere {
-                (modelKeys["id"] as Column<Int>) inList (pureData.map { it["id"].toString().toInt() })
+
+        if (modelKeys.keys.contains("id")) {
+            if (rewrite) {
+                model.deleteWhere {
+                    (modelKeys["id"] as Column<Int>) inList (pureData.map { it["id"].toString().toInt() })
+                }
+            } else {
+                val data = model.select {
+                    (modelKeys["id"] as Column<Int>) inList (pureData.map { it["id"].toString().toInt() })
+                }.map { it }
+                if (data.isNotEmpty())
+                    throw BadRequestException("Ids intersections")
             }
+        }
 
         model.batchInsert(pureData) {
             modelKeys.forEach { modelKey ->
@@ -37,54 +48,76 @@ class DataManagerService(di: DI) : KodeinService(di) {
         }
     }
 
-    fun uploadMeasures(data: ByteArray) {
+    fun uploadMeasures(data: ByteArray, rewrite: Boolean) {
         this.upload(
             data,
-            model = IngredientMeasureModel,
+            model = MeasureModel,
             modelKeys = mapOf(
-                "id" to IngredientMeasureModel.id,
+                "id" to MeasureModel.id,
+                "name" to MeasureModel.name,
             ),
             intKeys = listOf("id"),
-            boolKeys = listOf("isDimensional")
+            rewrite = rewrite
         )
     }
 
-    fun uploadIngredients(data: ByteArray) {
+    fun uploadIngredients(ingredients: ByteArray, ingredientsMeasures: ByteArray, rewrite: Boolean) {
         this.upload(
-            data,
+            ingredients,
             model = IngredientModel,
             modelKeys = mapOf(
                 "id" to IngredientModel.id,
                 "name" to IngredientModel.name,
+                "cellulose" to IngredientModel.cellulose
             ),
+            rewrite = rewrite,
             intKeys = listOf("id", "measure")
+        )
+
+        this.upload(
+            ingredientsMeasures,
+            model = IngredientMeasureModel,
+            modelKeys = mapOf(
+                "ingredient" to IngredientMeasureModel.ingredient,
+                "measure" to IngredientMeasureModel.measure,
+                "topBound" to IngredientMeasureModel.topBound
+            ),
+            rewrite = rewrite,
         )
     }
 
-    fun uploadDishes(dishData: ByteArray, dishToIngredientData: ByteArray) {
+    fun uploadDishes(dishData: ByteArray, dishToIngredientData: ByteArray, rewrite: Boolean) {
+//        val dishIngredients = getDishIngredients(dishToIngredientData)
+
         this.upload(
             dishData,
             model = DishModel,
             modelKeys = mapOf(
                 "id" to DishModel.id,
                 "name" to DishModel.name,
+                "logo" to DishModel.logo,
                 "calories" to DishModel.calories,
                 "protein" to DishModel.protein,
                 "fat" to DishModel.fat,
                 "carbohydrates" to DishModel.carbohydrates,
-                "cellulose" to DishModel.cellulose,
                 "weight" to DishModel.weight,
                 "timeToCook" to DishModel.timeToCook,
                 "diet" to DishModel.diet,
                 "type" to DishModel.type,
             ),
             doubleKeys = listOf(
-                "calories", "protein", "fat", "carbohydrates", "cellulose", "weight"
+                "calories", "protein", "fat", "carbohydrates", "weight"
             ),
             intKeys = listOf(
                 "id", "timeToCook", "diet", "type"
-            )
+            ),
+            rewrite = rewrite,
         )
+
+//        dishIngredients.forEach {
+//            val ingredientsCellulose =
+//        }
+//        DishModel.update {  }
 
         this.upload(
             dishToIngredientData,
@@ -92,14 +125,24 @@ class DataManagerService(di: DI) : KodeinService(di) {
             modelKeys = mapOf(
                 "dish" to DishIngredientModel.dish,
                 "ingredient" to DishIngredientModel.ingredient,
-                "count" to DishIngredientModel.measureCount
+                "measure_count" to DishIngredientModel.measureCount
             ),
             intKeys = listOf(
                 "dish", "ingredient"
             ),
             doubleKeys = listOf(
-                "count"
-            )
+                "measure_count"
+            ),
+            rewrite = rewrite,
+        )
+    }
+
+    fun getStatistic(): DatabaseStatisticOutputDto = transaction {
+        val lastDishId = DishModel.selectAll().last()[DishModel.id].value
+        val lastIngredientId = IngredientModel.selectAll().last()[IngredientModel.id].value
+        val lastMeasureId = MeasureModel.selectAll().last()[MeasureModel.id].value
+        DatabaseStatisticOutputDto(
+            lastDishId, lastIngredientId, lastMeasureId
         )
     }
 }

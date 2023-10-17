@@ -16,6 +16,7 @@ import com.paprika.database.models.ingredient.MeasureModel
 import com.paprika.database.models.user.UserEatingsParamsModel
 import com.paprika.database.models.user.UserModel
 import com.paprika.database.models.user.UserParamsModel
+import com.paprika.database.models.user.UserSavedDietModel
 import com.paprika.plugins.*
 import com.paprika.services.*
 import com.paprika.services.telegram.TelegramResponseDispatcher
@@ -69,8 +70,8 @@ fun Application.module() {
         DietModel, DishTypeModel, DishModel, DishIngredientModel,
         IngredientModel, MeasureModel, IngredientMeasureModel,
         EatingCacheModel, EatingCacheDishesModel,
-        UserModel, UserParamsModel, UserEatingsParamsModel
+        UserModel, UserParamsModel, UserEatingsParamsModel, UserSavedDietModel
     ) {
-//        DishGenerator(52000, false, 2001)
+//        DishGenerator(52000, false, 1)
     }
 }

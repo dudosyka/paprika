@@ -5,7 +5,7 @@ import com.paprika.database.models.cache.EatingCacheDishesModel
 import com.paprika.database.models.cache.EatingCacheModel
 import com.paprika.dto.EatingOutputDto
 import com.paprika.dto.MicronutrientsDto
-import com.paprika.dto.ParametersInputDto
+import com.paprika.dto.ParametersDto
 import com.paprika.utils.database.BaseIntEntity
 import com.paprika.utils.database.BaseIntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
@@ -31,7 +31,7 @@ class EatingCacheDao(id : EntityID<Int>): BaseIntEntity(id, EatingCacheModel) {
     var useTimesFromCreation by EatingCacheModel.useTimesFromCreation
     var onRemove by EatingCacheModel.onRemove
 
-    fun toDto(name: String, dishes: SizedIterable<DishDao>, params: ParametersInputDto?): EatingOutputDto =
+    fun toDto(name: String, dishes: SizedIterable<DishDao>, params: ParametersDto?): EatingOutputDto =
         EatingOutputDto(
             name,
             dishes.toDto(),

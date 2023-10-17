@@ -9,7 +9,7 @@ object DishModel: BaseIntIdTable() {
     val protein = double("protein")
     val fat = double("fat")
     val carbohydrates = double("carbohydrates")
-    val cellulose = double("cellulose")
+    val cellulose = double("cellulose").default(0.0)
     val weight = double("weight")
     val timeToCook = integer("time_to_cook")
     val diet = reference("diet", DietModel)

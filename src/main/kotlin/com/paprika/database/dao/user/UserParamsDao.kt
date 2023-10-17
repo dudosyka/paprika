@@ -2,8 +2,9 @@ package com.paprika.database.dao.user
 
 import com.paprika.database.dao.dish.DietDao
 import com.paprika.database.models.user.UserParamsModel
-import com.paprika.dto.user.UserEatingsParamsDto
-import com.paprika.dto.user.UserParamsDto
+import com.paprika.dto.ParametersDto
+import com.paprika.dto.user.UserEatingsParamsOutputDto
+import com.paprika.dto.user.UserParamsOutputDto
 import com.paprika.utils.database.BaseIntEntity
 import com.paprika.utils.database.BaseIntEntityClass
 import com.paprika.utils.database.idValue
@@ -31,6 +32,6 @@ class UserParamsDao(id: EntityID<Int>): BaseIntEntity(id, UserParamsModel) {
     var minCellulose by UserParamsModel.minCellulose
     var maxCellulose by UserParamsModel.maxCellulose
 
-    fun toDto(eatingsParams: List<UserEatingsParamsDto> = listOf()) =
-        UserParamsDto(diet.idValue, calories, isMacronutrientsParamsSet, minProtein, maxProtein, minFat, maxFat, minCarbohydrates, maxCarbohydrates, minCellulose, maxCellulose, eatingsParams)
+    fun toOutputDto(eatingsParams: List<UserEatingsParamsOutputDto> = listOf()) =
+        UserParamsOutputDto(diet.idValue, calories, isMacronutrientsParamsSet, ParametersDto(calories, minProtein, maxProtein, minFat, maxFat, minCarbohydrates, maxCarbohydrates, minCellulose, maxCellulose), eatingsParams)
 }

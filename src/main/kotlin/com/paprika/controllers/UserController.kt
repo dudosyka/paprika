@@ -3,7 +3,8 @@ package com.paprika.controllers
 import com.paprika.dto.EatingOutputDto
 import com.paprika.dto.user.AuthOutputDto
 import com.paprika.dto.user.UserOutputDto
-import com.paprika.dto.user.UserParamsDto
+import com.paprika.dto.user.UserParamsInputDto
+import com.paprika.dto.user.UserParamsOutputDto
 import com.paprika.exceptions.BadRequestException
 import com.paprika.exceptions.UnauthorizedException
 import com.paprika.services.AuthService
@@ -51,12 +52,12 @@ class UserController(override val di: DI) : KodeinController() {
                 route("params") {
                     get {
                         val authorizedUser = getAuthorized(call)
-                        call.respond<UserParamsDto>(userService.getUserParamsAsDto(authorizedUser))
+                        call.respond<UserParamsOutputDto>(userService.getUserParamsAsDto(authorizedUser))
                     }
                     post {
                         val authorizedUser = getAuthorized(call)
-                        val userParamsDto = call.receive<UserParamsDto>()
-                        call.respond<UserParamsDto>(userService.setUserParams(authorizedUser, userParamsDto))
+                        val userParamsOutputDto = call.receive<UserParamsInputDto>()
+                        call.respond<UserParamsOutputDto>(userService.setUserParams(authorizedUser, userParamsOutputDto))
                     }
                 }
                 route("cache") {

@@ -32,6 +32,7 @@ class DishGenerator(count: Int, clearOld: Boolean = true, startIndex: Int = 1): 
         generated = DishModel.batchInsert(sequence) {
             this[DishModel.id] = it
             this[DishModel.name] = "Dish $it"
+            this[DishModel.logo] = "Logo $it"
             this[DishModel.calories] = getRandomValue<Double>(100, 500)
             this[DishModel.protein] = getRandomValue<Double>(1, 10)
             this[DishModel.fat] = getRandomValue<Double>(5, 35)

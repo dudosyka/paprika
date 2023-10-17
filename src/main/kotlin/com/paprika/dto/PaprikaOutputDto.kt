@@ -7,5 +7,5 @@ data class PaprikaOutputDto (
     val diet: Int,
     val eatings: List<EatingOutputDto>,
     val params: MicronutrientsDto,
-    val idealParams: ParametersInputDto
+    val idealParams: ParametersDto
 )
