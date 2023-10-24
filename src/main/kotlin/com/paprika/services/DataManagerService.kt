@@ -68,10 +68,11 @@ class DataManagerService(di: DI) : KodeinService(di) {
             modelKeys = mapOf(
                 "id" to IngredientModel.id,
                 "name" to IngredientModel.name,
+                "measureType" to IngredientModel.measureType,
                 "cellulose" to IngredientModel.cellulose
             ),
             rewrite = rewrite,
-            intKeys = listOf("id", "measure")
+            intKeys = listOf("id", "measure", "measureType")
         )
 
         this.upload(

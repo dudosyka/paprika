@@ -137,6 +137,7 @@ class PaprikaService(di: DI) : KodeinService(di) {
                         IngredientDto(
                             id = it[IngredientModel.id].value,
                             name = it[IngredientModel.name],
+                            measureType = it[IngredientModel.measureType],
                             measureCount = it[DishIngredientModel.measureCount],
                         )
                     }
