@@ -56,17 +56,17 @@ class ParamsManager internal constructor() {
         this.params = ParametersDto(
             calories = params.calories * eatingsCoef,
 
-            minProtein = params.minProtein,
-            maxProtein = params.maxProtein,
+            minProtein = params.minProtein * eatingsCoef,
+            maxProtein = params.maxProtein * eatingsCoef,
 
-            minFat = params.minFat,
-            maxFat = params.maxFat,
+            minFat = params.minFat * eatingsCoef,
+            maxFat = params.maxFat * eatingsCoef,
 
-            minCarbohydrates = params.minCarbohydrates,
-            maxCarbohydrates = params.maxCarbohydrates,
+            minCarbohydrates = params.minCarbohydrates * eatingsCoef,
+            maxCarbohydrates = params.maxCarbohydrates * eatingsCoef,
 
-            minCellulose = params.minCellulose,
-            maxCellulose = params.maxCellulose,
+            minCellulose = params.minCellulose * eatingsCoef,
+            maxCellulose = params.maxCellulose * eatingsCoef,
         )
     }
 

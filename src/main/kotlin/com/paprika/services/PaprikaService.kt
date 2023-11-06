@@ -24,7 +24,7 @@ class PaprikaService(di: DI) : KodeinService(di) {
         index: Int,
         maxima: Int = 0,
         offset: Long = 1
-    ): EatingOutputDto {
+    ): Pair<EatingOutputDto, Int?> {
         println("Algorithm input: $paprikaInputDto")
         var dishesCount = 0
         if (offset.toInt() == 1) {
@@ -103,9 +103,9 @@ class PaprikaService(di: DI) : KodeinService(di) {
 
         val micronutrients = result.countMicronutrients()
 
-        return EatingOutputDto(
+        return Pair(EatingOutputDto(
             name = eatingOptions.name,
-            idealMicronutrients = MicronutrientsDto(
+            idealParams = MicronutrientsDto(
                 calories = params.calories,
                 protein = params.maxProtein,
                 fat = params.maxFat,
@@ -113,8 +113,8 @@ class PaprikaService(di: DI) : KodeinService(di) {
                 cellulose = params.maxCellulose
             ),
             dishes = result.toDto(),
-            micronutrients = micronutrients
-        )
+            params = micronutrients
+        ), null)
     }
 
     fun calculateMenu(authorizedUser: AuthorizedUser, paprikaInputDto: PaprikaInputDto): PaprikaOutputDto {
@@ -123,15 +123,24 @@ class PaprikaService(di: DI) : KodeinService(di) {
                 it[UserSavedDietModel.updatedAt] = LocalDateTime.now()
             }
         }
-        var eatings = List(paprikaInputDto.eatings.size) { index ->  solveEating(paprikaInputDto, index) }
-        eatings = eatings.map { eatingOutputDto ->
-            eatingOutputDto.dishes = eatingOutputDto.dishes.appendIngredients()
-            eatingOutputDto
+        val eatings = List(paprikaInputDto.eatings.size) {
+            index ->  run {
+                val eatingOutputDto = solveEating(paprikaInputDto, index)
+                eatingOutputDto.first.dishes = eatingOutputDto.first.dishes.appendIngredients()
+
+                val cacheId = if (eatingOutputDto.second == null)
+                    cacheService.saveEating(eatingOutputDto.first, paprikaInputDto, index)
+                else
+                    eatingOutputDto.second
+
+                cacheService.saveUserDiet(authorizedUser.id, eatingOutputDto.first, paprikaInputDto.eatings[index].name, cacheId!!)
+
+                eatingOutputDto.first
+            }
         }
 
         val params = eatings.mapIndexed { index, item ->
-            cacheService.saveEating(authorizedUser, item, paprikaInputDto, index)
-            item.micronutrients
+            item.params
         }.reduce {
             a, b -> run {
                 MicronutrientsDto(

@@ -33,5 +33,16 @@ data class ParametersDto (
             maxCarbohydrates = data[EatingCacheModel.carbohydrates]
         )
 
+        fun buildFromMicronutrients(data: MicronutrientsDto) = ParametersDto(
+            calories = data.calories,
+            minProtein = data.protein,
+            maxProtein = data.protein,
+            minCellulose = data.cellulose,
+            maxCellulose = data.cellulose,
+            minFat = data.fat,
+            maxFat = data.fat,
+            minCarbohydrates = data.carbohydrates,
+            maxCarbohydrates = data.carbohydrates
+        )
     }
 }

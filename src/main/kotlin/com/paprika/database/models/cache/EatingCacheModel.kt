@@ -4,7 +4,7 @@ import com.paprika.database.models.dish.DietModel
 import com.paprika.database.models.dish.DishTypeModel
 import com.paprika.utils.database.BaseIntIdTable
 import org.jetbrains.exposed.sql.Op
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.inList
+import org.jetbrains.exposed.sql.SqlExpressionBuilder.notInList
 import org.jetbrains.exposed.sql.select
 
 object EatingCacheModel: BaseIntIdTable() {
@@ -29,9 +29,12 @@ object EatingCacheModel: BaseIntIdTable() {
 
     fun excludeDishesFromList(list: List<Int>): Op<Boolean> {
         val ids = EatingCacheDishesModel.select {
-            (EatingCacheDishesModel.dish notInList list)
-        }.map { it[EatingCacheDishesModel.eatingCache].value }
+            (EatingCacheDishesModel.dish inList list)
+        }.map { it[EatingCacheDishesModel.eatingCache].value }.distinct()
 
-        return EatingCacheModel.id inList ids
+        if (ids.isEmpty())
+            return EatingCacheModel.id notInList listOf(0)
+
+        return EatingCacheModel.id notInList ids
     }
 }

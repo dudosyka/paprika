@@ -1,6 +1,7 @@
 package com.paprika.database.dao.user
 
 import com.paprika.database.models.user.UserModel
+import com.paprika.database.models.user.UserParamsModel
 import com.paprika.dto.user.CreateUserDto
 import com.paprika.dto.user.UserOutputDto
 import com.paprika.utils.database.BaseIntEntity
@@ -18,6 +19,8 @@ class UserDao(id: EntityID<Int>): BaseIntEntity(id, UserModel) {
     val age: Int
         get() = birthday
     var active by UserModel.active
+
+    val params by UserParamsDao backReferencedOn UserParamsModel.user
 
     fun toDto(): UserOutputDto =
         UserOutputDto(telegramId, sex, height, weight, age, active)

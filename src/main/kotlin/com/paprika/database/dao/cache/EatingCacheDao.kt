@@ -35,8 +35,8 @@ class EatingCacheDao(id : EntityID<Int>): BaseIntEntity(id, EatingCacheModel) {
         EatingOutputDto(
             name,
             dishes.toDto(),
-            micronutrients = dishes.countMicronutrients(),
-            idealMicronutrients = if (params != null) MicronutrientsDto(
+            params = dishes.countMicronutrients(),
+            idealParams = if (params != null) MicronutrientsDto(
                 calories = params.calories,
                 protein = params.maxProtein,
                 fat = params.maxFat,

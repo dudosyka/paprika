@@ -1,6 +1,6 @@
 package com.paprika.controllers
 
-import com.paprika.dto.EatingOutputDto
+import com.paprika.dto.PaprikaOutputDto
 import com.paprika.dto.user.AuthOutputDto
 import com.paprika.dto.user.UserOutputDto
 import com.paprika.dto.user.UserParamsInputDto
@@ -63,7 +63,7 @@ class UserController(override val di: DI) : KodeinController() {
                 route("cache") {
                     get {
                         val authorizedUser = getAuthorized(call)
-                        call.respond<List<EatingOutputDto>>(cacheService.loadUserSaved(authorizedUser.id))
+                        call.respond<PaprikaOutputDto>(cacheService.loadUserSaved(authorizedUser.id))
                     }
                 }
             }
