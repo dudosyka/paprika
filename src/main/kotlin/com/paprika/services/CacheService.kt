@@ -8,6 +8,8 @@ import com.paprika.database.models.cache.EatingCacheModel
 import com.paprika.database.models.user.UserSavedDietModel
 import com.paprika.dto.EatingOutputDto
 import com.paprika.dto.PaprikaInputDto
+import com.paprika.dto.ParametersDto
+import com.paprika.dto.appendIngredients
 import com.paprika.dto.user.AuthorizedUser
 import com.paprika.utils.database.idValue
 import com.paprika.utils.kodein.KodeinService
@@ -132,9 +134,13 @@ class CacheService(di: DI) : KodeinService(di) {
 
         UserSavedDietModel.leftJoin(EatingCacheModel).slice(list).select(UserSavedDietModel.user eq userId).map {
             val name = it[UserSavedDietModel.name]
+
             EatingCacheDao.wrapRow(it).run {
-                toDto(name, dishes, null)
+                toDto(name, dishes, ParametersDto.buildFromCache(it))
             }
-        }
+        }.map { eatingOutputDto -> run {
+            eatingOutputDto.dishes = eatingOutputDto.dishes.appendIngredients()
+            eatingOutputDto
+        } }
     }
 }

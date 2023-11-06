@@ -5,7 +5,7 @@ import com.paprika.utils.database.BaseIntIdTable
 
 object UserParamsModel: BaseIntIdTable() {
     val user = reference("user", UserModel)
-    val diet = reference("diet", DietModel)
+    val diet = optReference("diet", DietModel).default(null)
 
     val calories = double("calories")
 

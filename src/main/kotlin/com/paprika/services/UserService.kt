@@ -93,7 +93,7 @@ class UserService(di: DI) : KodeinService(di) {
 
     private fun setUserParams(userParamsInputDto: UserParamsInputDto): UserParamsDao.() -> Unit {
         return {
-            diet = DietDao[userParamsInputDto.diet]
+            diet = getDiet(userParamsInputDto.diet)
             calories = userParamsInputDto.calories
             if (userParamsInputDto.isMacronutrientsParamsSet && userParamsInputDto.params != null) {
                 ParamsManager.process { validateParams(userParamsInputDto.params) }
@@ -110,6 +110,10 @@ class UserService(di: DI) : KodeinService(di) {
         }
     }
 
+    private fun getType(type: Int): Int? = if (type == 0) null else type
+
+    private fun getDiet(diet: Int): DietDao? = if (diet == 0) null else transaction { DietDao[diet] }
+
     fun setUserParams(authorizedUser: AuthorizedUser, userParamsInputDto: UserParamsInputDto): UserParamsOutputDto = transaction {
         val userParams = try {
             val userParams = getUserParams(authorizedUser)
@@ -125,11 +129,11 @@ class UserService(di: DI) : KodeinService(di) {
 
 
         UserEatingsParamsModel.deleteWhere { user eq authorizedUser.id }
-        val eatingsParamsDao = UserEatingsParamsModel.batchInsert(userParamsInputDto.eatingsParams) {
+        val eatingsParamsDao = UserEatingsParamsModel.batchInsert(userParamsInputDto.eatings) {
             this[UserEatingsParamsModel.user] = authorizedUser.id
             this[UserEatingsParamsModel.name] = it.name
             this[UserEatingsParamsModel.size] = it.size
-            this[UserEatingsParamsModel.type] = it.type
+            this[UserEatingsParamsModel.type] = getType(it.type)
             this[UserEatingsParamsModel.difficulty] = it.difficulty
             this[UserEatingsParamsModel.dishCount] = it.dishCount
         }.map {

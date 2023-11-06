@@ -1,5 +1,7 @@
 package com.paprika.database.dao.dish
 
+import com.paprika.database.dao.ingredient.IngredientDao
+import com.paprika.database.models.dish.DishIngredientModel
 import com.paprika.database.models.dish.DishModel
 import com.paprika.dto.DishDto
 import com.paprika.dto.MicronutrientsDto
@@ -31,10 +33,21 @@ class DishDao(id : EntityID<Int>) : BaseIntEntity(id, DishModel) {
     private val _typeId by DishModel.type
     val typeId
         get() = _typeId.value
-
+    val ingredients by IngredientDao via DishIngredientModel
     fun toDto(): DishDto = transaction {
         DishDto(
-            idValue, name, logo, calories, protein, fat, carbohydrates, cellulose, weight, timeToCook, diet.toDto(), type.toDto()
+            idValue,
+            name,
+            logo,
+            calories,
+            protein,
+            fat,
+            carbohydrates,
+            cellulose,
+            weight,
+            timeToCook,
+            diet.idValue,
+            type.idValue,
         )
     }
 }

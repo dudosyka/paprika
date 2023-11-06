@@ -14,7 +14,7 @@ class UserParamsDao(id: EntityID<Int>): BaseIntEntity(id, UserParamsModel) {
     companion object: BaseIntEntityClass<UserParamsDao>(UserParamsModel)
 
     var user by UserDao referencedOn UserParamsModel.user
-    var diet by DietDao referencedOn UserParamsModel.diet
+    var diet by DietDao optionalReferencedOn UserParamsModel.diet
 
     var calories by UserParamsModel.calories
 
@@ -33,5 +33,5 @@ class UserParamsDao(id: EntityID<Int>): BaseIntEntity(id, UserParamsModel) {
     var maxCellulose by UserParamsModel.maxCellulose
 
     fun toOutputDto(eatingsParams: List<UserEatingsParamsOutputDto> = listOf()) =
-        UserParamsOutputDto(diet.idValue, calories, isMacronutrientsParamsSet, ParametersDto(calories, minProtein, maxProtein, minFat, maxFat, minCarbohydrates, maxCarbohydrates, minCellulose, maxCellulose), eatingsParams)
+        UserParamsOutputDto(diet?.idValue ?: 0, calories, isMacronutrientsParamsSet, ParametersDto(calories, minProtein, maxProtein, minFat, maxFat, minCarbohydrates, maxCarbohydrates, minCellulose, maxCellulose), eatingsParams)
 }

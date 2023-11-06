@@ -11,13 +11,13 @@ data class UserParamsOutputDto (
     val calories: Double,
     val isMacronutrientsParamsSet: Boolean = false,
     val params: ParametersDto,
-    var eatingsParams: List<UserEatingsParamsOutputDto> = listOf()
+    var eatings: List<UserEatingsParamsOutputDto> = listOf()
 ) {
     fun toPaprikaInput(): PaprikaInputDto =
         PaprikaInputDto(
             calories,
             params,
             diet,
-            eatingsParams.map { EatingOptionsDto(it.name, it.size, it.type.id, it.difficulty, it.dishCount) }
+            eatings.map { EatingOptionsDto(it.name, it.size, it.type, it.difficulty, it.dishCount) }
         )
 }

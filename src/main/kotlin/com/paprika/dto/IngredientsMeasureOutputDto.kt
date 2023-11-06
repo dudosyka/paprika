@@ -10,7 +10,8 @@ data class IngredientsMeasureOutputDto (
         output = map.map {
             Ingredient(
                 id = it.key,
-                measure = it.value.measure ?: 0
+                measure = it.value.measureId ?: 0,
+                measureName = it.value.measureName
             )
         }
     }
@@ -18,5 +19,6 @@ data class IngredientsMeasureOutputDto (
     data class Ingredient (
         val id: Int,
         val measure: Int,
+        val measureName: String? = null
     )
 }

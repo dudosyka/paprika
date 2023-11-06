@@ -25,8 +25,10 @@ import com.paprika.utils.database.DatabaseConnector
 import com.paprika.utils.kodein.bindEagerSingleton
 import com.paprika.utils.kodein.bindSingleton
 import com.paprika.utils.kodein.kodeinApplication
+import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.netty.*
+import io.ktor.server.plugins.cors.routing.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -34,6 +36,18 @@ import kotlinx.coroutines.launch
 fun main(): Unit = EngineMain.main(arrayOf())
 
 fun Application.module() {
+    install(CORS) {
+        anyHost()
+        allowHeader("Authorization")
+        allowNonSimpleContentTypes = true
+        allowCredentials = true
+        allowMethod(HttpMethod.Options)
+        allowMethod(HttpMethod.Get)
+        allowMethod(HttpMethod.Post)
+        allowMethod(HttpMethod.Patch)
+        allowMethod(HttpMethod.Delete)
+        allowMethod(HttpMethod.Put)
+    }
 //    configureMonitoring()
     responseFilter()
     configureSerialization()

@@ -54,10 +54,12 @@
 									]
 								},
 								"url": {
-									"raw": "{{host}}/menu/upload/measures",
+									"raw": "http://localhost:8080/menu/upload/measures",
+									"protocol": "http",
 									"host": [
-										"{{host}}"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
 										"menu",
 										"upload",
@@ -141,10 +143,12 @@
 									]
 								},
 								"url": {
-									"raw": "{{host}}/menu/upload/ingredients",
+									"raw": "http://localhost:8080/menu/upload/ingredients",
+									"protocol": "http",
 									"host": [
-										"{{host}}"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
 										"menu",
 										"upload",
@@ -228,10 +232,12 @@
 									]
 								},
 								"url": {
-									"raw": "{{host}}/menu/upload/dishes",
+									"raw": "http://localhost:8080/menu/upload/dishes",
+									"protocol": "http",
 									"host": [
-										"{{host}}"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
 										"menu",
 										"upload",
@@ -283,10 +289,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{host}}/menu",
+									"raw": "http://localhost:8080/menu",
+									"protocol": "http",
 									"host": [
-										"{{host}}"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
 										"menu"
 									]
@@ -365,7 +373,8 @@
 											"value": "100"
 										}
 									]
-								}
+								},
+								"description": "Route for first user creation. When user firstly comes to our bot you should use it to generates his or her account.\n\nThat endpoint will return generated profile data and API token"
 							},
 							"response": [
 								{
@@ -383,10 +392,12 @@
 											}
 										},
 										"url": {
-											"raw": "{{host}}/user/auth/telegram/:telegramId",
+											"raw": "http://localhost:8080/user/auth/telegram/:telegramId",
+											"protocol": "http",
 											"host": [
-												"{{host}}"
+												"localhost"
 											],
+											"port": "8080",
 											"path": [
 												"user",
 												"auth",
@@ -508,7 +519,8 @@
 									"path": [
 										"user"
 									]
-								}
+								},
+								"description": "Endpoint for patching main user information. If u r looking for updating diet or macronutrients params use the Params.set method."
 							},
 							"response": [
 								{
@@ -526,10 +538,12 @@
 											}
 										},
 										"url": {
-											"raw": "{{host}}/user",
+											"raw": "http://localhost:8080/user",
+											"protocol": "http",
 											"host": [
-												"{{host}}"
+												"localhost"
 											],
+											"port": "8080",
 											"path": [
 												"user"
 											]
@@ -624,7 +638,8 @@
 									"path": [
 										"user"
 									]
-								}
+								},
+								"description": "Return current logged in user data."
 							},
 							"response": [
 								{
@@ -633,10 +648,12 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{host}}/user",
+											"raw": "http://localhost:8080/user",
+											"protocol": "http",
 											"host": [
-												"{{host}}"
+												"localhost"
 											],
+											"port": "8080",
 											"path": [
 												"user"
 											]
@@ -763,7 +780,8 @@
 										"user",
 										"params"
 									]
-								}
+								},
+								"description": "Return current logged in user diet params"
 							},
 							"response": [
 								{
@@ -772,10 +790,12 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{host}}/user/params",
+											"raw": "http://localhost:8080/user/params",
+											"protocol": "http",
 											"host": [
-												"{{host}}"
+												"localhost"
 											],
+											"port": "8080",
 											"path": [
 												"user",
 												"params"
@@ -909,7 +929,8 @@
 										"user",
 										"params"
 									]
-								}
+								},
+								"description": "Route is used for setting diet and macronutrients params."
 							},
 							"response": [
 								{
@@ -918,10 +939,12 @@
 										"method": "POST",
 										"header": [],
 										"url": {
-											"raw": "{{host}}/user/params",
+											"raw": "http://localhost:8080/user/params",
+											"protocol": "http",
 											"host": [
-												"{{host}}"
+												"localhost"
 											],
+											"port": "8080",
 											"path": [
 												"user",
 												"params"
@@ -1153,7 +1176,8 @@
 									"value": "3"
 								}
 							]
-						}
+						},
+						"description": "Use it to renew token for user or to check does user have an account (it returns 401 if doesnt)"
 					},
 					"response": [
 						{
@@ -1162,10 +1186,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{host}}/user/auth/telegram/:telegramId",
+									"raw": "http://localhost:8080/user/auth/telegram/:telegramId",
+									"protocol": "http",
 									"host": [
-										"{{host}}"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
 										"user",
 										"auth",
@@ -1237,7 +1263,8 @@
 								"user",
 								"cache"
 							]
-						}
+						},
+						"description": "Returns last generated diet for current user"
 					},
 					"response": [
 						{
@@ -1246,10 +1273,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{host}}/user/auth/telegram/:telegramId",
+									"raw": "http://localhost:8080/user/auth/telegram/:telegramId",
+									"protocol": "http",
 									"host": [
-										"{{host}}"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
 										"user",
 										"auth",
@@ -1324,7 +1353,8 @@
 								"menu",
 								"custom"
 							]
-						}
+						},
+						"description": "Run alghorithm with provided params.\n\nUse it for custom diet generation OR for replacing dishes in generated diet.\n\nIf you need to replace any dish in generated menu just provide params from Params.get and add dish which must be replace to excludeDIsh arr."
 					},
 					"response": [
 						{
@@ -1342,10 +1372,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{host}}/menu/calculate",
+									"raw": "http://localhost:8080/menu/calculate",
+									"protocol": "http",
 									"host": [
-										"{{host}}"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
 										"menu",
 										"calculate"
@@ -1443,7 +1475,8 @@
 								"menu",
 								"calculate"
 							]
-						}
+						},
+						"description": "Calculate diet by current user params."
 					},
 					"response": [
 						{
@@ -1452,10 +1485,12 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "{{host}}/menu/calculate",
+									"raw": "http://localhost:8080/menu/calculate",
+									"protocol": "http",
 									"host": [
-										"{{host}}"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
 										"menu",
 										"calculate"
@@ -1557,7 +1592,8 @@
 							"path": [
 								"measures"
 							]
-						}
+						},
+						"description": "Routes for mapping ingredient with custom measures by their count.\n\n  \nYou must provide array of objects, every object must include ingredient ID and its count. After that you ll get array of objects which map ingredientId with its measure id. Measure Id can be zero, it means that there are no custom measures for such count and you should use native measures (ml or grams)"
 					},
 					"response": []
 				}

@@ -15,7 +15,8 @@ data class IngredientsMeasureInputDto(
     data class IngredientOnProcess(
         var count: Double,
         var bound: Double,
-        var measure: Int? = null
+        var measureId: Int? = null,
+        var measureName: String? = null
     )
 
     fun getIds(): List<Int> = input.map { it.id }

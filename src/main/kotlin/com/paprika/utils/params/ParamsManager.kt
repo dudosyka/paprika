@@ -21,8 +21,8 @@ class ParamsManager internal constructor() {
     fun fromPaprikaInput(paprikaInputDto: PaprikaInputDto) {
         if (paprikaInputDto.calories != null)
             fromCalories(paprikaInputDto.calories)
-        else if (paprikaInputDto.idealMicronutrients != null)
-            fromParams(paprikaInputDto.idealMicronutrients)
+        else if (paprikaInputDto.params != null)
+            fromParams(paprikaInputDto.params)
         else
             throw CantSolveException("You must provide either macronutrients params or calories")
     }
@@ -110,19 +110,19 @@ class ParamsManager internal constructor() {
             )
         } else
             ParametersDto(
-                calories = paprikaInputDto.idealMicronutrients!!.calories * eatingsCoef,
+                calories = paprikaInputDto.params!!.calories * eatingsCoef,
 
-                minProtein = paprikaInputDto.idealMicronutrients.minProtein * eatingsCoef,
-                maxProtein = paprikaInputDto.idealMicronutrients.maxProtein * eatingsCoef,
+                minProtein = paprikaInputDto.params.minProtein * eatingsCoef,
+                maxProtein = paprikaInputDto.params.maxProtein * eatingsCoef,
 
-                minFat = paprikaInputDto.idealMicronutrients.minFat * eatingsCoef,
-                maxFat = paprikaInputDto.idealMicronutrients.maxFat * eatingsCoef,
+                minFat = paprikaInputDto.params.minFat * eatingsCoef,
+                maxFat = paprikaInputDto.params.maxFat * eatingsCoef,
 
-                minCarbohydrates = paprikaInputDto.idealMicronutrients.minCarbohydrates * eatingsCoef,
-                maxCarbohydrates = paprikaInputDto.idealMicronutrients.maxCarbohydrates * eatingsCoef,
+                minCarbohydrates = paprikaInputDto.params.minCarbohydrates * eatingsCoef,
+                maxCarbohydrates = paprikaInputDto.params.maxCarbohydrates * eatingsCoef,
 
-                minCellulose = paprikaInputDto.idealMicronutrients.minCellulose * eatingsCoef,
-                maxCellulose = paprikaInputDto.idealMicronutrients.maxCellulose * eatingsCoef,
+                minCellulose = paprikaInputDto.params.minCellulose * eatingsCoef,
+                maxCellulose = paprikaInputDto.params.maxCellulose * eatingsCoef,
             )
     }
 }
