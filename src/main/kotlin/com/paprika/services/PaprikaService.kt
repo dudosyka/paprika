@@ -133,7 +133,7 @@ class PaprikaService(di: DI) : KodeinService(di) {
                 else
                     eatingOutputDto.second
 
-                cacheService.saveUserDiet(authorizedUser.id, eatingOutputDto.first, paprikaInputDto.eatings[index].name, cacheId!!)
+                cacheService.saveUserDiet(authorizedUser.id, paprikaInputDto.eatings[index].name, cacheId!!)
 
                 eatingOutputDto.first
             }

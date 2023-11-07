@@ -71,14 +71,15 @@ class CacheService(di: DI) : KodeinService(di) {
             onRemove = false
         }
 
+        EatingCacheDishesModel.batchInsert(eatingOutputDto.dishes) {
+            this[EatingCacheDishesModel.dish] = it.id
+            this[EatingCacheDishesModel.eatingCache] = cache.idValue
+        }
+
         cache.idValue
     }
 
-    fun saveUserDiet(userId: Int, eatingOutputDto: EatingOutputDto, eatingName: String, cacheId: Int) = transaction {
-        EatingCacheDishesModel.batchInsert(eatingOutputDto.dishes) {
-            this[EatingCacheDishesModel.dish] = it.id
-            this[EatingCacheDishesModel.eatingCache] = cacheId
-        }
+    fun saveUserDiet(userId: Int, eatingName: String, cacheId: Int) = transaction {
         UserSavedDietModel.deleteWhere {
             (user eq userId) and updatedAt.isNotNull()
         }
