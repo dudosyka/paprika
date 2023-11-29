@@ -4,6 +4,7 @@ import com.paprika.utils.database.BaseIntIdTable
 
 object IngredientModel: BaseIntIdTable() {
     val name = text("name")
-    val measureType = integer("measure_type")
-    val cellulose = double("cellulose")
+    val imageUrl = text("image_url")
+    val relativeUrl = text("relative_url")
+    val cellulose = double("cellulose").default(0.0)
 }

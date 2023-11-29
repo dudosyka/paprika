@@ -60,18 +60,18 @@ class UploadController(override val di: DI) : KodeinController() {
                         )
                     }
                     post("ingredients") {
-                        val data = receiveFile(call.receiveMultipart(), mutableMapOf("ingredients" to null, "ingredient-to-measure" to null))
+                        val data = receiveFile(call.receiveMultipart(), mutableMapOf("ingredients" to null))
                         call.respond(
-                            dataManagerService.uploadIngredients(data.second["ingredients"]!!, data.second["ingredient-to-measure"]!!, data.first)
+                            dataManagerService.uploadIngredients(data.second["ingredients"]!!, data.first)
                         )
                     }
                     post("dishes") {
                         val data = receiveFile(
                             call.receiveMultipart(),
-                            mutableMapOf("dishes" to null, "dish-to-ingredient" to null)
+                            mutableMapOf("dishes" to null, "dish-to-ingredient" to null, "dish-steps" to null, "dish-categories" to null)
                         )
                         call.respond(
-                            dataManagerService.uploadDishes(data.second["dishes"]!!, data.second["dish-to-ingredient"]!!, data.first)
+                            dataManagerService.uploadDishes(data.second["dishes"]!!, data.second["dish-to-ingredient"]!!, data.second["dish-steps"]!!, data.second["dish-categories"]!!, data.first)
                         )
                     }
                 }

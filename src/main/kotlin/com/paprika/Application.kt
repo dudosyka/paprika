@@ -1,15 +1,10 @@
 package com.paprika
 
-import com.paprika.controllers.IngredientsController
-import com.paprika.controllers.PaprikaController
-import com.paprika.controllers.UploadController
-import com.paprika.controllers.UserController
+import com.paprika.controllers.*
 import com.paprika.database.models.cache.EatingCacheDishesModel
 import com.paprika.database.models.cache.EatingCacheModel
-import com.paprika.database.models.dish.DietModel
-import com.paprika.database.models.dish.DishIngredientModel
-import com.paprika.database.models.dish.DishModel
-import com.paprika.database.models.dish.DishTypeModel
+import com.paprika.database.models.cusine.CusineModel
+import com.paprika.database.models.dish.*
 import com.paprika.database.models.ingredient.IngredientMeasureModel
 import com.paprika.database.models.ingredient.IngredientModel
 import com.paprika.database.models.ingredient.MeasureModel
@@ -79,9 +74,10 @@ fun Application.module() {
         bindSingleton { UploadController(it) }
         bindSingleton { IngredientsController(it) }
         bindSingleton { UserController(it) }
+        bindSingleton { DishController(it) }
     }
     DatabaseConnector(
-        DietModel, DishTypeModel, DishModel, DishIngredientModel,
+        DietModel, DishTypeModel, DishModel, DishIngredientModel, CusineModel, DishStepModel,
         IngredientModel, MeasureModel, IngredientMeasureModel,
         EatingCacheModel, EatingCacheDishesModel,
         UserModel, UserParamsModel, UserEatingsParamsModel, UserSavedDietModel

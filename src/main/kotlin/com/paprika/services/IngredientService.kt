@@ -20,12 +20,13 @@ class IngredientService(di: DI) : KodeinService(di) {
             val ingredient = outputMap.getValue(it[IngredientModel.id].value)
             val topBound = it[IngredientMeasureModel.topBound]
 
-            if (ingredient.count <= topBound && (topBound <= ingredient.bound || ingredient.measureId == null)) {
-                ingredient.bound = topBound
-                val measureDao = MeasureDao[it[IngredientMeasureModel.measure]]
-                ingredient.measureId = measureDao.idValue
-                ingredient.measureName = measureDao.name
-            }
+
+//            if (ingredient.count <= topBound && (topBound <= ingredient.bound || ingredient.measureId == null)) {
+//                ingredient.bound = topBound
+//                val measureDao = MeasureDao[it[IngredientMeasureModel.measure]]
+//                ingredient.measureId = measureDao.idValue
+//                ingredient.measureName = measureDao.name
+//            }
         }
 
         IngredientsMeasureOutputDto(outputMap)

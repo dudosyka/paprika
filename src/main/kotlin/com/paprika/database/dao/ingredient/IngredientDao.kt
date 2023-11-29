@@ -10,4 +10,6 @@ class IngredientDao(id : EntityID<Int>): BaseIntEntity(id, IngredientModel) {
 
     val name by IngredientModel.name
     val cellulose by IngredientModel.cellulose
+    val imageUrl by IngredientModel.imageUrl
+    val relativeUrl by IngredientModel.relativeUrl
 }

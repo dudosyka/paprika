@@ -1,8 +1,10 @@
 package com.paprika.services
 
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
+import com.paprika.database.models.cusine.CusineModel
 import com.paprika.database.models.dish.DishIngredientModel
 import com.paprika.database.models.dish.DishModel
+import com.paprika.database.models.dish.DishStepModel
 import com.paprika.database.models.ingredient.IngredientMeasureModel
 import com.paprika.database.models.ingredient.IngredientModel
 import com.paprika.database.models.ingredient.MeasureModel
@@ -38,10 +40,18 @@ class DataManagerService(di: DI) : KodeinService(di) {
             modelKeys.forEach { modelKey ->
                 if (doubleKeys.contains(modelKey.key))
                     this[modelKey.value as Column<Double>] = it[modelKey.key].toString().toDouble()
-                else if (intKeys.contains(modelKey.key))
-                    this[modelKey.value as Column<Int>] = it[modelKey.key].toString().toInt()
+                else if (intKeys.contains(modelKey.key)) {
+                    val value = when (modelKey.key) {
+                        "calories" -> it[modelKey.key].toString().toInt() / 1000
+                        "diet" -> 1
+                        "type" -> 1
+                        else -> it[modelKey.key].toString().toInt()
+                    }
+
+                    this[modelKey.value as Column<Int>] = value
+                }
                 else if (boolKeys.contains(modelKey.key))
-                    this[modelKey.value as  Column<Boolean>] = it[modelKey.key].toString().toBoolean()
+                    this[modelKey.value as  Column<Boolean>] = (it[modelKey.key].toString() == "True")
                 else
                     this[modelKey.value as Column<String>] = it[modelKey.key].toString()
             }
@@ -53,86 +63,105 @@ class DataManagerService(di: DI) : KodeinService(di) {
             data,
             model = MeasureModel,
             modelKeys = mapOf(
-                "id" to MeasureModel.id,
-                "name" to MeasureModel.name,
+                "measureUnit_id" to MeasureModel.id,
+                "measureUnit_isDimensionless" to MeasureModel.isDimensionless,
+                "measureUnit_name" to MeasureModel.name,
+                "measureUnit_nameFive" to MeasureModel.nameFive,
+                "measureUnit_nameFractional" to MeasureModel.nameFractional,
+                "measureUnit_nameTwo" to MeasureModel.nameTwo,
             ),
-            intKeys = listOf("id"),
+            intKeys = listOf("measureUnit_id"),
+            boolKeys = listOf("measureUnit_isDimensionless"),
             rewrite = rewrite
         )
     }
 
-    fun uploadIngredients(ingredients: ByteArray, ingredientsMeasures: ByteArray, rewrite: Boolean) {
-        this.upload(
+    fun uploadIngredients(ingredients: ByteArray, rewrite: Boolean) {
+        upload(
             ingredients,
             model = IngredientModel,
             modelKeys = mapOf(
-                "id" to IngredientModel.id,
+                "ingr_id" to IngredientModel.id,
+                "catalogPhoto" to IngredientModel.imageUrl,
                 "name" to IngredientModel.name,
-                "measureType" to IngredientModel.measureType,
-                "cellulose" to IngredientModel.cellulose
+                "relativeUrl" to IngredientModel.relativeUrl
             ),
             rewrite = rewrite,
-            intKeys = listOf("id", "measure", "measureType")
-        )
-
-        this.upload(
-            ingredientsMeasures,
-            model = IngredientMeasureModel,
-            modelKeys = mapOf(
-                "ingredient" to IngredientMeasureModel.ingredient,
-                "measure" to IngredientMeasureModel.measure,
-                "topBound" to IngredientMeasureModel.topBound
-            ),
-            rewrite = rewrite,
+            intKeys = listOf("ingr_id")
         )
     }
 
-    fun uploadDishes(dishData: ByteArray, dishToIngredientData: ByteArray, rewrite: Boolean) {
-//        val dishIngredients = getDishIngredients(dishToIngredientData)
+    fun uploadDishes(dishData: ByteArray, dishToIngredientData: ByteArray, dishSteps: ByteArray, dishCategories: ByteArray, rewrite: Boolean) {
 
-        this.upload(
+        upload(
+            dishCategories,
+            model = CusineModel,
+            modelKeys = mapOf(
+                "id" to CusineModel.id,
+                "cuisine" to CusineModel.cusine,
+                "recipeCategory" to CusineModel.category
+            ),
+            intKeys = listOf("id")
+        )
+
+        upload(
             dishData,
             model = DishModel,
             modelKeys = mapOf(
-                "id" to DishModel.id,
+                "recipe_id" to DishModel.id,
+                "cookingTime" to DishModel.timeToCook,
+                "description" to DishModel.description,
                 "name" to DishModel.name,
-                "logo" to DishModel.logo,
-                "calories" to DishModel.calories,
-                "protein" to DishModel.protein,
-                "fat" to DishModel.fat,
+                "openGraphImageUrl" to DishModel.imageUrl,
+
+                "portionsCount" to DishModel.portionsCount,
                 "carbohydrates" to DishModel.carbohydrates,
-                "weight" to DishModel.weight,
-                "timeToCook" to DishModel.timeToCook,
+                "fats" to DishModel.fat,
+                "proteins" to DishModel.protein,
+                "calories" to DishModel.calories,
+
                 "diet" to DishModel.diet,
                 "type" to DishModel.type,
             ),
             doubleKeys = listOf(
-                "calories", "protein", "fat", "carbohydrates", "weight"
+                "carbohydrates", "fats", "proteins"
             ),
             intKeys = listOf(
-                "id", "timeToCook", "diet", "type"
+                "recipe_id", "portionsCount", "cookingTime", "diet", "type", "calories"
             ),
             rewrite = rewrite,
         )
 
-//        dishIngredients.forEach {
-//            val ingredientsCellulose =
-//        }
-//        DishModel.update {  }
-
-        this.upload(
+        upload(
             dishToIngredientData,
             model = DishIngredientModel,
             modelKeys = mapOf(
-                "dish" to DishIngredientModel.dish,
-                "ingredient" to DishIngredientModel.ingredient,
-                "measure_count" to DishIngredientModel.measureCount
+                "recipe_id" to DishIngredientModel.dish,
+                "measureUnit_id" to DishIngredientModel.measure,
+                "ingr_id" to DishIngredientModel.ingredient,
+                "amount" to DishIngredientModel.measureCount
             ),
             intKeys = listOf(
-                "dish", "ingredient"
+                "recipe_id", "ingr_id", "measureUnit_id"
             ),
             doubleKeys = listOf(
-                "measure_count"
+                "amount"
+            ),
+            rewrite = rewrite,
+        )
+
+        upload(
+            dishSteps,
+            model = DishStepModel,
+            modelKeys = mapOf(
+                "id" to DishStepModel.id,
+                "step_id" to DishStepModel.relative_id,
+                "recipe_id" to DishStepModel.dish,
+                "imageUrl" to DishStepModel.imageUrl,
+                "description" to DishStepModel.description
+            ),
+            intKeys = listOf(
+                "id", "step_id", "recipe_id"
             ),
             rewrite = rewrite,
         )

@@ -1,5 +1,6 @@
 package com.paprika.controllers
 
+import com.paprika.dto.ExcludedDishesDto
 import com.paprika.dto.PaprikaInputDto
 import com.paprika.services.PaprikaService
 import com.paprika.services.UserService
@@ -25,8 +26,11 @@ class PaprikaController(override val di: DI) : KodeinController() {
                 }
                 post("/calculate") {
                     val authorizedUser = getAuthorized(call)
+                    val excludedDishesDto = call.receive<ExcludedDishesDto>()
                     val userParams = userService.getUserParamsAsDto(authorizedUser)
-                    call.respond(paprikaService.calculateMenu(authorizedUser, userParams.toPaprikaInput()))
+                    val paprikaInputDto = userParams.toPaprikaInput()
+                    paprikaInputDto.excludeDishes = excludedDishesDto.excluded
+                    call.respond(paprikaService.calculateMenu(authorizedUser, paprikaInputDto))
                 }
             }
         }

@@ -1,6 +1,7 @@
 package com.paprika.dto
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 
 @Serializable
 data class MicronutrientsDto (
@@ -8,5 +9,5 @@ data class MicronutrientsDto (
     val protein: Double,
     val fat: Double,
     val carbohydrates: Double,
-    val cellulose: Double
+    @Transient val cellulose: Double = 0.0
 )

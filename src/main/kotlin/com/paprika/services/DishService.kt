@@ -1,10 +1,10 @@
 package com.paprika.services
 
 import com.paprika.database.dao.dish.DishDao
-import com.paprika.database.models.cache.EatingCacheModel
 import com.paprika.database.models.dish.DishModel
-import com.paprika.dto.EatingOptionsDto
-import com.paprika.dto.PaprikaInputDto
+import com.paprika.database.models.dish.DishStepModel
+import com.paprika.dto.*
+import com.paprika.utils.database.idValue
 import com.paprika.utils.kodein.KodeinService
 import org.jetbrains.exposed.sql.Op
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
@@ -44,9 +44,9 @@ class DishService(override val di: DI): KodeinService(di) {
 
     private fun createDishByParamsCond(eatingOptionsDto: EatingOptionsDto, paprikaInputDto: PaprikaInputDto): Op<Boolean> =
         DishModel.id notInList paprikaInputDto.excludeDishes and
-        dietCond(paprikaInputDto.diet) and
-        difficultyCond(eatingOptionsDto.difficulty) and
-        typeCond(eatingOptionsDto.type)
+//        dietCond(paprikaInputDto.diet) and
+        difficultyCond(eatingOptionsDto.difficulty)
+//        typeCond(eatingOptionsDto.type)
 
     fun getDishesIdByEatingParams(eatingOptionsDto: EatingOptionsDto, paprikaInputDto: PaprikaInputDto): List<Int> = transaction {
         DishModel.slice(listOf(DishModel.id)).select { createDishByParamsCond(eatingOptionsDto, paprikaInputDto) }.map { it[DishModel.id].value }
@@ -56,5 +56,41 @@ class DishService(override val di: DI): KodeinService(di) {
         DishDao.find {
             createDishByParamsCond(eatingOptionsDto, paprikaInputDto)
         }.limit(750, offset = offset).toList()
+    }
+
+    fun getDishesRecipe(dishesIds: List<Int>): List<DishRecipeOutput> = transaction {
+        DishDao.find {
+            DishModel.id inList dishesIds
+        }.map {
+            dish -> run {
+                DishRecipeOutput(
+                    id = dish.idValue,
+                    ingredients = dish.ingredients.map {
+                        val ingredientDao = it.ingredient
+                        val measureDao = it.measure
+                        IngredientDto(
+                            id = ingredientDao.idValue,
+                            name = ingredientDao.name,
+                            imageUrl = ingredientDao.imageUrl,
+                            measureType = MeasureDto(
+                                name = measureDao.name,
+                                nameFiveItems = measureDao.nameFive,
+                                nameFractional = measureDao.nameFractional,
+                                nameTwoItems = measureDao.nameTwo,
+                                isDimensionless = measureDao.isDimensionless
+                            ),
+                            measureCount = it.measureCount
+                        )
+                    },
+                    steps = dish.steps.map {
+                        DishRecipeStepDto(
+                            text = it.description,
+                            imageUrl = it.imageUrl,
+                            relativeId = it.relativeId
+                        )
+                    }
+                )
+            }
+        }
     }
 }

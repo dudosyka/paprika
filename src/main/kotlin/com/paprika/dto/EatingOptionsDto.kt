@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 data class EatingOptionsDto (
     val name: String,
     val size: Double,
-    val type: Int,
+    val type: Int = 1,
 //    val time: Int,
     /*
         * super easy = 1

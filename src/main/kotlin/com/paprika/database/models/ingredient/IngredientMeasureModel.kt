@@ -5,5 +5,5 @@ import com.paprika.utils.database.BaseIntIdTable
 object IngredientMeasureModel: BaseIntIdTable() {
     val ingredient = reference("ingredient", IngredientModel)
     val measure = reference("measure", MeasureModel)
-    val topBound = double("top_bound")
+    val topBound = double("top_bound").nullable().default(null)
 }

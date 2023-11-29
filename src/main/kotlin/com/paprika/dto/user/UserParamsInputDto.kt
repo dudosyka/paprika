@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class UserParamsInputDto (
-    val diet: Int,
+    val diet: Int = 1,
     val calories: Double,
     val isMacronutrientsParamsSet: Boolean = false,
     val params: ParametersDto? = null,

@@ -18,6 +18,7 @@ import java.time.LocalDateTime
 class PaprikaService(di: DI) : KodeinService(di) {
     private val dishService: DishService by instance()
     private val cacheService: CacheService by instance()
+    private val solverDelta = 0.1
 
     private fun solveEating(
         paprikaInputDto: PaprikaInputDto,
@@ -39,10 +40,11 @@ class PaprikaService(di: DI) : KodeinService(di) {
 
         val dishes = dishService.getDishesByEatingParams(paprikaInputDto.eatings[index], paprikaInputDto, offset)
         val eatingOptions = paprikaInputDto.eatings[index]
-        val params = ParamsManager.process {
+        val processedData = ParamsManager.process {
             withSize(eatingOptions.size)
-            fromPaprikaInput(paprikaInputDto)
-        }.params
+            fromPaprikaInput(paprikaInputDto, solverDelta)
+        }
+        val params = processedData.params
 
         if (dishesCount == 0 && maxima == 0)
             throw CantSolveException()
@@ -54,34 +56,36 @@ class PaprikaService(di: DI) : KodeinService(di) {
 
             setConstraint {
                 name = "Calories"
-                bottom = params.calories * 0.99
-                top = params.calories * 1.01
+                bottom = params.calories * (1.0 - solverDelta)
+                top = params.calories * (1.0 + solverDelta)
                 modelKey = DishModel.calories
             }
-            setConstraint {
-                name = "Protein"
-                bottom = params.minProtein
-                top = params.maxProtein
-                modelKey = DishModel.protein
+            if (processedData.calculatedFromParams) {
+                setConstraint {
+                    name = "Protein"
+                    bottom = params.minProtein
+                    top = params.maxProtein
+                    modelKey = DishModel.protein
+                }
+                setConstraint {
+                    name = "Fat"
+                    bottom = params.minFat
+                    top = params.maxFat
+                    modelKey = DishModel.fat
+                }
+                setConstraint {
+                    name = "Carbohydrates"
+                    bottom = params.minCarbohydrates
+                    top = params.maxCarbohydrates
+                    modelKey = DishModel.carbohydrates
+                }
             }
-            setConstraint {
-                name = "Fat"
-                bottom = params.minFat
-                top = params.maxFat
-                modelKey = DishModel.fat
-            }
-            setConstraint {
-                name = "Carbohydrates"
-                bottom = params.minCarbohydrates
-                top = params.maxCarbohydrates
-                modelKey = DishModel.carbohydrates
-            }
-            setConstraint {
-                name = "Cellulose"
-                bottom = params.minCellulose
-                top = params.maxCellulose
-                modelKey = DishModel.cellulose
-            }
+//            setConstraint {
+//                name = "Cellulose"
+//                bottom = params.minCellulose
+//                top = params.maxCellulose
+//                modelKey = DishModel.cellulose
+//            }
 
             onData(dishes)
             withObjective(DishModel.timeToCook)
@@ -126,7 +130,7 @@ class PaprikaService(di: DI) : KodeinService(di) {
         val eatings = List(paprikaInputDto.eatings.size) {
             index ->  run {
                 val eatingOutputDto = solveEating(paprikaInputDto, index)
-                eatingOutputDto.first.dishes = eatingOutputDto.first.dishes.appendIngredients()
+//                eatingOutputDto.first.dishes = eatingOutputDto.first.dishes.appendIngredients()
 
                 val cacheId = if (eatingOutputDto.second == null)
                     cacheService.saveEating(eatingOutputDto.first, paprikaInputDto, index)
@@ -158,7 +162,7 @@ class PaprikaService(di: DI) : KodeinService(di) {
             eatings = eatings,
             params = params,
             idealParams = ParamsManager.process {
-                fromPaprikaInput(paprikaInputDto)
+                fromPaprikaInput(paprikaInputDto, solverDelta)
             }.params
         )
     }

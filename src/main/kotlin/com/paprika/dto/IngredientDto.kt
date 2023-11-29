@@ -6,6 +6,7 @@ import kotlinx.serialization.Serializable
 data class IngredientDto(
     val id: Int,
     val name: String,
-    val measureType: Int,
+    val imageUrl: String,
+    val measureType: MeasureDto,
     val measureCount: Double,
 )

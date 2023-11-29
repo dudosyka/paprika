@@ -3,6 +3,7 @@ package com.paprika.dto
 import com.paprika.database.models.dish.DishIngredientModel
 import com.paprika.database.models.ingredient.IngredientMeasureModel
 import com.paprika.database.models.ingredient.IngredientModel
+import com.paprika.database.models.ingredient.MeasureModel
 import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -17,7 +18,6 @@ data class DishDto (
     val fat: Double,
     val carbohydrates: Double,
     val cellulose: Double,
-    val weight: Double,
     val timeToCook: Int,
     val dietId: Int,
     val typeId: Int,
@@ -26,13 +26,20 @@ data class DishDto (
 
 fun List<DishDto>.appendIngredients() = map { dish -> transaction {
     dish.ingredients =
-        DishIngredientModel.innerJoin(IngredientModel).innerJoin(IngredientMeasureModel).select {
+        DishIngredientModel.leftJoin(IngredientModel).leftJoin(IngredientMeasureModel).innerJoin(MeasureModel).select {
             DishIngredientModel.dish eq dish.id
         }.map {
             IngredientDto(
                 id = it[IngredientModel.id].value,
                 name = it[IngredientModel.name],
-                measureType = it[IngredientModel.measureType],
+                imageUrl = it[IngredientModel.imageUrl],
+                measureType = MeasureDto(
+                    name = it[MeasureModel.name],
+                    nameFiveItems = it[MeasureModel.nameFive],
+                    nameFractional = it[MeasureModel.nameFractional],
+                    nameTwoItems = it[MeasureModel.nameTwo],
+                    isDimensionless = it[MeasureModel.isDimensionless]
+                ),
                 measureCount = it[DishIngredientModel.measureCount],
             )
         }

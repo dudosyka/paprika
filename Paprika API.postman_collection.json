@@ -21,7 +21,7 @@
 								{
 									"key": "measures",
 									"type": "file",
-									"src": "/Users/dudosyka/Documents/data types/measure.csv"
+									"src": "/Users/dudosyka/Downloads/DB 2/measureUnits.csv"
 								}
 							]
 						},
@@ -98,12 +98,7 @@
 								{
 									"key": "ingredients",
 									"type": "file",
-									"src": "/Users/dudosyka/Documents/data types/ingredients.csv"
-								},
-								{
-									"key": "ingredient-to-measure",
-									"type": "file",
-									"src": "/Users/dudosyka/Documents/data types/ingredientsToMeasure.csv"
+									"src": "/Users/dudosyka/Downloads/DB 2/ingredients.csv"
 								}
 							]
 						},
@@ -185,12 +180,22 @@
 								{
 									"key": "dishes",
 									"type": "file",
-									"src": "/Users/dudosyka/Documents/data types/dishes.csv"
+									"src": "/Users/dudosyka/Downloads/DB 2/recipes.csv"
 								},
 								{
 									"key": "dish-to-ingredient",
 									"type": "file",
-									"src": "/Users/dudosyka/Documents/data types/dishToIngredient.csv"
+									"src": "/Users/dudosyka/Downloads/DB 2/composition.csv"
+								},
+								{
+									"key": "dish-steps",
+									"type": "file",
+									"src": "/Users/dudosyka/Downloads/DB 2/new_step_id.csv"
+								},
+								{
+									"key": "dish-categories",
+									"type": "file",
+									"src": "/Users/dudosyka/Downloads/DB 2/categories.csv"
 								}
 							]
 						},
@@ -863,8 +868,12 @@
 									"_postman_previewlanguage": "json",
 									"header": [
 										{
+											"key": "Vary",
+											"value": "Origin"
+										},
+										{
 											"key": "Content-Length",
-											"value": "438"
+											"value": "325"
 										},
 										{
 											"key": "Content-Type",
@@ -876,7 +885,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"diet\": 1,\n    \"calories\": 2000,\n    \"isMacronutrientsParamsSet\": false,\n    \"params\": {\n        \"calories\": 2000,\n        \"minProtein\": 0,\n        \"maxProtein\": 0,\n        \"minFat\": 0,\n        \"maxFat\": 0,\n        \"minCarbohydrates\": 0,\n        \"maxCarbohydrates\": 0,\n        \"minCellulose\": 0,\n        \"maxCellulose\": 0\n    },\n    \"eatingsParams\": [\n        {\n            \"name\": \"First\",\n            \"size\": 0.8,\n            \"type\": {\n                \"id\": 1,\n                \"name\": \"DishType1\"\n            },\n            \"difficulty\": 0,\n            \"dishCount\": 4\n        },\n        {\n            \"name\": \"Second\",\n            \"size\": 0.2,\n            \"type\": {\n                \"id\": 2,\n                \"name\": \"DishType2\"\n            },\n            \"difficulty\": 0,\n            \"dishCount\": 2\n        }\n    ]\n}"
+									"body": "{\n    \"calories\": 2000,\n    \"isMacronutrientsParamsSet\": true,\n    \"params\": {\n        \"calories\": 2000,\n        \"minProtein\": 100,\n        \"maxProtein\": 150,\n        \"minFat\": 75,\n        \"maxFat\": 100,\n        \"minCarbohydrates\": 100,\n        \"maxCarbohydrates\": 150\n    },\n    \"eatings\": [\n        {\n            \"name\": \"First\",\n            \"size\": 0.8,\n            \"difficulty\": 0,\n            \"dishCount\": 4\n        },\n        {\n            \"name\": \"Second\",\n            \"size\": 0.2,\n            \"difficulty\": 0,\n            \"dishCount\": 1\n        }\n    ]\n}"
 								}
 							]
 						},
@@ -897,7 +906,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"diet\": 0,\n    \"calories\": 2000,\n    \"isMacronutrientsParamsSet\": false,\n    \"params\": {\n            \"calories\": 2000,\n            \"minProtein\": 100,\n            \"maxProtein\": 0,\n            \"minFat\": 0,\n            \"maxFat\": 0,\n            \"minCarbohydrates\": 0,\n            \"maxCarbohydrates\": 0,\n            \"minCellulose\": 0,\n            \"maxCellulose\": 0\n    },\n    \"eatings\": [\n        {\n            \"name\": \"First\",\n            \"size\": 0.8,\n            \"type\": 1,\n            \"difficulty\": 0,\n            \"dishCount\": 4\n        },\n        {\n            \"name\": \"Second\",\n            \"size\": 0.2,\n            \"type\": 2,\n            \"difficulty\": 0,\n            \"dishCount\": 2\n        }\n    ]\n}",
+									"raw": "{\n    \"calories\": 2000,\n    \"isMacronutrientsParamsSet\": true,\n    \"params\": {\n            \"calories\": 2000,\n            \"minProtein\": 100,\n            \"maxProtein\": 150,\n            \"minFat\": 75,\n            \"maxFat\": 100,\n            \"minCarbohydrates\": 100,\n            \"maxCarbohydrates\": 150,\n            \"minCellulose\": 0,\n            \"maxCellulose\": 0\n    },\n    \"eatings\": [\n        {\n            \"name\": \"First\",\n            \"size\": 0.8,\n            \"difficulty\": 0,\n            \"dishCount\": 4\n        },\n        {\n            \"name\": \"Second\",\n            \"size\": 0.2,\n            \"difficulty\": 0,\n            \"dishCount\": 1\n        }\n    ]\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -986,51 +995,6 @@
 									"body": null
 								},
 								{
-									"name": "Success with params",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"diet\": 1,\n    \"calories\": 2000,\n    \"isMacronutrientsParamsSet\": true,\n    \"params\": {\n            \"calories\": 2000,\n            \"minProtein\": 100,\n            \"maxProtein\": 0,\n            \"minFat\": 0,\n            \"maxFat\": 0,\n            \"minCarbohydrates\": 0,\n            \"maxCarbohydrates\": 0,\n            \"minCellulose\": 0,\n            \"maxCellulose\": 0\n        },\n    \"eatingsParams\": [\n        {\n            \"name\": \"First\",\n            \"size\": 0.8,\n            \"type\": 1,\n            \"difficulty\": 0,\n            \"dishCount\": 4\n        },\n        {\n            \"name\": \"Second\",\n            \"size\": 0.2,\n            \"type\": 2,\n            \"difficulty\": 0,\n            \"dishCount\": 2\n        }\n    ]\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{host}}/user/params",
-											"host": [
-												"{{host}}"
-											],
-											"path": [
-												"user",
-												"params"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Length",
-											"value": "439"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Connection",
-											"value": "keep-alive"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"diet\": 1,\n    \"calories\": 2000,\n    \"isMacronutrientsParamsSet\": true,\n    \"params\": {\n        \"calories\": 2000,\n        \"minProtein\": 100,\n        \"maxProtein\": 0,\n        \"minFat\": 0,\n        \"maxFat\": 0,\n        \"minCarbohydrates\": 0,\n        \"maxCarbohydrates\": 0,\n        \"minCellulose\": 0,\n        \"maxCellulose\": 0\n    },\n    \"eatingsParams\": [\n        {\n            \"name\": \"First\",\n            \"size\": 0.8,\n            \"type\": {\n                \"id\": 1,\n                \"name\": \"DishType1\"\n            },\n            \"difficulty\": 0,\n            \"dishCount\": 4\n        },\n        {\n            \"name\": \"Second\",\n            \"size\": 0.2,\n            \"type\": {\n                \"id\": 2,\n                \"name\": \"DishType2\"\n            },\n            \"difficulty\": 0,\n            \"dishCount\": 2\n        }\n    ]\n}"
-								},
-								{
 									"name": "Bad object params",
 									"originalRequest": {
 										"method": "POST",
@@ -1082,7 +1046,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"diet\": 1,\n    \"calories\": 2000,\n    \"isMacronutrientsParamsSet\": true,\n    \"params\": {\n            \"calories\": 2000,\n            \"minProtein\": 100,\n            \"maxProtein\": 0,\n            \"minFat\": 0,\n            \"maxFat\": 0,\n            \"minCarbohydrates\": 0,\n            \"maxCarbohydrates\": 0,\n            \"minCellulose\": 0,\n            \"maxCellulose\": 0\n    },\n    \"eatings\": [\n        {\n            \"name\": \"First\",\n            \"size\": 0.8,\n            \"type\": 1,\n            \"difficulty\": 0,\n            \"dishCount\": 4\n        },\n        {\n            \"name\": \"Second\",\n            \"size\": 0.2,\n            \"type\": 2,\n            \"difficulty\": 0,\n            \"dishCount\": 2\n        }\n    ]\n}",
+											"raw": "{\n    \"calories\": 2000,\n    \"isMacronutrientsParamsSet\": false,\n    \"params\": {\n            \"calories\": 2000,\n            \"minProtein\": 100,\n            \"maxProtein\": 0,\n            \"minFat\": 0,\n            \"maxFat\": 0,\n            \"minCarbohydrates\": 0,\n            \"maxCarbohydrates\": 0,\n            \"minCellulose\": 0,\n            \"maxCellulose\": 0\n    },\n    \"eatings\": [\n        {\n            \"name\": \"First\",\n            \"size\": 0.8,\n            \"difficulty\": 0,\n            \"dishCount\": 4\n        },\n        {\n            \"name\": \"Second\",\n            \"size\": 0.2,\n            \"difficulty\": 0,\n            \"dishCount\": 1\n        }\n    ]\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1110,7 +1074,7 @@
 										},
 										{
 											"key": "Content-Length",
-											"value": "381"
+											"value": "319"
 										},
 										{
 											"key": "Content-Type",
@@ -1122,7 +1086,56 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"diet\": 1,\n    \"calories\": 2000,\n    \"isMacronutrientsParamsSet\": true,\n    \"params\": {\n        \"calories\": 2000,\n        \"minProtein\": 100,\n        \"maxProtein\": 0,\n        \"minFat\": 0,\n        \"maxFat\": 0,\n        \"minCarbohydrates\": 0,\n        \"maxCarbohydrates\": 0,\n        \"minCellulose\": 0,\n        \"maxCellulose\": 0\n    },\n    \"eatings\": [\n        {\n            \"name\": \"First\",\n            \"size\": 0.8,\n            \"type\": 1,\n            \"difficulty\": 0,\n            \"dishCount\": 4\n        },\n        {\n            \"name\": \"Second\",\n            \"size\": 0.2,\n            \"type\": 2,\n            \"difficulty\": 0,\n            \"dishCount\": 2\n        }\n    ]\n}"
+									"body": "{\n    \"calories\": 2000,\n    \"params\": {\n        \"calories\": 2000,\n        \"minProtein\": 0,\n        \"maxProtein\": 0,\n        \"minFat\": 0,\n        \"maxFat\": 0,\n        \"minCarbohydrates\": 0,\n        \"maxCarbohydrates\": 0,\n        \"minCellulose\": 0,\n        \"maxCellulose\": 0\n    },\n    \"eatings\": [\n        {\n            \"name\": \"First\",\n            \"size\": 0.8,\n            \"difficulty\": 0,\n            \"dishCount\": 4\n        },\n        {\n            \"name\": \"Second\",\n            \"size\": 0.2,\n            \"difficulty\": 0,\n            \"dishCount\": 1\n        }\n    ]\n}"
+								},
+								{
+									"name": "Success with params",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"calories\": 2000,\n    \"isMacronutrientsParamsSet\": true,\n    \"params\": {\n            \"calories\": 2000,\n            \"minProtein\": 100,\n            \"maxProtein\": 150,\n            \"minFat\": 75,\n            \"maxFat\": 100,\n            \"minCarbohydrates\": 100,\n            \"maxCarbohydrates\": 150,\n            \"minCellulose\": 0,\n            \"maxCellulose\": 0\n    },\n    \"eatings\": [\n        {\n            \"name\": \"First\",\n            \"size\": 0.8,\n            \"difficulty\": 0,\n            \"dishCount\": 4\n        },\n        {\n            \"name\": \"Second\",\n            \"size\": 0.2,\n            \"difficulty\": 0,\n            \"dishCount\": 1\n        }\n    ]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/user/params",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"user",
+												"params"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Vary",
+											"value": "Origin"
+										},
+										{
+											"key": "Content-Length",
+											"value": "325"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"calories\": 2000,\n    \"isMacronutrientsParamsSet\": true,\n    \"params\": {\n        \"calories\": 2000,\n        \"minProtein\": 100,\n        \"maxProtein\": 150,\n        \"minFat\": 75,\n        \"maxFat\": 100,\n        \"minCarbohydrates\": 100,\n        \"maxCarbohydrates\": 150\n    },\n    \"eatings\": [\n        {\n            \"name\": \"First\",\n            \"size\": 0.8,\n            \"difficulty\": 0,\n            \"dishCount\": 4\n        },\n        {\n            \"name\": \"Second\",\n            \"size\": 0.2,\n            \"difficulty\": 0,\n            \"dishCount\": 1\n        }\n    ]\n}"
 								}
 							]
 						}
@@ -1159,7 +1172,7 @@
 							"variable": [
 								{
 									"key": "telegramId",
-									"value": "3"
+									"value": "100"
 								}
 							]
 						},
@@ -1277,7 +1290,7 @@
 								},
 								{
 									"key": "Content-Length",
-									"value": "2361"
+									"value": "6544"
 								},
 								{
 									"key": "Content-Type",
@@ -1289,7 +1302,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "[\n    {\n        \"name\": \"First\",\n        \"dishes\": [\n            {\n                \"id\": 302,\n                \"name\": \"Dish 302\",\n                \"logo\": \"Logo 302\",\n                \"calories\": 414.342568699118,\n                \"protein\": 7.984914634182955,\n                \"fat\": 8.7186525035175,\n                \"carbohydrates\": 4.0743553336106295,\n                \"cellulose\": 0,\n                \"weight\": 269.5120483747701,\n                \"timeToCook\": 120,\n                \"dietId\": 1,\n                \"typeId\": 1,\n                \"ingredients\": [\n                    {\n                        \"id\": 1,\n                        \"name\": \"Ingredient 1\",\n                        \"measureType\": 1,\n                        \"measureCount\": 2\n                    }\n                ]\n            },\n            {\n                \"id\": 4376,\n                \"name\": \"Dish 4376\",\n                \"logo\": \"Logo 4376\",\n                \"calories\": 463.3896789928923,\n                \"protein\": 8.130966965344818,\n                \"fat\": 14.742856651694566,\n                \"carbohydrates\": 7.436587345846827,\n                \"cellulose\": 8.824902409649855,\n                \"weight\": 155.4191511120353,\n                \"timeToCook\": 119,\n                \"dietId\": 1,\n                \"typeId\": 1,\n                \"ingredients\": []\n            },\n            {\n                \"id\": 9643,\n                \"name\": \"Dish 9643\",\n                \"logo\": \"Logo 9643\",\n                \"calories\": 445.56646953195786,\n                \"protein\": 3.634124031761459,\n                \"fat\": 5.40389114937807,\n                \"carbohydrates\": 2.3867314868794196,\n                \"cellulose\": 8.737337910808169,\n                \"weight\": 287.24482126364256,\n                \"timeToCook\": 119,\n                \"dietId\": 1,\n                \"typeId\": 1,\n                \"ingredients\": []\n            },\n            {\n                \"id\": 21604,\n                \"name\": \"Dish 21604\",\n                \"logo\": \"Logo 21604\",\n                \"calories\": 269.01167551821436,\n                \"protein\": 7.773185912297668,\n                \"fat\": 24.764622700110703,\n                \"carbohydrates\": 6.218850668532792,\n                \"cellulose\": 8.343482566052005,\n                \"weight\": 101.2273744340098,\n                \"timeToCook\": 118,\n                \"dietId\": 1,\n                \"typeId\": 1,\n                \"ingredients\": []\n            }\n        ],\n        \"micronutrients\": {\n            \"calories\": 1592.3103927421826,\n            \"protein\": 27.523191543586904,\n            \"fat\": 53.63002300470084,\n            \"carbohydrates\": 20.11652483486967,\n            \"cellulose\": 25.905722886510027\n        },\n        \"idealMicronutrients\": {\n            \"calories\": 1600,\n            \"protein\": 800,\n            \"fat\": 355.5555555555556,\n            \"carbohydrates\": 800,\n            \"cellulose\": 40\n        }\n    },\n    {\n        \"name\": \"Second\",\n        \"dishes\": [\n            {\n                \"id\": 19038,\n                \"name\": \"Dish 19038\",\n                \"logo\": \"Logo 19038\",\n                \"calories\": 187.58873971103216,\n                \"protein\": 1.317731718158246,\n                \"fat\": 31.50426727189452,\n                \"carbohydrates\": 8.550125774656614,\n                \"cellulose\": 4.246415297601496,\n                \"weight\": 155.55230713852262,\n                \"timeToCook\": 118,\n                \"dietId\": 1,\n                \"typeId\": 2,\n                \"ingredients\": []\n            },\n            {\n                \"id\": 19140,\n                \"name\": \"Dish 19140\",\n                \"logo\": \"Logo 19140\",\n                \"calories\": 210.5900460928953,\n                \"protein\": 9.768184552344637,\n                \"fat\": 7.26378258030461,\n                \"carbohydrates\": 8.31479852929573,\n                \"cellulose\": 4.028584763774737,\n                \"weight\": 151.81673605357025,\n                \"timeToCook\": 119,\n                \"dietId\": 1,\n                \"typeId\": 2,\n                \"ingredients\": []\n            }\n        ],\n        \"micronutrients\": {\n            \"calories\": 398.17878580392744,\n            \"protein\": 11.085916270502883,\n            \"fat\": 38.76804985219913,\n            \"carbohydrates\": 16.864924303952343,\n            \"cellulose\": 8.275000061376232\n        },\n        \"idealMicronutrients\": {\n            \"calories\": 400,\n            \"protein\": 200,\n            \"fat\": 88.8888888888889,\n            \"carbohydrates\": 200,\n            \"cellulose\": 10\n        }\n    }\n]"
+							"body": "{\n    \"diet\": 1,\n    \"eatings\": [\n        {\n            \"name\": \"Завтрак\",\n            \"dishes\": [\n                {\n                    \"id\": 1198,\n                    \"name\": \"Dish 1198\",\n                    \"logo\": \"Logo 1198\",\n                    \"calories\": 106.20426086963768,\n                    \"protein\": 7.792313526937818,\n                    \"fat\": 7.382673317214211,\n                    \"carbohydrates\": 6.388174702138267,\n                    \"cellulose\": 14.625825881499132,\n                    \"weight\": 122.49699315601706,\n                    \"timeToCook\": 103,\n                    \"dietId\": 1,\n                    \"typeId\": 1,\n                    \"ingredients\": [\n                        {\n                            \"id\": 1,\n                            \"name\": \"Test 1\",\n                            \"measureType\": 1,\n                            \"measureCount\": 120\n                        },\n                        {\n                            \"id\": 2,\n                            \"name\": \"Test 2\",\n                            \"measureType\": 1,\n                            \"measureCount\": 90\n                        },\n                        {\n                            \"id\": 3,\n                            \"name\": \"Test 3\",\n                            \"measureType\": 2,\n                            \"measureCount\": 120\n                        },\n                        {\n                            \"id\": 4,\n                            \"name\": \"Test 4\",\n                            \"measureType\": 2,\n                            \"measureCount\": 120\n                        }\n                    ]\n                },\n                {\n                    \"id\": 3751,\n                    \"name\": \"Dish 3751\",\n                    \"logo\": \"Logo 3751\",\n                    \"calories\": 100.05231146110654,\n                    \"protein\": 6.088183933128548,\n                    \"fat\": 24.147170077882507,\n                    \"carbohydrates\": 9.109839336828651,\n                    \"cellulose\": 11.64896673857169,\n                    \"weight\": 277.40492515373603,\n                    \"timeToCook\": 119,\n                    \"dietId\": 1,\n                    \"typeId\": 1,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 3823,\n                    \"name\": \"Dish 3823\",\n                    \"logo\": \"Logo 3823\",\n                    \"calories\": 106.81621265598054,\n                    \"protein\": 7.847275913955671,\n                    \"fat\": 30.62346583673905,\n                    \"carbohydrates\": 8.321301823619732,\n                    \"cellulose\": 4.1296217113646465,\n                    \"weight\": 107.17295386431378,\n                    \"timeToCook\": 109,\n                    \"dietId\": 1,\n                    \"typeId\": 2,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 3886,\n                    \"name\": \"Dish 3886\",\n                    \"logo\": \"Logo 3886\",\n                    \"calories\": 140.76778015453073,\n                    \"protein\": 6.0832825660142005,\n                    \"fat\": 13.63965794843001,\n                    \"carbohydrates\": 2.550221438234159,\n                    \"cellulose\": 2.679681573141683,\n                    \"weight\": 149.78040002281142,\n                    \"timeToCook\": 108,\n                    \"dietId\": 1,\n                    \"typeId\": 5,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 4656,\n                    \"name\": \"Dish 4656\",\n                    \"logo\": \"Logo 4656\",\n                    \"calories\": 113.0586034257186,\n                    \"protein\": 3.134664360148572,\n                    \"fat\": 22.000300688738143,\n                    \"carbohydrates\": 7.757961220309843,\n                    \"cellulose\": 5.865331949169525,\n                    \"weight\": 103.98131999316871,\n                    \"timeToCook\": 116,\n                    \"dietId\": 1,\n                    \"typeId\": 4,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 4917,\n                    \"name\": \"Dish 4917\",\n                    \"logo\": \"Logo 4917\",\n                    \"calories\": 114.6804811212098,\n                    \"protein\": 3.5308668493860846,\n                    \"fat\": 8.795725710429522,\n                    \"carbohydrates\": 6.564109768280446,\n                    \"cellulose\": 2.2815925499088703,\n                    \"weight\": 143.70037517594702,\n                    \"timeToCook\": 98,\n                    \"dietId\": 1,\n                    \"typeId\": 3,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 5885,\n                    \"name\": \"Dish 5885\",\n                    \"logo\": \"Logo 5885\",\n                    \"calories\": 123.16097665620921,\n                    \"protein\": 3.4822449017140773,\n                    \"fat\": 24.530874740515966,\n                    \"carbohydrates\": 9.08899493577544,\n                    \"cellulose\": 6.917748149947953,\n                    \"weight\": 157.94601168094667,\n                    \"timeToCook\": 114,\n                    \"dietId\": 1,\n                    \"typeId\": 4,\n                    \"ingredients\": []\n                }\n            ],\n            \"micronutrients\": {\n                \"calories\": 804.740626344393,\n                \"protein\": 37.95883205128497,\n                \"fat\": 131.1198683199494,\n                \"carbohydrates\": 49.78060322518654,\n                \"cellulose\": 48.1487685536035\n            },\n            \"idealMicronutrients\": {\n                \"calories\": 800,\n                \"protein\": 200,\n                \"fat\": 200,\n                \"carbohydrates\": 200,\n                \"cellulose\": 50\n            }\n        },\n        {\n            \"name\": \"test2\",\n            \"dishes\": [\n                {\n                    \"id\": 1198,\n                    \"name\": \"Dish 1198\",\n                    \"logo\": \"Logo 1198\",\n                    \"calories\": 106.20426086963768,\n                    \"protein\": 7.792313526937818,\n                    \"fat\": 7.382673317214211,\n                    \"carbohydrates\": 6.388174702138267,\n                    \"cellulose\": 14.625825881499132,\n                    \"weight\": 122.49699315601706,\n                    \"timeToCook\": 103,\n                    \"dietId\": 1,\n                    \"typeId\": 1,\n                    \"ingredients\": [\n                        {\n                            \"id\": 1,\n                            \"name\": \"Test 1\",\n                            \"measureType\": 1,\n                            \"measureCount\": 120\n                        },\n                        {\n                            \"id\": 2,\n                            \"name\": \"Test 2\",\n                            \"measureType\": 1,\n                            \"measureCount\": 90\n                        },\n                        {\n                            \"id\": 3,\n                            \"name\": \"Test 3\",\n                            \"measureType\": 2,\n                            \"measureCount\": 120\n                        },\n                        {\n                            \"id\": 4,\n                            \"name\": \"Test 4\",\n                            \"measureType\": 2,\n                            \"measureCount\": 120\n                        }\n                    ]\n                },\n                {\n                    \"id\": 3751,\n                    \"name\": \"Dish 3751\",\n                    \"logo\": \"Logo 3751\",\n                    \"calories\": 100.05231146110654,\n                    \"protein\": 6.088183933128548,\n                    \"fat\": 24.147170077882507,\n                    \"carbohydrates\": 9.109839336828651,\n                    \"cellulose\": 11.64896673857169,\n                    \"weight\": 277.40492515373603,\n                    \"timeToCook\": 119,\n                    \"dietId\": 1,\n                    \"typeId\": 1,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 3823,\n                    \"name\": \"Dish 3823\",\n                    \"logo\": \"Logo 3823\",\n                    \"calories\": 106.81621265598054,\n                    \"protein\": 7.847275913955671,\n                    \"fat\": 30.62346583673905,\n                    \"carbohydrates\": 8.321301823619732,\n                    \"cellulose\": 4.1296217113646465,\n                    \"weight\": 107.17295386431378,\n                    \"timeToCook\": 109,\n                    \"dietId\": 1,\n                    \"typeId\": 2,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 3886,\n                    \"name\": \"Dish 3886\",\n                    \"logo\": \"Logo 3886\",\n                    \"calories\": 140.76778015453073,\n                    \"protein\": 6.0832825660142005,\n                    \"fat\": 13.63965794843001,\n                    \"carbohydrates\": 2.550221438234159,\n                    \"cellulose\": 2.679681573141683,\n                    \"weight\": 149.78040002281142,\n                    \"timeToCook\": 108,\n                    \"dietId\": 1,\n                    \"typeId\": 5,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 4656,\n                    \"name\": \"Dish 4656\",\n                    \"logo\": \"Logo 4656\",\n                    \"calories\": 113.0586034257186,\n                    \"protein\": 3.134664360148572,\n                    \"fat\": 22.000300688738143,\n                    \"carbohydrates\": 7.757961220309843,\n                    \"cellulose\": 5.865331949169525,\n                    \"weight\": 103.98131999316871,\n                    \"timeToCook\": 116,\n                    \"dietId\": 1,\n                    \"typeId\": 4,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 4917,\n                    \"name\": \"Dish 4917\",\n                    \"logo\": \"Logo 4917\",\n                    \"calories\": 114.6804811212098,\n                    \"protein\": 3.5308668493860846,\n                    \"fat\": 8.795725710429522,\n                    \"carbohydrates\": 6.564109768280446,\n                    \"cellulose\": 2.2815925499088703,\n                    \"weight\": 143.70037517594702,\n                    \"timeToCook\": 98,\n                    \"dietId\": 1,\n                    \"typeId\": 3,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 5885,\n                    \"name\": \"Dish 5885\",\n                    \"logo\": \"Logo 5885\",\n                    \"calories\": 123.16097665620921,\n                    \"protein\": 3.4822449017140773,\n                    \"fat\": 24.530874740515966,\n                    \"carbohydrates\": 9.08899493577544,\n                    \"cellulose\": 6.917748149947953,\n                    \"weight\": 157.94601168094667,\n                    \"timeToCook\": 114,\n                    \"dietId\": 1,\n                    \"typeId\": 4,\n                    \"ingredients\": []\n                }\n            ],\n            \"micronutrients\": {\n                \"calories\": 804.740626344393,\n                \"protein\": 37.95883205128497,\n                \"fat\": 131.1198683199494,\n                \"carbohydrates\": 49.78060322518654,\n                \"cellulose\": 48.1487685536035\n            },\n            \"idealMicronutrients\": {\n                \"calories\": 800,\n                \"protein\": 200,\n                \"fat\": 200,\n                \"carbohydrates\": 200,\n                \"cellulose\": 50\n            }\n        },\n        {\n            \"name\": \"test3\",\n            \"dishes\": [\n                {\n                    \"id\": 3751,\n                    \"name\": \"Dish 3751\",\n                    \"logo\": \"Logo 3751\",\n                    \"calories\": 100.05231146110654,\n                    \"protein\": 6.088183933128548,\n                    \"fat\": 24.147170077882507,\n                    \"carbohydrates\": 9.109839336828651,\n                    \"cellulose\": 11.64896673857169,\n                    \"weight\": 277.40492515373603,\n                    \"timeToCook\": 119,\n                    \"dietId\": 1,\n                    \"typeId\": 1,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 4824,\n                    \"name\": \"Dish 4824\",\n                    \"logo\": \"Logo 4824\",\n                    \"calories\": 177.83634048727185,\n                    \"protein\": 4.280010768125998,\n                    \"fat\": 6.985552795790024,\n                    \"carbohydrates\": 3.7551097097986257,\n                    \"cellulose\": 15.250350151799946,\n                    \"weight\": 112.54219830769598,\n                    \"timeToCook\": 120,\n                    \"dietId\": 1,\n                    \"typeId\": 3,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 5885,\n                    \"name\": \"Dish 5885\",\n                    \"logo\": \"Logo 5885\",\n                    \"calories\": 123.16097665620921,\n                    \"protein\": 3.4822449017140773,\n                    \"fat\": 24.530874740515966,\n                    \"carbohydrates\": 9.08899493577544,\n                    \"cellulose\": 6.917748149947953,\n                    \"weight\": 157.94601168094667,\n                    \"timeToCook\": 114,\n                    \"dietId\": 1,\n                    \"typeId\": 4,\n                    \"ingredients\": []\n                }\n            ],\n            \"micronutrients\": {\n                \"calories\": 401.0496286045876,\n                \"protein\": 13.850439602968622,\n                \"fat\": 55.6635976141885,\n                \"carbohydrates\": 21.95394398240272,\n                \"cellulose\": 33.81706504031959\n            },\n            \"idealMicronutrients\": {\n                \"calories\": 400,\n                \"protein\": 200,\n                \"fat\": 200,\n                \"carbohydrates\": 200,\n                \"cellulose\": 50\n            }\n        }\n    ],\n    \"params\": {\n        \"calories\": 2010.5308812933736,\n        \"protein\": 89.76810370553856,\n        \"fat\": 317.9033342540873,\n        \"carbohydrates\": 121.5151504327758,\n        \"cellulose\": 130.1146021475266\n    },\n    \"idealParams\": {\n        \"calories\": 2000,\n        \"minProtein\": 600,\n        \"maxProtein\": 600,\n        \"minFat\": 600,\n        \"maxFat\": 600,\n        \"minCarbohydrates\": 600,\n        \"maxCarbohydrates\": 600,\n        \"minCellulose\": 150,\n        \"maxCellulose\": 150\n    }\n}"
 						}
 					]
 				}
@@ -1315,137 +1328,13 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"diet\": 0,\n    // \"calories\": 2000,\n    \"params\": {\n        \"calories\": 2000, \n\n        \"minProtein\": 0, \n        \"maxProtein\": 200, \n\n        \"minFat\": 0, \n        \"maxFat\": 200, \n        \n        \"minCarbohydrates\": 0, \n        \"maxCarbohydrates\": 200, \n        \n        \"minCellulose\": 0, \n        \"maxCellulose\": 50 \n    },\n    \"excludeDishes\": [],\n    \"eatings\": [\n        {\n            \"name\": \"Завтрак\",\n            \"size\": 0.4,\n            \"type\": 0,\n            \"difficulty\": 0,\n            \"dishCount\": 0\n        },\n\n        {\n            \"name\": \"test2\",\n            \"size\": 0.4,\n            \"type\": 0,\n            \"difficulty\": 0,\n            \"dishCount\": 0\n        },\n\n        {\n            \"name\": \"test3\",\n            \"size\": 0.2,\n            \"type\": 0,\n            \"difficulty\": 0,\n            \"dishCount\": 0\n        }\n    ]\n}",
+							"raw": "{\n    \"excluded\": []\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": {
-							"raw": "{{host}}/menu/custom",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"menu",
-								"custom"
-							]
-						},
-						"description": "Run alghorithm with provided params.\n\nUse it for custom diet generation OR for replacing dishes in generated diet.\n\nIf you need to replace any dish in generated menu just provide params from Params.get and add dish which must be replace to excludeDIsh arr."
-					},
-					"response": [
-						{
-							"name": "Full parameters example",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"idealMicronutrients\": {\n        \"calories\": 2000, //Full amount of calories (will be in [C*0.99; C*1.01])\n\n        \"minProtein\": 10, //Bottom boundary of protein\n        \"maxProtein\": 200, //Top boundary of protein\n\n        \"minFat\": 20, //Bottom boundary of fat\n        \"maxFat\": 200, //Top boundary of fat\n        \n        \"minCarbohydrates\": 30, //Bottom boundary of carbohydrates\n        \"maxCarbohydrates\": 200, //Top boundary of carbohydrates\n        \n        \"minCellulose\": 0, //Bottom boundary of cellulose\n        \"maxCellulose\": 50 //Top boundary of cellulose\n    },\n    \"diet\": 0, //Diet ID\n    \"calories\": 2000, //Amount of calories for auto calculate micronutrients\n    \"excludeDishes\": [1000], //Array of excluded dishes (used for replacement requests)\n    \"eatings\": [\n        {\n            \"name\": \"test1\", //Here you can specify anything field will return in answer\n            \"size\": 0.4, //Size of eating 0.4 * fullAmountOfCalories\n            \"type\": 1, //Dish type field\n            \"difficulty\": 0, //How difficult to cook dishes (1..5) based on timeToCook\n            /*\n                1 -> DishModel.timeToCook lessEq 5\n                2 -> DishModel.timeToCook lessEq 15\n                3 -> DishModel.timeToCook lessEq 30\n                4 -> DishModel.timeToCook lessEq 45\n                5 -> DishModel.timeToCook lessEq 60\n                else -> DishModel.timeToCook lessEq 1000\n            */\n\n\n            \"dishCount\": 0 //Dish count in current eating\n        },\n        {\n            \"name\": \"test2\",\n            \"size\": 0.5,\n            \"type\": 2,\n            \"difficulty\": 3,\n            \"dishCount\": 2\n        },\n        {\n            \"name\": \"test3\",\n            \"size\": 0.1,\n            \"type\": 0,\n            \"difficulty\": 0,\n            \"dishCount\": 1\n        }\n    ]\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/menu/calculate",
-									"host": [
-										"{{host}}"
-									],
-									"path": [
-										"menu",
-										"calculate"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Length",
-									"value": "2739"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"diet\": 0,\n    \"eatings\": [\n        {\n            \"name\": \"test1\",\n            \"dishes\": [\n                {\n                    \"id\": 1860,\n                    \"name\": \"Dish 1860\",\n                    \"calories\": 463.2296950328104,\n                    \"protein\": 7.826443467418699,\n                    \"fat\": 15.126425409596443,\n                    \"carbohydrates\": 9.103392698537498,\n                    \"cellulose\": 6.894634331094177,\n                    \"weight\": 164.41680475544584,\n                    \"timeToCook\": 73,\n                    \"dietId\": 3,\n                    \"typeId\": 3,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 2775,\n                    \"name\": \"Dish 2775\",\n                    \"calories\": 344.7360097591037,\n                    \"protein\": 4.99330489669109,\n                    \"fat\": 12.30504452724912,\n                    \"carbohydrates\": 5.246003009002423,\n                    \"cellulose\": 4.565717745611274,\n                    \"weight\": 218.55985604291078,\n                    \"timeToCook\": 32,\n                    \"dietId\": 1,\n                    \"typeId\": 1,\n                    \"ingredients\": []\n                }\n            ],\n            \"micronutrients\": {\n                \"calories\": 807.965704791914,\n                \"protein\": 12.819748364109788,\n                \"fat\": 27.431469936845563,\n                \"carbohydrates\": 14.34939570753992,\n                \"cellulose\": 11.460352076705451\n            },\n            \"idealMicronutrients\": {\n                \"calories\": 800,\n                \"protein\": 80,\n                \"fat\": 80,\n                \"carbohydrates\": 80,\n                \"cellulose\": 20\n            }\n        },\n        {\n            \"name\": \"test2\",\n            \"dishes\": [\n                {\n                    \"id\": 13801,\n                    \"name\": \"Dish 13801\",\n                    \"calories\": 495.8584811320864,\n                    \"protein\": 4.461894827031741,\n                    \"fat\": 5.943257162264922,\n                    \"carbohydrates\": 7.0870088742559725,\n                    \"cellulose\": 6.818772008791399,\n                    \"weight\": 148.8389484929518,\n                    \"timeToCook\": 13,\n                    \"dietId\": 2,\n                    \"typeId\": 2,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 14820,\n                    \"name\": \"Dish 14820\",\n                    \"calories\": 497.3920153780875,\n                    \"protein\": 9.863839791926784,\n                    \"fat\": 33.697025813650384,\n                    \"carbohydrates\": 9.915314856236193,\n                    \"cellulose\": 17.050925455337264,\n                    \"weight\": 185.33154531152144,\n                    \"timeToCook\": 22,\n                    \"dietId\": 2,\n                    \"typeId\": 2,\n                    \"ingredients\": []\n                }\n            ],\n            \"micronutrients\": {\n                \"calories\": 993.2504965101739,\n                \"protein\": 14.325734618958524,\n                \"fat\": 39.640282975915305,\n                \"carbohydrates\": 17.002323730492165,\n                \"cellulose\": 23.869697464128663\n            },\n            \"idealMicronutrients\": {\n                \"calories\": 1000,\n                \"protein\": 100,\n                \"fat\": 100,\n                \"carbohydrates\": 100,\n                \"cellulose\": 25\n            }\n        },\n        {\n            \"name\": \"test3\",\n            \"dishes\": [\n                {\n                    \"id\": 1597,\n                    \"name\": \"Dish 1597\",\n                    \"calories\": 198.3389276267116,\n                    \"protein\": 4.332572859868973,\n                    \"fat\": 15.876723885217652,\n                    \"carbohydrates\": 5.564148182893848,\n                    \"cellulose\": 3.7155068016127766,\n                    \"weight\": 115.67579153184298,\n                    \"timeToCook\": 72,\n                    \"dietId\": 1,\n                    \"typeId\": 1,\n                    \"ingredients\": [\n                        {\n                            \"id\": 1,\n                            \"name\": \"Молоко\",\n                            \"measure\": {\n                                \"name\": \"мл\",\n                                \"nameFiveItems\": \"мл\",\n                                \"nameFractional\": \"мл\",\n                                \"nameTwoItems\": \"мл\",\n                                \"isDimensional\": true\n                            },\n                            \"measureCount\": 5\n                        }\n                    ]\n                }\n            ],\n            \"micronutrients\": {\n                \"calories\": 198.3389276267116,\n                \"protein\": 4.332572859868973,\n                \"fat\": 15.876723885217652,\n                \"carbohydrates\": 5.564148182893848,\n                \"cellulose\": 3.7155068016127766\n            },\n            \"idealMicronutrients\": {\n                \"calories\": 200,\n                \"protein\": 20,\n                \"fat\": 20,\n                \"carbohydrates\": 20,\n                \"cellulose\": 5\n            }\n        }\n    ],\n    \"params\": {\n        \"calories\": 1999.5551289287996,\n        \"protein\": 31.478055842937287,\n        \"fat\": 82.94847679797853,\n        \"carbohydrates\": 36.91586762092593,\n        \"cellulose\": 39.045556342446886\n    },\n    \"idealParams\": {\n        \"calories\": 2000,\n        \"minProtein\": 10,\n        \"maxProtein\": 200,\n        \"minFat\": 20,\n        \"maxFat\": 200,\n        \"minCarbohydrates\": 30,\n        \"maxCarbohydrates\": 200,\n        \"minCellulose\": 0,\n        \"maxCellulose\": 50\n    }\n}"
-						},
-						{
-							"name": "Success",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"diet\": 0,\n    // \"calories\": 2000,\n    \"params\": {\n        \"calories\": 2000, \n\n        \"minProtein\": 0, \n        \"maxProtein\": 200, \n\n        \"minFat\": 0, \n        \"maxFat\": 200, \n        \n        \"minCarbohydrates\": 0, \n        \"maxCarbohydrates\": 200, \n        \n        \"minCellulose\": 0, \n        \"maxCellulose\": 50 \n    },\n    \"excludeDishes\": [],\n    \"eatings\": [\n        {\n            \"name\": \"Завтрак\",\n            \"size\": 0.4,\n            \"type\": 0,\n            \"difficulty\": 0,\n            \"dishCount\": 0\n        },\n\n        {\n            \"name\": \"test2\",\n            \"size\": 0.4,\n            \"type\": 0,\n            \"difficulty\": 0,\n            \"dishCount\": 0\n        },\n\n        {\n            \"name\": \"test3\",\n            \"size\": 0.2,\n            \"type\": 0,\n            \"difficulty\": 0,\n            \"dishCount\": 0\n        }\n    ]\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/menu/custom",
-									"host": [
-										"{{host}}"
-									],
-									"path": [
-										"menu",
-										"custom"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Vary",
-									"value": "Origin"
-								},
-								{
-									"key": "Content-Length",
-									"value": "6305"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"diet\": 0,\n    \"eatings\": [\n        {\n            \"name\": \"Завтрак\",\n            \"dishes\": [\n                {\n                    \"id\": 355,\n                    \"name\": \"Dish 355\",\n                    \"logo\": \"Logo 355\",\n                    \"calories\": 135.41043210531433,\n                    \"protein\": 2.4830955843118048,\n                    \"fat\": 8.25150228113964,\n                    \"carbohydrates\": 8.784192515726264,\n                    \"cellulose\": 3.0906794299918765,\n                    \"weight\": 129.12530544495687,\n                    \"timeToCook\": 112,\n                    \"dietId\": 1,\n                    \"typeId\": 2,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 1017,\n                    \"name\": \"Dish 1017\",\n                    \"logo\": \"Logo 1017\",\n                    \"calories\": 100.09928115803524,\n                    \"protein\": 8.66495958460339,\n                    \"fat\": 10.2378724485591,\n                    \"carbohydrates\": 8.424983480432,\n                    \"cellulose\": 2.109273106510491,\n                    \"weight\": 214.92240639835924,\n                    \"timeToCook\": 90,\n                    \"dietId\": 1,\n                    \"typeId\": 2,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 1882,\n                    \"name\": \"Dish 1882\",\n                    \"logo\": \"Logo 1882\",\n                    \"calories\": 108.52126912081208,\n                    \"protein\": 9.124709557780271,\n                    \"fat\": 25.515060500370993,\n                    \"carbohydrates\": 5.651100671263155,\n                    \"cellulose\": 2.4859945022631784,\n                    \"weight\": 154.9590855795978,\n                    \"timeToCook\": 104,\n                    \"dietId\": 1,\n                    \"typeId\": 4,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 2926,\n                    \"name\": \"Dish 2926\",\n                    \"logo\": \"Logo 2926\",\n                    \"calories\": 107.09025847738948,\n                    \"protein\": 1.4114767329140192,\n                    \"fat\": 30.002319251660158,\n                    \"carbohydrates\": 9.257257165776242,\n                    \"cellulose\": 16.78749862699396,\n                    \"weight\": 190.35184336196943,\n                    \"timeToCook\": 119,\n                    \"dietId\": 1,\n                    \"typeId\": 2,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 3070,\n                    \"name\": \"Dish 3070\",\n                    \"logo\": \"Logo 3070\",\n                    \"calories\": 100.9598507911471,\n                    \"protein\": 5.805212882137818,\n                    \"fat\": 9.236182287237371,\n                    \"carbohydrates\": 1.7305536771054828,\n                    \"cellulose\": 10.69575102603726,\n                    \"weight\": 221.32631324143887,\n                    \"timeToCook\": 116,\n                    \"dietId\": 1,\n                    \"typeId\": 4,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 3212,\n                    \"name\": \"Dish 3212\",\n                    \"logo\": \"Logo 3212\",\n                    \"calories\": 125.34850909999986,\n                    \"protein\": 8.35257313218301,\n                    \"fat\": 12.804814761584286,\n                    \"carbohydrates\": 6.90744762332929,\n                    \"cellulose\": 5.975415625470276,\n                    \"weight\": 180.85776615273446,\n                    \"timeToCook\": 117,\n                    \"dietId\": 1,\n                    \"typeId\": 5,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 4164,\n                    \"name\": \"Dish 4164\",\n                    \"logo\": \"Logo 4164\",\n                    \"calories\": 128.3582804835016,\n                    \"protein\": 1.3862919834292515,\n                    \"fat\": 14.574531538432923,\n                    \"carbohydrates\": 8.115414966814662,\n                    \"cellulose\": 5.316201932910446,\n                    \"weight\": 169.68902129816485,\n                    \"timeToCook\": 104,\n                    \"dietId\": 1,\n                    \"typeId\": 5,\n                    \"ingredients\": []\n                }\n            ],\n            \"micronutrients\": {\n                \"calories\": 805.7878812361997,\n                \"protein\": 37.22831945735956,\n                \"fat\": 110.62228306898446,\n                \"carbohydrates\": 48.8709501004471,\n                \"cellulose\": 46.46081425017749\n            },\n            \"idealMicronutrients\": {\n                \"calories\": 800,\n                \"protein\": 200,\n                \"fat\": 200,\n                \"carbohydrates\": 200,\n                \"cellulose\": 50\n            }\n        },\n        {\n            \"name\": \"test2\",\n            \"dishes\": [\n                {\n                    \"id\": 355,\n                    \"name\": \"Dish 355\",\n                    \"logo\": \"Logo 355\",\n                    \"calories\": 135.41043210531433,\n                    \"protein\": 2.4830955843118048,\n                    \"fat\": 8.25150228113964,\n                    \"carbohydrates\": 8.784192515726264,\n                    \"cellulose\": 3.0906794299918765,\n                    \"weight\": 129.12530544495687,\n                    \"timeToCook\": 112,\n                    \"dietId\": 1,\n                    \"typeId\": 2,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 1017,\n                    \"name\": \"Dish 1017\",\n                    \"logo\": \"Logo 1017\",\n                    \"calories\": 100.09928115803524,\n                    \"protein\": 8.66495958460339,\n                    \"fat\": 10.2378724485591,\n                    \"carbohydrates\": 8.424983480432,\n                    \"cellulose\": 2.109273106510491,\n                    \"weight\": 214.92240639835924,\n                    \"timeToCook\": 90,\n                    \"dietId\": 1,\n                    \"typeId\": 2,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 1882,\n                    \"name\": \"Dish 1882\",\n                    \"logo\": \"Logo 1882\",\n                    \"calories\": 108.52126912081208,\n                    \"protein\": 9.124709557780271,\n                    \"fat\": 25.515060500370993,\n                    \"carbohydrates\": 5.651100671263155,\n                    \"cellulose\": 2.4859945022631784,\n                    \"weight\": 154.9590855795978,\n                    \"timeToCook\": 104,\n                    \"dietId\": 1,\n                    \"typeId\": 4,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 2926,\n                    \"name\": \"Dish 2926\",\n                    \"logo\": \"Logo 2926\",\n                    \"calories\": 107.09025847738948,\n                    \"protein\": 1.4114767329140192,\n                    \"fat\": 30.002319251660158,\n                    \"carbohydrates\": 9.257257165776242,\n                    \"cellulose\": 16.78749862699396,\n                    \"weight\": 190.35184336196943,\n                    \"timeToCook\": 119,\n                    \"dietId\": 1,\n                    \"typeId\": 2,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 3070,\n                    \"name\": \"Dish 3070\",\n                    \"logo\": \"Logo 3070\",\n                    \"calories\": 100.9598507911471,\n                    \"protein\": 5.805212882137818,\n                    \"fat\": 9.236182287237371,\n                    \"carbohydrates\": 1.7305536771054828,\n                    \"cellulose\": 10.69575102603726,\n                    \"weight\": 221.32631324143887,\n                    \"timeToCook\": 116,\n                    \"dietId\": 1,\n                    \"typeId\": 4,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 3212,\n                    \"name\": \"Dish 3212\",\n                    \"logo\": \"Logo 3212\",\n                    \"calories\": 125.34850909999986,\n                    \"protein\": 8.35257313218301,\n                    \"fat\": 12.804814761584286,\n                    \"carbohydrates\": 6.90744762332929,\n                    \"cellulose\": 5.975415625470276,\n                    \"weight\": 180.85776615273446,\n                    \"timeToCook\": 117,\n                    \"dietId\": 1,\n                    \"typeId\": 5,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 4164,\n                    \"name\": \"Dish 4164\",\n                    \"logo\": \"Logo 4164\",\n                    \"calories\": 128.3582804835016,\n                    \"protein\": 1.3862919834292515,\n                    \"fat\": 14.574531538432923,\n                    \"carbohydrates\": 8.115414966814662,\n                    \"cellulose\": 5.316201932910446,\n                    \"weight\": 169.68902129816485,\n                    \"timeToCook\": 104,\n                    \"dietId\": 1,\n                    \"typeId\": 5,\n                    \"ingredients\": []\n                }\n            ],\n            \"micronutrients\": {\n                \"calories\": 805.7878812361997,\n                \"protein\": 37.22831945735956,\n                \"fat\": 110.62228306898446,\n                \"carbohydrates\": 48.8709501004471,\n                \"cellulose\": 46.46081425017749\n            },\n            \"idealMicronutrients\": {\n                \"calories\": 800,\n                \"protein\": 200,\n                \"fat\": 200,\n                \"carbohydrates\": 200,\n                \"cellulose\": 50\n            }\n        },\n        {\n            \"name\": \"test3\",\n            \"dishes\": [\n                {\n                    \"id\": 1017,\n                    \"name\": \"Dish 1017\",\n                    \"logo\": \"Logo 1017\",\n                    \"calories\": 100.09928115803524,\n                    \"protein\": 8.66495958460339,\n                    \"fat\": 10.2378724485591,\n                    \"carbohydrates\": 8.424983480432,\n                    \"cellulose\": 2.109273106510491,\n                    \"weight\": 214.92240639835924,\n                    \"timeToCook\": 90,\n                    \"dietId\": 1,\n                    \"typeId\": 2,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 2702,\n                    \"name\": \"Dish 2702\",\n                    \"logo\": \"Logo 2702\",\n                    \"calories\": 100.0385292650079,\n                    \"protein\": 6.117239610838102,\n                    \"fat\": 33.238334235359126,\n                    \"carbohydrates\": 4.255167317153577,\n                    \"cellulose\": 13.570193208122866,\n                    \"weight\": 207.27046711607665,\n                    \"timeToCook\": 103,\n                    \"dietId\": 1,\n                    \"typeId\": 2,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 3070,\n                    \"name\": \"Dish 3070\",\n                    \"logo\": \"Logo 3070\",\n                    \"calories\": 100.9598507911471,\n                    \"protein\": 5.805212882137818,\n                    \"fat\": 9.236182287237371,\n                    \"carbohydrates\": 1.7305536771054828,\n                    \"cellulose\": 10.69575102603726,\n                    \"weight\": 221.32631324143887,\n                    \"timeToCook\": 116,\n                    \"dietId\": 1,\n                    \"typeId\": 4,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 6161,\n                    \"name\": \"Dish 6161\",\n                    \"logo\": \"Logo 6161\",\n                    \"calories\": 102.05998043425608,\n                    \"protein\": 3.706650513662139,\n                    \"fat\": 8.492995510819155,\n                    \"carbohydrates\": 4.3293246684558735,\n                    \"cellulose\": 17.519192861997194,\n                    \"weight\": 206.83966942421193,\n                    \"timeToCook\": 113,\n                    \"dietId\": 1,\n                    \"typeId\": 4,\n                    \"ingredients\": []\n                }\n            ],\n            \"micronutrients\": {\n                \"calories\": 403.1576416484463,\n                \"protein\": 24.29406259124145,\n                \"fat\": 61.205384481974754,\n                \"carbohydrates\": 18.740029143146934,\n                \"cellulose\": 43.894410202667814\n            },\n            \"idealMicronutrients\": {\n                \"calories\": 400,\n                \"protein\": 200,\n                \"fat\": 200,\n                \"carbohydrates\": 200,\n                \"cellulose\": 50\n            }\n        }\n    ],\n    \"params\": {\n        \"calories\": 2014.7334041208458,\n        \"protein\": 98.75070150596056,\n        \"fat\": 282.44995061994365,\n        \"carbohydrates\": 116.48192934404113,\n        \"cellulose\": 136.8160387030228\n    },\n    \"idealParams\": {\n        \"calories\": 2000,\n        \"minProtein\": 0,\n        \"maxProtein\": 200,\n        \"minFat\": 0,\n        \"maxFat\": 200,\n        \"minCarbohydrates\": 0,\n        \"maxCarbohydrates\": 200,\n        \"minCellulose\": 0,\n        \"maxCellulose\": 50\n    }\n}"
-						}
-					]
-				},
-				{
-					"name": "Calculate menu by user params",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
 						"url": {
 							"raw": "{{host}}/menu/calculate",
 							"host": [
@@ -1460,46 +1349,19 @@
 					},
 					"response": [
 						{
-							"name": "Success with ingredient object",
+							"name": "Success with excluded",
 							"originalRequest": {
 								"method": "POST",
 								"header": [],
-								"url": {
-									"raw": "{{host}}/menu/calculate",
-									"host": [
-										"{{host}}"
-									],
-									"path": [
-										"menu",
-										"calculate"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Length",
-									"value": "3027"
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"excluded\": [17276]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
 								},
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"diet\": 1,\n    \"eatings\": [\n        {\n            \"name\": \"First\",\n            \"dishes\": [\n                {\n                    \"id\": 302,\n                    \"name\": \"Dish 302\",\n                    \"logo\": \"Logo 302\",\n                    \"calories\": 414.342568699118,\n                    \"protein\": 7.984914634182955,\n                    \"fat\": 8.7186525035175,\n                    \"carbohydrates\": 4.0743553336106295,\n                    \"cellulose\": 0,\n                    \"weight\": 269.5120483747701,\n                    \"timeToCook\": 120,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 1,\n                        \"name\": \"DishType1\"\n                    },\n                    \"ingredients\": [\n                        {\n                            \"id\": 1,\n                            \"name\": \"Ingredient 1\",\n                            \"measureType\": 1,\n                            \"measureCount\": 2\n                        }\n                    ]\n                },\n                {\n                    \"id\": 4376,\n                    \"name\": \"Dish 4376\",\n                    \"logo\": \"Logo 4376\",\n                    \"calories\": 463.3896789928923,\n                    \"protein\": 8.130966965344818,\n                    \"fat\": 14.742856651694566,\n                    \"carbohydrates\": 7.436587345846827,\n                    \"cellulose\": 8.824902409649855,\n                    \"weight\": 155.4191511120353,\n                    \"timeToCook\": 119,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 1,\n                        \"name\": \"DishType1\"\n                    },\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 9643,\n                    \"name\": \"Dish 9643\",\n                    \"logo\": \"Logo 9643\",\n                    \"calories\": 445.56646953195786,\n                    \"protein\": 3.634124031761459,\n                    \"fat\": 5.40389114937807,\n                    \"carbohydrates\": 2.3867314868794196,\n                    \"cellulose\": 8.737337910808169,\n                    \"weight\": 287.24482126364256,\n                    \"timeToCook\": 119,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 1,\n                        \"name\": \"DishType1\"\n                    },\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 21604,\n                    \"name\": \"Dish 21604\",\n                    \"logo\": \"Logo 21604\",\n                    \"calories\": 269.01167551821436,\n                    \"protein\": 7.773185912297668,\n                    \"fat\": 24.764622700110703,\n                    \"carbohydrates\": 6.218850668532792,\n                    \"cellulose\": 8.343482566052005,\n                    \"weight\": 101.2273744340098,\n                    \"timeToCook\": 118,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 1,\n                        \"name\": \"DishType1\"\n                    },\n                    \"ingredients\": []\n                }\n            ],\n            \"micronutrients\": {\n                \"calories\": 1592.3103927421826,\n                \"protein\": 27.523191543586904,\n                \"fat\": 53.63002300470084,\n                \"carbohydrates\": 20.11652483486967,\n                \"cellulose\": 25.905722886510027\n            },\n            \"idealMicronutrients\": {\n                \"calories\": 1600,\n                \"protein\": 800,\n                \"fat\": 355.5555555555556,\n                \"carbohydrates\": 800,\n                \"cellulose\": 40\n            }\n        },\n        {\n            \"name\": \"Second\",\n            \"dishes\": [\n                {\n                    \"id\": 19038,\n                    \"name\": \"Dish 19038\",\n                    \"logo\": \"Logo 19038\",\n                    \"calories\": 187.58873971103216,\n                    \"protein\": 1.317731718158246,\n                    \"fat\": 31.50426727189452,\n                    \"carbohydrates\": 8.550125774656614,\n                    \"cellulose\": 4.246415297601496,\n                    \"weight\": 155.55230713852262,\n                    \"timeToCook\": 118,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 2,\n                        \"name\": \"DishType2\"\n                    },\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 19140,\n                    \"name\": \"Dish 19140\",\n                    \"logo\": \"Logo 19140\",\n                    \"calories\": 210.5900460928953,\n                    \"protein\": 9.768184552344637,\n                    \"fat\": 7.26378258030461,\n                    \"carbohydrates\": 8.31479852929573,\n                    \"cellulose\": 4.028584763774737,\n                    \"weight\": 151.81673605357025,\n                    \"timeToCook\": 119,\n                    \"dietId\": {\n                        \"id\": 1,\n                        \"name\": \"Diet1\"\n                    },\n                    \"typeId\": {\n                        \"id\": 2,\n                        \"name\": \"DishType2\"\n                    },\n                    \"ingredients\": []\n                }\n            ],\n            \"micronutrients\": {\n                \"calories\": 398.17878580392744,\n                \"protein\": 11.085916270502883,\n                \"fat\": 38.76804985219913,\n                \"carbohydrates\": 16.864924303952343,\n                \"cellulose\": 8.275000061376232\n            },\n            \"idealMicronutrients\": {\n                \"calories\": 400,\n                \"protein\": 200,\n                \"fat\": 88.8888888888889,\n                \"carbohydrates\": 200,\n                \"cellulose\": 10\n            }\n        }\n    ],\n    \"params\": {\n        \"calories\": 1990.48917854611,\n        \"protein\": 38.60910781408979,\n        \"fat\": 92.39807285689997,\n        \"carbohydrates\": 36.981449138822015,\n        \"cellulose\": 34.18072294788626\n    },\n    \"idealParams\": {\n        \"calories\": 2000,\n        \"minProtein\": 0,\n        \"maxProtein\": 1000,\n        \"minFat\": 0,\n        \"maxFat\": 444.44444444444446,\n        \"minCarbohydrates\": 0,\n        \"maxCarbohydrates\": 1000,\n        \"minCellulose\": 25,\n        \"maxCellulose\": 50\n    }\n}"
-						},
-						{
-							"name": "Success",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
 								"url": {
 									"raw": "{{host}}/menu/calculate",
 									"host": [
@@ -1521,7 +1383,7 @@
 								},
 								{
 									"key": "Content-Length",
-									"value": "2739"
+									"value": "2095"
 								},
 								{
 									"key": "Content-Type",
@@ -1533,17 +1395,66 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"diet\": 1,\n    \"eatings\": [\n        {\n            \"name\": \"First\",\n            \"dishes\": [\n                {\n                    \"id\": 302,\n                    \"name\": \"Dish 302\",\n                    \"logo\": \"Logo 302\",\n                    \"calories\": 414.342568699118,\n                    \"protein\": 7.984914634182955,\n                    \"fat\": 8.7186525035175,\n                    \"carbohydrates\": 4.0743553336106295,\n                    \"cellulose\": 0,\n                    \"weight\": 269.5120483747701,\n                    \"timeToCook\": 120,\n                    \"dietId\": 1,\n                    \"typeId\": 1,\n                    \"ingredients\": [\n                        {\n                            \"id\": 1,\n                            \"name\": \"Ingredient 1\",\n                            \"measureType\": 1,\n                            \"measureCount\": 2\n                        }\n                    ]\n                },\n                {\n                    \"id\": 4376,\n                    \"name\": \"Dish 4376\",\n                    \"logo\": \"Logo 4376\",\n                    \"calories\": 463.3896789928923,\n                    \"protein\": 8.130966965344818,\n                    \"fat\": 14.742856651694566,\n                    \"carbohydrates\": 7.436587345846827,\n                    \"cellulose\": 8.824902409649855,\n                    \"weight\": 155.4191511120353,\n                    \"timeToCook\": 119,\n                    \"dietId\": 1,\n                    \"typeId\": 1,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 9643,\n                    \"name\": \"Dish 9643\",\n                    \"logo\": \"Logo 9643\",\n                    \"calories\": 445.56646953195786,\n                    \"protein\": 3.634124031761459,\n                    \"fat\": 5.40389114937807,\n                    \"carbohydrates\": 2.3867314868794196,\n                    \"cellulose\": 8.737337910808169,\n                    \"weight\": 287.24482126364256,\n                    \"timeToCook\": 119,\n                    \"dietId\": 1,\n                    \"typeId\": 1,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 21604,\n                    \"name\": \"Dish 21604\",\n                    \"logo\": \"Logo 21604\",\n                    \"calories\": 269.01167551821436,\n                    \"protein\": 7.773185912297668,\n                    \"fat\": 24.764622700110703,\n                    \"carbohydrates\": 6.218850668532792,\n                    \"cellulose\": 8.343482566052005,\n                    \"weight\": 101.2273744340098,\n                    \"timeToCook\": 118,\n                    \"dietId\": 1,\n                    \"typeId\": 1,\n                    \"ingredients\": []\n                }\n            ],\n            \"micronutrients\": {\n                \"calories\": 1592.3103927421826,\n                \"protein\": 27.523191543586904,\n                \"fat\": 53.63002300470084,\n                \"carbohydrates\": 20.11652483486967,\n                \"cellulose\": 25.905722886510027\n            },\n            \"idealMicronutrients\": {\n                \"calories\": 1600,\n                \"protein\": 800,\n                \"fat\": 355.5555555555556,\n                \"carbohydrates\": 800,\n                \"cellulose\": 40\n            }\n        },\n        {\n            \"name\": \"Second\",\n            \"dishes\": [\n                {\n                    \"id\": 19038,\n                    \"name\": \"Dish 19038\",\n                    \"logo\": \"Logo 19038\",\n                    \"calories\": 187.58873971103216,\n                    \"protein\": 1.317731718158246,\n                    \"fat\": 31.50426727189452,\n                    \"carbohydrates\": 8.550125774656614,\n                    \"cellulose\": 4.246415297601496,\n                    \"weight\": 155.55230713852262,\n                    \"timeToCook\": 118,\n                    \"dietId\": 1,\n                    \"typeId\": 2,\n                    \"ingredients\": []\n                },\n                {\n                    \"id\": 19140,\n                    \"name\": \"Dish 19140\",\n                    \"logo\": \"Logo 19140\",\n                    \"calories\": 210.5900460928953,\n                    \"protein\": 9.768184552344637,\n                    \"fat\": 7.26378258030461,\n                    \"carbohydrates\": 8.31479852929573,\n                    \"cellulose\": 4.028584763774737,\n                    \"weight\": 151.81673605357025,\n                    \"timeToCook\": 119,\n                    \"dietId\": 1,\n                    \"typeId\": 2,\n                    \"ingredients\": []\n                }\n            ],\n            \"micronutrients\": {\n                \"calories\": 398.17878580392744,\n                \"protein\": 11.085916270502883,\n                \"fat\": 38.76804985219913,\n                \"carbohydrates\": 16.864924303952343,\n                \"cellulose\": 8.275000061376232\n            },\n            \"idealMicronutrients\": {\n                \"calories\": 400,\n                \"protein\": 200,\n                \"fat\": 88.8888888888889,\n                \"carbohydrates\": 200,\n                \"cellulose\": 10\n            }\n        }\n    ],\n    \"params\": {\n        \"calories\": 1990.48917854611,\n        \"protein\": 38.60910781408979,\n        \"fat\": 92.39807285689997,\n        \"carbohydrates\": 36.981449138822015,\n        \"cellulose\": 34.18072294788626\n    },\n    \"idealParams\": {\n        \"calories\": 2000,\n        \"minProtein\": 0,\n        \"maxProtein\": 1000,\n        \"minFat\": 0,\n        \"maxFat\": 444.44444444444446,\n        \"minCarbohydrates\": 0,\n        \"maxCarbohydrates\": 1000,\n        \"minCellulose\": 25,\n        \"maxCellulose\": 50\n    }\n}"
+							"body": "{\n    \"eatings\": [\n        {\n            \"name\": \"First\",\n            \"dishes\": [\n                {\n                    \"id\": 16207,\n                    \"name\": \"Драники с луком\",\n                    \"logo\": \"https://s1.eda.ru/StaticContent/Photos/120213175433/140114142653/p_O.jpg\",\n                    \"calories\": 129,\n                    \"protein\": 4.7,\n                    \"fat\": 2.1,\n                    \"carbohydrates\": 24.3,\n                    \"cellulose\": 0,\n                    \"timeToCook\": 30,\n                    \"dietId\": 1,\n                    \"typeId\": 1\n                },\n                {\n                    \"id\": 33485,\n                    \"name\": \"Спагетти с мясными шариками в томатном соусе\",\n                    \"logo\": \"https://s1.eda.ru/StaticContent/Photos/120131085624/171212002239/p_O.jpg\",\n                    \"calories\": 740,\n                    \"protein\": 35.6,\n                    \"fat\": 28,\n                    \"carbohydrates\": 83.8,\n                    \"cellulose\": 0,\n                    \"timeToCook\": 40,\n                    \"dietId\": 1,\n                    \"typeId\": 1\n                },\n                {\n                    \"id\": 54990,\n                    \"name\": \"Оливье\",\n                    \"logo\": \"https://s1.eda.ru/StaticContent/Photos/120515204458/181206165726/p_O.jpg\",\n                    \"calories\": 188,\n                    \"protein\": 13.3,\n                    \"fat\": 7.4,\n                    \"carbohydrates\": 18,\n                    \"cellulose\": 0,\n                    \"timeToCook\": 30,\n                    \"dietId\": 1,\n                    \"typeId\": 1\n                },\n                {\n                    \"id\": 92551,\n                    \"name\": \"Кесадилья с курицей\",\n                    \"logo\": \"https://s1.eda.ru/StaticContent/Photos/120131082454/170512133728/p_O.jpg\",\n                    \"calories\": 534,\n                    \"protein\": 37.2,\n                    \"fat\": 23.8,\n                    \"carbohydrates\": 41.2,\n                    \"cellulose\": 0,\n                    \"timeToCook\": 45,\n                    \"dietId\": 1,\n                    \"typeId\": 1\n                }\n            ],\n            \"params\": {\n                \"calories\": 1591,\n                \"protein\": 90.80000000000001,\n                \"fat\": 61.3,\n                \"carbohydrates\": 167.3\n            },\n            \"idealParams\": {\n                \"calories\": 1600,\n                \"protein\": 146.66666666666669,\n                \"fat\": 65.1851851851852,\n                \"carbohydrates\": 146.66666666666669\n            }\n        },\n        {\n            \"name\": \"Second\",\n            \"dishes\": [\n                {\n                    \"id\": 15230,\n                    \"name\": \"Банановые оладьи на молоке\",\n                    \"logo\": \"https://s1.eda.ru/StaticContent/Photos/150116162013/150814200247/p_O.jpg\",\n                    \"calories\": 429,\n                    \"protein\": 7.3,\n                    \"fat\": 11.6,\n                    \"carbohydrates\": 75.5,\n                    \"cellulose\": 0,\n                    \"timeToCook\": 30,\n                    \"dietId\": 1,\n                    \"typeId\": 1\n                }\n            ],\n            \"params\": {\n                \"calories\": 429,\n                \"protein\": 7.3,\n                \"fat\": 11.6,\n                \"carbohydrates\": 75.5\n            },\n            \"idealParams\": {\n                \"calories\": 400,\n                \"protein\": 36.66666666666667,\n                \"fat\": 16.2962962962963,\n                \"carbohydrates\": 36.66666666666667\n            }\n        }\n    ],\n    \"params\": {\n        \"calories\": 2020,\n        \"protein\": 98.10000000000001,\n        \"fat\": 72.89999999999999,\n        \"carbohydrates\": 242.8\n    },\n    \"idealParams\": {\n        \"calories\": 2000,\n        \"minProtein\": 150,\n        \"maxProtein\": 183.33333333333334,\n        \"minFat\": 66.66666666666667,\n        \"maxFat\": 81.4814814814815,\n        \"minCarbohydrates\": 150,\n        \"maxCarbohydrates\": 183.33333333333334\n    }\n}"
+						},
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"excluded\": []\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/menu/calculate",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"menu",
+										"calculate"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2077"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"eatings\": [\n        {\n            \"name\": \"First\",\n            \"dishes\": [\n                {\n                    \"id\": 17061,\n                    \"name\": \"Фахитас с курицей и фасолью\",\n                    \"logo\": \"https://s1.eda.ru/StaticContent/Photos/120213175629/1202131757052/p_O.jpg\",\n                    \"calories\": 507,\n                    \"protein\": 72.8,\n                    \"fat\": 3.6,\n                    \"carbohydrates\": 41.7,\n                    \"cellulose\": 0,\n                    \"timeToCook\": 30,\n                    \"dietId\": 1,\n                    \"typeId\": 1\n                },\n                {\n                    \"id\": 17276,\n                    \"name\": \"Паэлья с креветками и курицей\",\n                    \"logo\": \"https://s1.eda.ru/StaticContent/Photos/130829212936/130904170232/p_O.jpg\",\n                    \"calories\": 439,\n                    \"protein\": 19.7,\n                    \"fat\": 20.1,\n                    \"carbohydrates\": 38.5,\n                    \"cellulose\": 0,\n                    \"timeToCook\": 40,\n                    \"dietId\": 1,\n                    \"typeId\": 1\n                },\n                {\n                    \"id\": 54990,\n                    \"name\": \"Оливье\",\n                    \"logo\": \"https://s1.eda.ru/StaticContent/Photos/120515204458/181206165726/p_O.jpg\",\n                    \"calories\": 188,\n                    \"protein\": 13.3,\n                    \"fat\": 7.4,\n                    \"carbohydrates\": 18,\n                    \"cellulose\": 0,\n                    \"timeToCook\": 30,\n                    \"dietId\": 1,\n                    \"typeId\": 1\n                },\n                {\n                    \"id\": 92551,\n                    \"name\": \"Кесадилья с курицей\",\n                    \"logo\": \"https://s1.eda.ru/StaticContent/Photos/120131082454/170512133728/p_O.jpg\",\n                    \"calories\": 534,\n                    \"protein\": 37.2,\n                    \"fat\": 23.8,\n                    \"carbohydrates\": 41.2,\n                    \"cellulose\": 0,\n                    \"timeToCook\": 45,\n                    \"dietId\": 1,\n                    \"typeId\": 1\n                }\n            ],\n            \"params\": {\n                \"calories\": 1668,\n                \"protein\": 143,\n                \"fat\": 54.900000000000006,\n                \"carbohydrates\": 139.4\n            },\n            \"idealParams\": {\n                \"calories\": 1600,\n                \"protein\": 266.6666666666667,\n                \"fat\": 118.51851851851853,\n                \"carbohydrates\": 266.6666666666667\n            }\n        },\n        {\n            \"name\": \"Second\",\n            \"dishes\": [\n                {\n                    \"id\": 17276,\n                    \"name\": \"Паэлья с креветками и курицей\",\n                    \"logo\": \"https://s1.eda.ru/StaticContent/Photos/130829212936/130904170232/p_O.jpg\",\n                    \"calories\": 439,\n                    \"protein\": 19.7,\n                    \"fat\": 20.1,\n                    \"carbohydrates\": 38.5,\n                    \"cellulose\": 0,\n                    \"timeToCook\": 40,\n                    \"dietId\": 1,\n                    \"typeId\": 1\n                }\n            ],\n            \"params\": {\n                \"calories\": 439,\n                \"protein\": 19.7,\n                \"fat\": 20.1,\n                \"carbohydrates\": 38.5\n            },\n            \"idealParams\": {\n                \"calories\": 400,\n                \"protein\": 66.66666666666667,\n                \"fat\": 29.629629629629633,\n                \"carbohydrates\": 66.66666666666667\n            }\n        }\n    ],\n    \"params\": {\n        \"calories\": 2107,\n        \"protein\": 162.7,\n        \"fat\": 75,\n        \"carbohydrates\": 177.9\n    },\n    \"idealParams\": {\n        \"calories\": 2000,\n        \"minProtein\": 150,\n        \"maxProtein\": 183.33333333333334,\n        \"minFat\": 66.66666666666667,\n        \"maxFat\": 81.4814814814815,\n        \"minCarbohydrates\": 150,\n        \"maxCarbohydrates\": 183.33333333333334\n    }\n}"
 						}
 					]
 				}
 			]
 		},
 		{
-			"name": "Ingredients",
+			"name": "recipes",
 			"item": [
 				{
-					"name": "Ingredient measure mapping",
+					"name": "get recipes",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -1559,7 +1470,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"input\": [\n        {\n            \"id\": 2,\n            \"count\": 120\n        },\n        {\n            \"id\": 3,\n            \"count\": 90\n        }\n    ]\n}",
+							"raw": "[\n    17276\n]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1567,15 +1478,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/measures",
+							"raw": "{{host}}/recipes",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"measures"
+								"recipes"
 							]
-						},
-						"description": "Routes for mapping ingredient with custom measures by their count.\n\n  \nYou must provide array of objects, every object must include ingredient ID and its count. After that you ll get array of objects which map ingredientId with its measure id. Measure Id can be zero, it means that there are no custom measures for such count and you should use native measures (ml or grams)"
+						}
 					},
 					"response": [
 						{
@@ -1585,7 +1495,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"input\": [\n        {\n            \"id\": 2,\n            \"count\": 120\n        },\n        {\n            \"id\": 3,\n            \"count\": 90\n        }\n    ]\n}",
+									"raw": "[\n    17276\n]",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1593,12 +1503,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{host}}/measures",
+									"raw": "{{host}}/recipes",
 									"host": [
 										"{{host}}"
 									],
 									"path": [
-										"measures"
+										"recipes"
 									]
 								}
 							},
@@ -1612,7 +1522,7 @@
 								},
 								{
 									"key": "Content-Length",
-									"value": "99"
+									"value": "7471"
 								},
 								{
 									"key": "Content-Type",
@@ -1624,7 +1534,55 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"output\": [\n        {\n            \"id\": 2,\n            \"measure\": 0,\n            \"measureName\": null\n        },\n        {\n            \"id\": 3,\n            \"measure\": 1,\n            \"measureName\": \"Measure 1\"\n        }\n    ]\n}"
+							"body": "[\n    {\n        \"id\": 17276,\n        \"ingredients\": [\n            {\n                \"id\": 14206,\n                \"name\": \"Круглый рис\",\n                \"imageUrl\": \"https://s1.eda.ru/StaticContent/Photos/120131083741/120529170756/p_O.jpg\",\n                \"measureType\": {\n                    \"name\": \"г\",\n                    \"nameFiveItems\": \"г\",\n                    \"nameFractional\": \"г\",\n                    \"nameTwoItems\": \"г\",\n                    \"isDimensionless\": false\n                },\n                \"measureCount\": 300\n            },\n            {\n                \"id\": 13430,\n                \"name\": \"Чеснок\",\n                \"imageUrl\": \"https://s1.eda.ru/StaticContent/Photos/120131083826/120327133119/p_O.jpg\",\n                \"measureType\": {\n                    \"name\": \"зубчик\",\n                    \"nameFiveItems\": \"зубчиков\",\n                    \"nameFractional\": \"зубчика\",\n                    \"nameTwoItems\": \"зубчика\",\n                    \"isDimensionless\": false\n                },\n                \"measureCount\": 4\n            },\n            {\n                \"id\": 13413,\n                \"name\": \"Репчатый лук\",\n                \"imageUrl\": \"https://s1.eda.ru/StaticContent/Photos/120131083110/120911123915/p_O.jpg\",\n                \"measureType\": {\n                    \"name\": \"головка\",\n                    \"nameFiveItems\": \"головок\",\n                    \"nameFractional\": \"головки\",\n                    \"nameTwoItems\": \"головки\",\n                    \"isDimensionless\": false\n                },\n                \"measureCount\": 1\n            },\n            {\n                \"id\": 13467,\n                \"name\": \"Сладкий перец\",\n                \"imageUrl\": \"https://s1.eda.ru/StaticContent/Photos/120328144247/120329173515/p_O.jpg\",\n                \"measureType\": {\n                    \"name\": \"штука\",\n                    \"nameFiveItems\": \"штук\",\n                    \"nameFractional\": \"штуки\",\n                    \"nameTwoItems\": \"штуки\",\n                    \"isDimensionless\": false\n                },\n                \"measureCount\": 1\n            },\n            {\n                \"id\": 13415,\n                \"name\": \"Зеленый горошек\",\n                \"imageUrl\": \"https://s1.eda.ru/StaticContent/Photos/120131083741/120327132853/p_O.jpg\",\n                \"measureType\": {\n                    \"name\": \"г\",\n                    \"nameFiveItems\": \"г\",\n                    \"nameFractional\": \"г\",\n                    \"nameTwoItems\": \"г\",\n                    \"isDimensionless\": false\n                },\n                \"measureCount\": 100\n            },\n            {\n                \"id\": 13666,\n                \"name\": \"Креветки\",\n                \"imageUrl\": \"https://s1.eda.ru/StaticContent/Photos/120131083458/121108210516/p_O.jpg\",\n                \"measureType\": {\n                    \"name\": \"г\",\n                    \"nameFiveItems\": \"г\",\n                    \"nameFractional\": \"г\",\n                    \"nameTwoItems\": \"г\",\n                    \"isDimensionless\": false\n                },\n                \"measureCount\": 200\n            },\n            {\n                \"id\": 14131,\n                \"name\": \"Куриные бедра\",\n                \"imageUrl\": \"https://s1.eda.ru/StaticContent/Photos/120131083215/120328163553/p_O.jpg\",\n                \"measureType\": {\n                    \"name\": \"г\",\n                    \"nameFiveItems\": \"г\",\n                    \"nameFractional\": \"г\",\n                    \"nameTwoItems\": \"г\",\n                    \"isDimensionless\": false\n                },\n                \"measureCount\": 500\n            },\n            {\n                \"id\": 13545,\n                \"name\": \"Куриный бульон\",\n                \"imageUrl\": \"https://s1.eda.ru/StaticContent/Photos/130116161736/130123171525/p_O.jpg\",\n                \"measureType\": {\n                    \"name\": \"л\",\n                    \"nameFiveItems\": \"л\",\n                    \"nameFractional\": \"л\",\n                    \"nameTwoItems\": \"л\",\n                    \"isDimensionless\": false\n                },\n                \"measureCount\": 1\n            },\n            {\n                \"id\": 13737,\n                \"name\": \"Черный перец горошком\",\n                \"imageUrl\": \"https://s1.eda.ru/StaticContent/Photos/120131082957/120328163303/p_O.jpg\",\n                \"measureType\": {\n                    \"name\": \"штука\",\n                    \"nameFiveItems\": \"штук\",\n                    \"nameFractional\": \"штуки\",\n                    \"nameTwoItems\": \"штуки\",\n                    \"isDimensionless\": false\n                },\n                \"measureCount\": 4\n            },\n            {\n                \"id\": 13439,\n                \"name\": \"Помидоры\",\n                \"imageUrl\": \"https://s1.eda.ru/StaticContent/Photos/120213175629/120327163412/p_O.jpg\",\n                \"measureType\": {\n                    \"name\": \"штука\",\n                    \"nameFiveItems\": \"штук\",\n                    \"nameFractional\": \"штуки\",\n                    \"nameTwoItems\": \"штуки\",\n                    \"isDimensionless\": false\n                },\n                \"measureCount\": 2\n            },\n            {\n                \"id\": 13427,\n                \"name\": \"Лимон\",\n                \"imageUrl\": \"https://s1.eda.ru/StaticContent/Photos/120213175233/120327153747/p_O.jpg\",\n                \"measureType\": {\n                    \"name\": \"штука\",\n                    \"nameFiveItems\": \"штук\",\n                    \"nameFractional\": \"штуки\",\n                    \"nameTwoItems\": \"штуки\",\n                    \"isDimensionless\": false\n                },\n                \"measureCount\": 2\n            },\n            {\n                \"id\": 13679,\n                \"name\": \"Шафран\",\n                \"imageUrl\": \"https://s1.eda.ru/StaticContent/Photos/120131083410/120521143502/p_O.jpg\",\n                \"measureType\": {\n                    \"name\": \"щепотка\",\n                    \"nameFiveItems\": \"щепотка\",\n                    \"nameFractional\": \"щепотка\",\n                    \"nameTwoItems\": \"щепотка\",\n                    \"isDimensionless\": true\n                },\n                \"measureCount\": 0\n            },\n            {\n                \"id\": 13513,\n                \"name\": \"Оливковое масло\",\n                \"imageUrl\": \"https://s1.eda.ru/StaticContent/Photos/120328144247/120329173953/p_O.jpg\",\n                \"measureType\": {\n                    \"name\": \"мл\",\n                    \"nameFiveItems\": \"мл\",\n                    \"nameFractional\": \"мл\",\n                    \"nameTwoItems\": \"мл\",\n                    \"isDimensionless\": false\n                },\n                \"measureCount\": 100\n            },\n            {\n                \"id\": 13424,\n                \"name\": \"Петрушка\",\n                \"imageUrl\": \"https://s1.eda.ru/StaticContent/Photos/120213175134/120327153641/p_O.jpg\",\n                \"measureType\": {\n                    \"name\": \"г\",\n                    \"nameFiveItems\": \"г\",\n                    \"nameFractional\": \"г\",\n                    \"nameTwoItems\": \"г\",\n                    \"isDimensionless\": false\n                },\n                \"measureCount\": 50\n            },\n            {\n                \"id\": 13421,\n                \"name\": \"Соль\",\n                \"imageUrl\": \"https://s1.eda.ru/StaticContent/Photos/120131083019/120521142536/p_O.jpg\",\n                \"measureType\": {\n                    \"name\": \"по вкусу\",\n                    \"nameFiveItems\": \"по вкусу\",\n                    \"nameFractional\": \"по вкусу\",\n                    \"nameTwoItems\": \"по вкусу\",\n                    \"isDimensionless\": true\n                },\n                \"measureCount\": 0\n            },\n            {\n                \"id\": 13420,\n                \"name\": \"Молотый черный перец\",\n                \"imageUrl\": \"https://s1.eda.ru/StaticContent/Photos/120131082957/120328163303/p_O.jpg\",\n                \"measureType\": {\n                    \"name\": \"по вкусу\",\n                    \"nameFiveItems\": \"по вкусу\",\n                    \"nameFractional\": \"по вкусу\",\n                    \"nameTwoItems\": \"по вкусу\",\n                    \"isDimensionless\": true\n                },\n                \"measureCount\": 0\n            },\n            {\n                \"id\": 13406,\n                \"name\": \"Белое сухое вино\",\n                \"imageUrl\": \"https://s1.eda.ru/StaticContent/Photos/120515204458/120529122712/p_O.jpg\",\n                \"measureType\": {\n                    \"name\": \"мл\",\n                    \"nameFiveItems\": \"мл\",\n                    \"nameFractional\": \"мл\",\n                    \"nameTwoItems\": \"мл\",\n                    \"isDimensionless\": false\n                },\n                \"measureCount\": 200\n            }\n        ],\n        \"steps\": [\n            {\n                \"text\": \"Куриные бедра нарубить на куски помельче и обжарить в глубокой сковороде на оливковом масле до полуготовности.\",\n                \"imageUrl\": \"https://s1.eda.ru/StaticContent/Photos/170210144850/170306161522/p_O.jpg\",\n                \"relativeId\": 1\n            },\n            {\n                \"text\": \"Лук мелко нарубить и обжарить вместе с курицей. Когда лук станет мягким, добавить мелко нарезанный чеснок и рис. Жарить все это в течение двух-трех минут. После чего всыпать в сковороду мелко нарезанные перец и помидоры. Перемешать и тушить еще минуту-другую, помешивая, чтобы содержимое сковороды не подгорало.\",\n                \"imageUrl\": \"https://s1.eda.ru/StaticContent/Photos/170210144850/170306161523/p_O.jpg\",\n                \"relativeId\": 2\n            },\n            {\n                \"text\": \"Параллельно надо разогреть куриный бульон и развести в нем щепотку шафрана. Этим самым бульоном залить рис с овощами и курицей, посолить, поперчить и бросить туда же несколько горошин черного перца и варить \\u00adдесять минут на небольшом огне. Бульон может выкипать интенсивнее, чем вы планировали, его недостаток можно восполнять дополнительными инъекциями куриного бульона, воды или белым сухим вином.\",\n                \"imageUrl\": \"https://s1.eda.ru/StaticContent/Photos/170210144850/170306161524/p_O.jpg\",\n                \"relativeId\": 3\n            },\n            {\n                \"text\": \"Дальше в рис нужно добавить горошек, перемешать, выложить сверху креветки, полить лимонным соком, посыпать рубленой петрушкой и за три-четыре минуты довести паэлью до готовности на том же медленном огне, накрыв крышкой.\",\n                \"imageUrl\": \"https://s1.eda.ru/StaticContent/Photos/170210144850/170306161525/p_O.jpg\",\n                \"relativeId\": 4\n            },\n            {\n                \"text\": \"Подавать с розовым каталонским или валенсийским вином. Очень холодным.\",\n                \"imageUrl\": \"\",\n                \"relativeId\": 1\n            }\n        ]\n    }\n]"
+						},
+						{
+							"name": "If not found it will be ignored",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n    17276121\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/recipes",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"recipes"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[]"
 						}
 					]
 				}

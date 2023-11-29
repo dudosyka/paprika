@@ -2,6 +2,7 @@ package com.paprika.dto
 
 import com.paprika.database.models.cache.EatingCacheModel
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import org.jetbrains.exposed.sql.ResultRow
 
 @Serializable
@@ -17,8 +18,8 @@ data class ParametersDto (
     val minCarbohydrates: Double,
     val maxCarbohydrates: Double,
 
-    val minCellulose: Double,
-    val maxCellulose: Double,
+    @Transient val minCellulose: Double = 0.0,
+    @Transient val maxCellulose: Double = 0.0,
 ) {
     companion object {
         fun buildFromCache(data: ResultRow): ParametersDto = ParametersDto(

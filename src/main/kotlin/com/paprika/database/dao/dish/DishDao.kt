@@ -1,8 +1,12 @@
 package com.paprika.database.dao.dish
 
+import com.paprika.database.dao.cusine.CusineDao
 import com.paprika.database.dao.ingredient.IngredientDao
+import com.paprika.database.dao.ingredient.MeasureDao.Companion.referrersOn
+import com.paprika.database.models.cusine.CusineModel
 import com.paprika.database.models.dish.DishIngredientModel
 import com.paprika.database.models.dish.DishModel
+import com.paprika.database.models.dish.DishStepModel
 import com.paprika.dto.DishDto
 import com.paprika.dto.MicronutrientsDto
 import com.paprika.utils.database.BaseIntEntity
@@ -16,13 +20,14 @@ class DishDao(id : EntityID<Int>) : BaseIntEntity(id, DishModel) {
     companion object : BaseIntEntityClass<DishDao>(DishModel)
 
     val name by DishModel.name
-    val logo by DishModel.logo
+    val description by DishModel.description
+    val portionsCount by DishModel.portionsCount
+    val logo by DishModel.imageUrl
     val calories by DishModel.calories
     val protein by DishModel.protein
     val fat by DishModel.fat
     val carbohydrates by DishModel.carbohydrates
     val cellulose by DishModel.cellulose
-    val weight by DishModel.weight
     val timeToCook by DishModel.timeToCook
 
     val diet by DietDao referencedOn DishModel.diet
@@ -33,7 +38,9 @@ class DishDao(id : EntityID<Int>) : BaseIntEntity(id, DishModel) {
     private val _typeId by DishModel.type
     val typeId
         get() = _typeId.value
-    val ingredients by IngredientDao via DishIngredientModel
+    val ingredients by DishIngredientDao referrersOn DishIngredientModel.dish
+
+    val steps by DishStepDao referrersOn DishStepModel.dish
     fun toDto(): DishDto = transaction {
         DishDto(
             idValue,
@@ -44,7 +51,6 @@ class DishDao(id : EntityID<Int>) : BaseIntEntity(id, DishModel) {
             fat,
             carbohydrates,
             cellulose,
-            weight,
             timeToCook,
             diet.idValue,
             type.idValue,

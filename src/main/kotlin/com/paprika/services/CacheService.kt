@@ -151,10 +151,11 @@ class CacheService(di: DI) : KodeinService(di) {
             EatingCacheDao.wrapRow(it).run {
                 toDto(name, dishes, ParametersDto.buildFromCache(it))
             }
-        }.map { eatingOutputDto -> run {
-            eatingOutputDto.dishes = eatingOutputDto.dishes.appendIngredients()
-            eatingOutputDto
-        } }
+        }
+//        .map { eatingOutputDto -> run {
+//            eatingOutputDto.dishes = eatingOutputDto.dishes.appendIngredients()
+//            eatingOutputDto
+//        } }
 
         val paprikaOutputDto = PaprikaOutputDto(
             diet = user.params.diet?.idValue ?: 0,
