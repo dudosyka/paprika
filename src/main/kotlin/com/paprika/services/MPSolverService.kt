@@ -36,7 +36,9 @@ class MPSolverService internal constructor() {
         this.itemsInAnswer = answersCount
     }
     infix fun setConstraint(inject: ConstraintDto.() -> Unit) {
-        this.constraints.add(ConstraintDto().apply(inject))
+        val constraint = ConstraintDto().apply(inject)
+        println("New constraint $constraint")
+        this.constraints.add(constraint)
     }
     infix fun constraints(constraints: List<ConstraintDto>) {
         this.constraints.addAll(constraints)
@@ -112,10 +114,6 @@ class MPSolverService internal constructor() {
     fun solve(): List<DishDao> {
         val varsOnSolve = initialize()
         println("Start solving. Data size: ${data.size}")
-        constraints.forEach {
-            println("Constraint: ${it.name}")
-            println("Bounds: ${it.bottom} - ${it.top}")
-        }
         val result = solver.solve()
 
         // Check that the problem has an optimal solution.

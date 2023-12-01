@@ -154,7 +154,7 @@ class DataManagerService(di: DI) : KodeinService(di) {
             dishSteps,
             model = DishStepModel,
             modelKeys = mapOf(
-                "id" to DishStepModel.id,
+                "recipe_id" to DishStepModel.id,
                 "step_id" to DishStepModel.relative_id,
                 "recipe_id" to DishStepModel.dish,
                 "imageUrl" to DishStepModel.imageUrl,

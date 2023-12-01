@@ -18,7 +18,7 @@ import java.time.LocalDateTime
 class PaprikaService(di: DI) : KodeinService(di) {
     private val dishService: DishService by instance()
     private val cacheService: CacheService by instance()
-    private val solverDelta = 0.1
+    private val solverDelta = 0.25
 
     private fun solveEating(
         paprikaInputDto: PaprikaInputDto,
@@ -44,6 +44,7 @@ class PaprikaService(di: DI) : KodeinService(di) {
             withSize(eatingOptions.size)
             fromPaprikaInput(paprikaInputDto, solverDelta)
         }
+        println("Processed Data ${processedData.calculatedFromParams}")
         val params = processedData.params
 
         if (dishesCount == 0 && maxima == 0)
@@ -52,7 +53,7 @@ class PaprikaService(di: DI) : KodeinService(di) {
 
         val solver = MPSolverService.initSolver {
             answersCount(paprikaInputDto.eatings[index].dishCount ?: 0)
-            onDirection(MPSolverService.SolveDirection.MAXIMIZE)
+            onDirection(MPSolverService.SolveDirection.MINIMIZE)
 
             setConstraint {
                 name = "Calories"

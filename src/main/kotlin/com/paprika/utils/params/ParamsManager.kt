@@ -9,7 +9,7 @@ class ParamsManager internal constructor() {
     private var calories: Double = 0.0
     private var eatingsCoef: Double = 1.0
     var calculatedFromParams: Boolean = false
-    private val calculateDelta = 0.1
+    private val calculateDelta = 0.15
 
     companion object {
         fun process(apply: ParamsManager.() -> Unit): ParamsManager {
@@ -18,13 +18,14 @@ class ParamsManager internal constructor() {
     }
 
     fun withSize(coef: Double) {
-        this.eatingsCoef = coef
+        eatingsCoef = coef
     }
     fun fromPaprikaInput(paprikaInputDto: PaprikaInputDto, delta: Double = 1.0) {
-        if (paprikaInputDto.calories != null)
-            fromCalories(paprikaInputDto.calories, delta)
-        else if (paprikaInputDto.params != null)
+        return if (paprikaInputDto.params != null) {
             fromParams(paprikaInputDto.params, delta)
+        } else if (paprikaInputDto.calories != null) {
+            fromCalories(paprikaInputDto.calories, delta)
+        }
         else
             throw CantSolveException("You must provide either macronutrients params or calories")
     }
@@ -56,20 +57,22 @@ class ParamsManager internal constructor() {
         if (params == null)
             return
         this.validateParams(params)
+        println("Get from params: $params")
         this.params = ParametersDto(
             calories = params.calories * eatingsCoef,
 
             minProtein = params.minProtein * eatingsCoef * (1.0 - delta),
             maxProtein = params.maxProtein * eatingsCoef * (1.0 + delta),
 
+
             minFat = params.minFat * eatingsCoef * (1.0 - delta),
-            maxFat = params.maxFat * eatingsCoef * (1.0 - delta),
+            maxFat = params.maxFat * eatingsCoef * (1.0 + delta),
 
             minCarbohydrates = params.minCarbohydrates * eatingsCoef * (1.0 - delta),
-            maxCarbohydrates = params.maxCarbohydrates * eatingsCoef * (1.0 - delta),
+            maxCarbohydrates = params.maxCarbohydrates * eatingsCoef * (1.0 + delta),
 
             minCellulose = params.minCellulose * eatingsCoef * (1.0 - delta),
-            maxCellulose = params.maxCellulose * eatingsCoef * (1.0 - delta),
+            maxCellulose = params.maxCellulose * eatingsCoef * (1.0 + delta),
         )
     }
 

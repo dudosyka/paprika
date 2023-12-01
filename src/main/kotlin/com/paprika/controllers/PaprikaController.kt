@@ -19,11 +19,11 @@ class PaprikaController(override val di: DI) : KodeinController() {
     override fun Routing.registerRoutes() {
         authenticate("authorized") {
             route("/menu") {
-                post("/custom") {
-                    val authorizedUser = getAuthorized(call)
-                    val data = call.receive<PaprikaInputDto>()
-                    call.respond(paprikaService.calculateMenu(authorizedUser, data))
-                }
+//                post("/custom") {
+//                    val authorizedUser = getAuthorized(call)
+//                    val data = call.receive<PaprikaInputDto>()
+//                    call.respond(paprikaService.calculateMenu(authorizedUser, data))
+//                }
                 post("/calculate") {
                     val authorizedUser = getAuthorized(call)
                     val excludedDishesDto = call.receive<ExcludedDishesDto>()
