@@ -19,7 +19,6 @@ class BotService(di: DI): KodeinService(di) {
     open class BotEvents(
         open val chat: TelegramTypes.Chat?
     ) {
-//        class EmptyType(chat: TelegramTypes.Chat? = null): BotEvents(chat)
         class Message(
             override val chat: TelegramTypes.Chat,
             val text: String
@@ -31,6 +30,7 @@ class BotService(di: DI): KodeinService(di) {
         ): BotEvents(chat)
     }
 
+    //Channel where we catch all events from telegram listener
     @OptIn(ObsoleteCoroutinesApi::class)
     val updatesActor = CoroutineScope(Job()).actor<BotEvents>(capacity = Channel.BUFFERED) {
         for (update in this) {
@@ -41,14 +41,6 @@ class BotService(di: DI): KodeinService(di) {
                         text = "Hi! Click the btn below to open the paprika application",
                         replyMarkup = TelegramTypes.InlineKeyboardMarkup(
                             inline_keyboard = listOf(listOf(
-//                                TelegramTypes.InlineKeyboardButton(
-//                                    text = "New btn link",
-//                                    url = "https://google.com"
-//                                ),
-//                                TelegramTypes.InlineKeyboardButton(
-//                                    text = "New btn callback",
-//                                    callback_data = "Data from callback"
-//                                ),
                                 TelegramTypes.InlineKeyboardButton(
                                     text = "Open web app",
                                     web_app = TelegramTypes.WebappInfo(

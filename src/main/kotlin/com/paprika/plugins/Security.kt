@@ -9,6 +9,12 @@ import io.ktor.server.auth.jwt.*
 import java.util.*
 
 
+/*
+
+    JWT authorization configuration, here is described how do we check and generate tokens
+
+ */
+
 fun Application.configureSecurity() {
 
     val jwtVerifier = JWT

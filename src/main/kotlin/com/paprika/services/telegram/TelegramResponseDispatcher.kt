@@ -14,6 +14,7 @@ import org.kodein.di.DI
 class TelegramResponseDispatcher(di: DI) : KodeinService(di) {
     private val telegramApiDispatcher = TelegramApiDispatcher()
 
+    //Channel for dispatching new messages from US to the CLIENT
     @OptIn(ObsoleteCoroutinesApi::class)
     val onDispatch = CoroutineScope(Job()).actor<TelegramOnDispatch>(capacity = Channel.BUFFERED) {
         for (onDispatch in this) {

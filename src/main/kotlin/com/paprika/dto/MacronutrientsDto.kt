@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 
 @Serializable
-data class MicronutrientsDto (
+data class MacronutrientsDto (
     val calories: Double,
     val protein: Double,
     val fat: Double,

@@ -1,14 +1,10 @@
 package com.paprika.database.dao.dish
 
-import com.paprika.database.dao.cusine.CusineDao
-import com.paprika.database.dao.ingredient.IngredientDao
-import com.paprika.database.dao.ingredient.MeasureDao.Companion.referrersOn
-import com.paprika.database.models.cusine.CusineModel
 import com.paprika.database.models.dish.DishIngredientModel
 import com.paprika.database.models.dish.DishModel
 import com.paprika.database.models.dish.DishStepModel
 import com.paprika.dto.DishDto
-import com.paprika.dto.MicronutrientsDto
+import com.paprika.dto.MacronutrientsDto
 import com.paprika.utils.database.BaseIntEntity
 import com.paprika.utils.database.BaseIntEntityClass
 import com.paprika.utils.database.idValue
@@ -60,9 +56,9 @@ class DishDao(id : EntityID<Int>) : BaseIntEntity(id, DishModel) {
 
 fun List<DishDao>.toDto(): List<DishDto> = map { it.toDto() }
 fun SizedIterable<DishDao>.toDto(): List<DishDto> = toList().toDto()
-fun List<DishDao>.countMicronutrients(): MicronutrientsDto =
+fun List<DishDao>.countMicronutrients(): MacronutrientsDto =
     map {
-        MicronutrientsDto(
+        MacronutrientsDto(
             calories = it.calories,
             protein = it.protein,
             fat = it.fat,
@@ -71,7 +67,7 @@ fun List<DishDao>.countMicronutrients(): MicronutrientsDto =
         )
     }.reduce {
         a, b -> run {
-            MicronutrientsDto(
+            MacronutrientsDto(
                 calories = a.calories + b.calories,
                 protein = a.protein + b.protein,
                 fat = a.fat + b.fat,
@@ -80,4 +76,4 @@ fun List<DishDao>.countMicronutrients(): MicronutrientsDto =
             )
         }
     }
-fun SizedIterable<DishDao>.countMicronutrients(): MicronutrientsDto = toList().countMicronutrients()
+fun SizedIterable<DishDao>.countMicronutrients(): MacronutrientsDto = toList().countMicronutrients()

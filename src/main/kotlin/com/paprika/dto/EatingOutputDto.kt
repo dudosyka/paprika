@@ -6,6 +6,6 @@ import kotlinx.serialization.Serializable
 data class EatingOutputDto (
     val name: String,
     var dishes: List<DishDto>,
-    val params: MicronutrientsDto,
-    val idealParams: MicronutrientsDto? = null,
+    val params: MacronutrientsDto,
+    val idealParams: MacronutrientsDto? = null,
 )

@@ -4,7 +4,7 @@ import com.paprika.database.dao.dish.*
 import com.paprika.database.models.cache.EatingCacheDishesModel
 import com.paprika.database.models.cache.EatingCacheModel
 import com.paprika.dto.EatingOutputDto
-import com.paprika.dto.MicronutrientsDto
+import com.paprika.dto.MacronutrientsDto
 import com.paprika.dto.ParametersDto
 import com.paprika.utils.database.BaseIntEntity
 import com.paprika.utils.database.BaseIntEntityClass
@@ -36,7 +36,7 @@ class EatingCacheDao(id : EntityID<Int>): BaseIntEntity(id, EatingCacheModel) {
             name,
             dishes.toDto(),
             params = dishes.countMicronutrients(),
-            idealParams = if (params != null) MicronutrientsDto(
+            idealParams = if (params != null) MacronutrientsDto(
                 calories = params.calories,
                 protein = params.maxProtein,
                 fat = params.maxFat,

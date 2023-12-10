@@ -18,8 +18,28 @@ import java.time.LocalDateTime
 class PaprikaService(di: DI) : KodeinService(di) {
     private val dishService: DishService by instance()
     private val cacheService: CacheService by instance()
+    /*
+        That param is used to auto calculate and validate params
+        0.25 means that the delta of generated (or provided) params must be in range of [ calories * 0.75, calories * 1.25 ]
+        In the other words it means amount of acceptable calculation error
+     */
     private val solverDelta = 0.25
 
+    /*
+
+        Solve eating method works recursively, due to optimization we need to separate big amounts of Dishes into small batches
+        (here we use 750 items in a row) this approach helps to maximize the algorithm work time.
+
+        So to solve the eating which have amount of available dishes grater than 750
+        we need recursion to invoke the same solving with different batches
+
+        To provide to the method information about what batch should it process in current call we use offset argument by default it zero
+        which means "take the first batch".
+
+        When the offset 0 besides start solving we also must check cache and if in the database we have already had the eating that user need,
+        and it is we simply return it.
+
+     */
     private fun solveEating(
         paprikaInputDto: PaprikaInputDto,
         index: Int,
@@ -50,10 +70,9 @@ class PaprikaService(di: DI) : KodeinService(di) {
         if (dishesCount == 0 && maxima == 0)
             throw CantSolveException()
 
-
+        //Here we are init the solver
         val solver = MPSolverService.initSolver {
             answersCount(paprikaInputDto.eatings[index].dishCount ?: 0)
-            onDirection(MPSolverService.SolveDirection.MINIMIZE)
 
             setConstraint {
                 name = "Calories"
@@ -61,6 +80,7 @@ class PaprikaService(di: DI) : KodeinService(di) {
                 top = params.calories * (1.0 + solverDelta)
                 modelKey = DishModel.calories
             }
+            //We set constraints to params only if they are provided
             if (processedData.calculatedFromParams) {
                 setConstraint {
                     name = "Protein"
@@ -81,6 +101,7 @@ class PaprikaService(di: DI) : KodeinService(di) {
                     modelKey = DishModel.carbohydrates
                 }
             }
+//          Here was the cellulose constraint
 //            setConstraint {
 //                name = "Cellulose"
 //                bottom = params.minCellulose
@@ -88,8 +109,12 @@ class PaprikaService(di: DI) : KodeinService(di) {
 //                modelKey = DishModel.cellulose
 //            }
 
+            // Provide the data that will be used for calculating
             onData(dishes)
+            // Provide the objective, algorithm will be trying to optimize the calculation based of that variable
             withObjective(DishModel.timeToCook)
+            // We set direction to minimize so in that case algorithm will be trying to found the dish with less time to cook
+            onDirection(MPSolverService.SolveDirection.MINIMIZE)
         }
 
         val result = solver.solve()
@@ -110,7 +135,7 @@ class PaprikaService(di: DI) : KodeinService(di) {
 
         return Pair(EatingOutputDto(
             name = eatingOptions.name,
-            idealParams = MicronutrientsDto(
+            idealParams = MacronutrientsDto(
                 calories = params.calories,
                 protein = params.maxProtein,
                 fat = params.maxFat,
@@ -122,6 +147,13 @@ class PaprikaService(di: DI) : KodeinService(di) {
         ), null)
     }
 
+    /*
+
+        That method is used to solve the whole daily diet,
+        it simply calls the "solve eating" method for each eating in the requested diet and then processed it.
+
+        After the eating solving we save it in cache (in the database) for future solvings
+     */
     fun calculateMenu(authorizedUser: AuthorizedUser, paprikaInputDto: PaprikaInputDto): PaprikaOutputDto {
         transaction {
             UserSavedDietModel.update({ UserSavedDietModel.user eq authorizedUser.id }) {
@@ -148,7 +180,7 @@ class PaprikaService(di: DI) : KodeinService(di) {
             item.params
         }.reduce {
             a, b -> run {
-                MicronutrientsDto(
+                MacronutrientsDto(
                     calories = a.calories + b.calories,
                     protein = a.protein + b.protein,
                     fat = a.fat + b.fat,

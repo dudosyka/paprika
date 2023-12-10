@@ -160,7 +160,7 @@ class CacheService(di: DI) : KodeinService(di) {
         val paprikaOutputDto = PaprikaOutputDto(
             diet = user.params.diet?.idValue ?: 0,
             eatings = eatingsOutputDtoList,
-            idealParams = eatingsOutputDtoList.map { ParametersDto.buildFromMicronutrients(it.idealParams!!) }.reduce {
+            idealParams = eatingsOutputDtoList.map { ParametersDto.buildFromMacronutrients(it.idealParams!!) }.reduce {
                 f, s -> ParametersDto(
                     calories = f.calories + s.calories,
                     minCellulose = f.minCellulose + s.minCellulose,
@@ -173,7 +173,7 @@ class CacheService(di: DI) : KodeinService(di) {
                     maxCarbohydrates = f.maxCarbohydrates + s.maxCarbohydrates
                 )
             },
-            params = eatingsOutputDtoList.map { it.params }.reduce { f, s -> MicronutrientsDto(
+            params = eatingsOutputDtoList.map { it.params }.reduce { f, s -> MacronutrientsDto(
                 calories = f.calories + s.calories,
                 carbohydrates = f.carbohydrates + s.carbohydrates,
                 fat = f.fat + s.fat,

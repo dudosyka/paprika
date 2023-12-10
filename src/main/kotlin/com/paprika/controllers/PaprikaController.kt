@@ -1,7 +1,6 @@
 package com.paprika.controllers
 
 import com.paprika.dto.ExcludedDishesDto
-import com.paprika.dto.PaprikaInputDto
 import com.paprika.services.PaprikaService
 import com.paprika.services.UserService
 import com.paprika.utils.kodein.KodeinController
@@ -19,11 +18,6 @@ class PaprikaController(override val di: DI) : KodeinController() {
     override fun Routing.registerRoutes() {
         authenticate("authorized") {
             route("/menu") {
-//                post("/custom") {
-//                    val authorizedUser = getAuthorized(call)
-//                    val data = call.receive<PaprikaInputDto>()
-//                    call.respond(paprikaService.calculateMenu(authorizedUser, data))
-//                }
                 post("/calculate") {
                     val authorizedUser = getAuthorized(call)
                     val excludedDishesDto = call.receive<ExcludedDishesDto>()

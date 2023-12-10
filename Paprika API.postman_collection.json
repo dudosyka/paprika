@@ -21,7 +21,7 @@
 								{
 									"key": "measures",
 									"type": "file",
-									"src": "/Users/dudosyka/Downloads/DB 2/measureUnits.csv"
+									"src": "/Users/dudosyka/Downloads/DB 4/measureUnits.csv"
 								}
 							]
 						},
@@ -98,7 +98,7 @@
 								{
 									"key": "ingredients",
 									"type": "file",
-									"src": "/Users/dudosyka/Downloads/DB 2/ingredients.csv"
+									"src": "/Users/dudosyka/Downloads/DB 4/ingredients.csv"
 								}
 							]
 						},
@@ -180,22 +180,22 @@
 								{
 									"key": "dishes",
 									"type": "file",
-									"src": "/Users/dudosyka/Downloads/DB 2/recipes.csv"
+									"src": "/Users/dudosyka/Downloads/DB 4/recipes.csv"
 								},
 								{
 									"key": "dish-to-ingredient",
 									"type": "file",
-									"src": "/Users/dudosyka/Downloads/DB 2/composition.csv"
+									"src": "/Users/dudosyka/Downloads/DB 4/composition.csv"
 								},
 								{
 									"key": "dish-steps",
 									"type": "file",
-									"src": "/Users/dudosyka/Downloads/DB 2/new_step_id.csv"
+									"src": "/Users/dudosyka/Downloads/DB 4/steps.csv"
 								},
 								{
 									"key": "dish-categories",
 									"type": "file",
-									"src": "/Users/dudosyka/Downloads/DB 2/categories.csv"
+									"src": "/Users/dudosyka/Downloads/DB 4/categories.csv"
 								}
 							]
 						},
@@ -367,7 +367,7 @@
 									"variable": [
 										{
 											"key": "telegramId",
-											"value": "100"
+											"value": "121"
 										}
 									]
 								},
@@ -906,7 +906,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"calories\": 2000,\n    \"isMacronutrientsParamsSet\": true,\n    \"params\": {\n            \"calories\": 2000,\n            \"minProtein\": 100,\n            \"maxProtein\": 150,\n            \"minFat\": 75,\n            \"maxFat\": 100,\n            \"minCarbohydrates\": 100,\n            \"maxCarbohydrates\": 150,\n            \"minCellulose\": 0,\n            \"maxCellulose\": 0\n    },\n    \"eatings\": [\n        {\n            \"name\": \"First\",\n            \"size\": 0.8,\n            \"difficulty\": 0,\n            \"dishCount\": 4\n        },\n        {\n            \"name\": \"Second\",\n            \"size\": 0.2,\n            \"difficulty\": 0,\n            \"dishCount\": 1\n        }\n    ]\n}",
+									"raw": "{\n    \"calories\": 2000.0,\n    \"isMacronutrientsParamsSet\": true,\n    \"params\": {\n        \"calories\": 2000.0,\n        \"minProtein\": 0.0,\n        \"maxProtein\": 160.3,\n        \"minFat\": 0.0,\n        \"maxFat\": 74.1,\n        \"minCarbohydrates\": 0.0,\n        \"maxCarbohydrates\": 166.7\n    },\n    \"eatings\": [\n        {\n            \"name\": \"Завтрак\",\n            \"size\": 0.2,\n            \"difficulty\": 0,\n            \"dishCount\": 0\n        },\n        {\n            \"name\": \"Обед\",\n            \"size\": 0.4,\n            \"difficulty\": 3,\n            \"dishCount\": 0\n        },\n        {\n            \"name\": \"Ужин\",\n            \"size\": 0.4,\n            \"difficulty\": 3,\n            \"dishCount\": 0\n        }\n    ]\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1470,7 +1470,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n    17276\n]",
+							"raw": "[\n    17061, 17276\n]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1618,6 +1618,10 @@
 		{
 			"key": "token",
 			"value": "",
+			"type": "string"
+		},
+		{
+			"value": "https://api.paprika.dudosyka.ru",
 			"type": "string"
 		}
 	]

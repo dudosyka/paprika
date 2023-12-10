@@ -9,6 +9,15 @@ import com.paprika.database.dao.dish.DishDao
 import com.paprika.dto.mpsolver.ConstraintDto
 import org.jetbrains.exposed.sql.Expression
 
+
+/*
+
+    Solver service which wraps the MPSolver library by google
+    Here we load the variables, constraints and data into the Solver Model and then get the results
+
+    The solving don`t suspends, we wait for it in real time.
+
+ */
 class MPSolverService internal constructor() {
     enum class SolveDirection {
         MINIMIZE, MAXIMIZE

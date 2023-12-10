@@ -14,6 +14,12 @@ import io.micrometer.prometheus.*
 import org.slf4j.event.*
 import java.util.concurrent.TimeUnit
 
+/*
+
+    * Here u can configure metrics and logging
+    * Micrometer is connected to that project so u can use soft like graphana to render them
+
+ */
 fun Application.configureMonitoring() {
     install(CallLogging) {
         level = Level.INFO
@@ -38,7 +44,6 @@ fun Application.configureMonitoring() {
 
     install(MicrometerMetrics) {
         registry = appMicrometerRegistry
-        // ...
     }
     routing {
         get("/metrics-micrometer") {

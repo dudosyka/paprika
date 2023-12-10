@@ -7,6 +7,6 @@ import kotlinx.serialization.Transient
 data class PaprikaOutputDto (
     @Transient val diet: Int = 1,
     val eatings: List<EatingOutputDto>,
-    val params: MicronutrientsDto,
+    val params: MacronutrientsDto,
     val idealParams: ParametersDto
 )

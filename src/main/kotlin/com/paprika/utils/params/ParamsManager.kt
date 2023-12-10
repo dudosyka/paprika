@@ -9,6 +9,11 @@ class ParamsManager internal constructor() {
     private var calories: Double = 0.0
     private var eatingsCoef: Double = 1.0
     var calculatedFromParams: Boolean = false
+    /*
+        That param is used to auto calculate and validate params
+        0.15 means that the delta of generated (or provided) params must be in range of [ calories * 0.85, calories * 1.15 ]
+        In the other words it means amount of acceptable calculation error
+     */
     private val calculateDelta = 0.15
 
     companion object {

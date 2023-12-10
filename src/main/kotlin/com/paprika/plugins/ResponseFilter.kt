@@ -14,6 +14,11 @@ fun logError(exception: Exception, path: String) {
     println("Stack: ${exception.stackTraceToString()}")
 }
 
+/*
+
+    Status pages plugin configuration. Here we catch all exception if they bubbles up and bases of what happened we explain to user
+
+ */
 
 fun Application.responseFilter() {
     install(StatusPages) {
