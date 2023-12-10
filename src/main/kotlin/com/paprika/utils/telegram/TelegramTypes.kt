@@ -19,7 +19,7 @@ inline fun <reified T: Enum<T>> Map<*, *>.getEnum(key: String): T? {
 
 abstract class TelegramTypes private constructor() {
 
-    class EmptyType(): TelegramTypes()
+    class EmptyType : TelegramTypes()
 
     enum class ChatType {
         private, group, supergroup, channel
@@ -77,7 +77,7 @@ abstract class TelegramTypes private constructor() {
             date = map.getT("date"),
             chat = Chat(map.getT<Map<String, Any?>>("chat")),
             text = map.getT("text")
-        ) {}
+        )
     }
 
     @Serializable
