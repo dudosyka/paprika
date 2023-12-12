@@ -8,6 +8,7 @@ import io.ktor.client.engine.apache.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.*
+import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
@@ -25,11 +26,18 @@ class TelegramApiDispatcher {
         }
     }
 
-    suspend inline fun <reified T> call(request: ApiCall): T {
+    suspend inline fun <reified T> call(request: ApiCall): T? {
         val sendUrl = "https://api.telegram.org/bot${AppConf.botToken}/${request.name}"
-        return client.post(sendUrl) {
-            contentType(ContentType.Application.Json)
-            setBody(request.body)
-        }.body<T>()
+        return try {
+            val res = client.post(sendUrl) {
+                contentType(ContentType.Application.Json)
+                setBody(request.body)
+            }
+            println(res.bodyAsText())
+            res.body<T>()
+        } catch (e: Exception) {
+            println("Exception during tg bot api call: ${e.message} ${e.stackTraceToString()}")
+            null
+        }
     }
 }

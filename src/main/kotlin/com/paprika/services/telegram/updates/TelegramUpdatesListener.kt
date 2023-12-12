@@ -4,6 +4,7 @@ import com.paprika.services.BotService
 import com.paprika.utils.telegram.TelegramTypes
 import com.paprika.utils.kodein.KodeinService
 import com.paprika.utils.telegram.TelegramApiDispatcher
+import com.paprika.utils.telegram.dto.deletewebhook.DeleteWebhook
 import com.paprika.utils.telegram.dto.getupdates.GetUpdates
 import org.kodein.di.DI
 import org.kodein.di.instance
@@ -32,7 +33,9 @@ class TelegramUpdatesListener(di: DI): KodeinService(di) {
 
     suspend fun startPulling() {
         while (true) {
+            telegramApiDispatcher.call<Any>(DeleteWebhook(DeleteWebhook.Body(false)))
             val updates = telegramApiDispatcher.call<TelegramUpdatesListDto>(GetUpdates(GetUpdates.Body(offset = lastUpdateId, allowed_updates = allowedUpdates)))
+                ?: continue
             if (updates.ok && updates.result.isNotEmpty()) {
                 updates.getLastUpdateId().run {
                     if (this != null) {

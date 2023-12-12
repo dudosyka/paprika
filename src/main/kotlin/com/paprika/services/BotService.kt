@@ -44,7 +44,7 @@ class BotService(di: DI): KodeinService(di) {
                                 TelegramTypes.InlineKeyboardButton(
                                     text = "Open web app",
                                     web_app = TelegramTypes.WebappInfo(
-                                        url = AppConf.botWebappUrl
+                                        url = "${AppConf.botWebappUrl}${update.chat.id}"
                                     )
                                 )
                             ))
