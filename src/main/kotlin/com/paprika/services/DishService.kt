@@ -6,13 +6,11 @@ import com.paprika.database.models.dish.DishStepModel
 import com.paprika.dto.*
 import com.paprika.utils.database.idValue
 import com.paprika.utils.kodein.KodeinService
-import org.jetbrains.exposed.sql.Op
+import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.lessEq
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.neq
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.notInList
-import org.jetbrains.exposed.sql.and
-import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.kodein.di.DI
 
@@ -93,4 +91,52 @@ class DishService(override val di: DI): KodeinService(di) {
             }
         }
     }
+
+    fun removeSimple(id: Int?): Any = transaction {
+        DishModel.deleteWhere {
+            DishModel.id eq id
+        }
+        ""
+    }
+
+    fun createSimple(dish: SIMPLEDishCreate): Any = transaction {
+        DishModel.insert {
+            it[name] = dish.name
+            it[description] = dish.description
+            it[portionsCount] = dish.portions
+            it[imageUrl] = dish.image
+            it[calories] = dish.calories
+            it[protein] = dish.protein
+            it[fat] = dish.fats
+            it[carbohydrates] = dish.carbo
+            it[cellulose] = 0.0
+            it[timeToCook] = dish.time
+            it[diet] = dish.diet
+            it[type] = dish.type
+        }
+        ""
+    }
+
+    fun getDishesSimple(): Any = transaction {
+        DishModel
+            .selectAll()
+            .map {
+                SIMPLEDishOutput(
+                    it[DishModel.id].value,
+                    it[DishModel.protein],
+                    it[DishModel.fat],
+                    it[DishModel.carbohydrates],
+                    it[DishModel.calories],
+                    it[DishModel.imageUrl],
+                    it[DishModel.description],
+                    it[DishModel.name],
+                    it[DishModel.portionsCount],
+                    it[DishModel.timeToCook],
+                    it[DishModel.diet].value,
+                    it[DishModel.type].value,
+                )
+            }
+    }
+
+
 }

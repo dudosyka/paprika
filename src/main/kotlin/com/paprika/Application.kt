@@ -27,6 +27,8 @@ import io.ktor.server.plugins.cors.routing.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import org.jetbrains.exposed.sql.deleteAll
+import org.jetbrains.exposed.sql.insert
 
 fun main(): Unit = EngineMain.main(arrayOf())
 
@@ -82,6 +84,29 @@ fun Application.module() {
         EatingCacheModel, EatingCacheDishesModel,
         UserModel, UserParamsModel, UserEatingsParamsModel, UserSavedDietModel
     ) {
+        DishModel.deleteAll()
+        DietModel.deleteAll()
+        DietModel.insert {
+            it[id] = 1
+            it[name] = "Default"
+        }
+        DishTypeModel.deleteAll()
+        DishTypeModel.insert {
+            it[id] = 1
+            it[name] = "Завтрак"
+        }
+        DishTypeModel.insert {
+            it[id] = 2
+            it[name] = "Обед"
+        }
+        DishTypeModel.insert {
+            it[id] = 3
+            it[name] = "Ужин"
+        }
+        DishTypeModel.insert {
+            it[id] = 4
+            it[name] = "Перекус"
+        }
 //        DishGenerator(52000, false, 1)
     }
 }
